@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<ul class="sidebar-menu">
+		<li><p:link href="/index.xhtml">
+				<i class="fa fa-home"></i>
+				<span>Inicio</span>
+			</p:link></li>
+		
+	<li class="treeview"><a href="#"> <i class="fa fa-th-list"></i>
+			<span>Cadastros</span> <span class="pull-right-container"> <i
+				class="fa fa-angle-left pull-right"></i>
+		</span>
+	</a>
+		<ul class="treeview-menu">
+			<li><p:link href="/pages/cadastros/cidade/lista-cidade.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Cidade</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/cliente/lista-cliente.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Cliente</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/condicaopagto/lista-condicaopagto.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Condição de Pagamento</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/estado/lista-estado.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Estado</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/formapag/lista-formapag.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Forma Pagamento</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/listapreco/lista-listapreco.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Lista de Preço</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/produto/lista-produto.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Produto</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/tipoendereco/lista-tipoendereco.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Tipo Endereço</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/tipomv/lista-tipomv.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Tipo Movimento</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/usuario/lista-usuario.xhtml">
+					<i class="fa fa-user"></i>
+					<span>Usuário</span>
+				</p:link></li>
+			<li><p:link href="/pages/cadastros/vendedor/lista-vendedor.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Vendedor</span>
+				</p:link></li>
+			
+		</ul>
+		</li>
+	<li class="treeview"><a href="/scve/pages/movimentacoes/lista-movimentacao.xhtml"> <i class="fa fa-dollar"></i>
+			<span>Movimento</span> <span class="pull-right-container"> 
+		</span>
+	</a>		
+	</li>
+	
+	<li class="treeview"><a href="#"> <i class="fa fa-th-list"></i>
+			<span>Fiscal</span> <span class="pull-right-container"> <i
+				class="fa fa-angle-left pull-right"></i>
+		</span>
+	</a>
+		<ul class="treeview-menu">
+			<li><p:link href="/pages/fiscal/cest/lista-cest.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Cest</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/cfop/lista-cfop.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Cfop</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/cnae/lista-cnae.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Cnae</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/empresa/lista-empresa.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Empresa</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/ncm/lista-ncm.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Ncm</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/situacaotributaria/lista-situacaotributaria.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Situação Tributária</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/situacaotributariaipi/lista-situacaotributariaipi.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Situação Tributária IPI</span>
+				</p:link></li>
+			<li><p:link href="/pages/fiscal/situacaotributariapiscofins/lista-situacaotributariapiscofins.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Situação Tributária PIS COFINS</span>
+				</p:link></li>
+		</ul>			
+	</li>
+	
+	<li class="treeview"><a href="#"> <i class="fa fa-th-list"></i>
+			<span>Relatórios</span> <span class="pull-right-container"> <i
+				class="fa fa-angle-left pull-right"></i>
+		</span>
+	</a>	
+		<ul class="treeview-menu">
+		
+		<li><p:link href="/pages/relatorios/cliente/clientes.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Clientes</span>
+				</p:link></li>
+		<li><p:link href="/pages/relatorios/produto/produtos.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Produtos</span>
+				</p:link></li>
+		<li><p:link href="/pages/relatorios/movimentacao/movimentacao.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Movimentações</span>
+				</p:link></li>
+		<li><p:link href="/pages/relatorios/movimentacao/comissao.xhtml">
+					<i class="fa fa-bars"></i>
+					<span>Comissão</span>
+				</p:link></li>		
+		</ul>	
+	</li>
+		
+		
+	</ul>
+</ui:composition>

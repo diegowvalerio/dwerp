@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Vendedor
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Vendedor" link="cadastro-vendedor.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+
+					<p:panelGrid columns="2" id="paineld">
+						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
+						<p:selectOneMenu id="tipojf" value="#{beanEditaVendedor.opcao}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Física" itemValue="F" />
+							<f:selectItem itemLabel="Jurídica" itemValue="J" />
+							<p:ajax listener="#{beanEditaVendedor.renderizar}"
+								update=":form:tabview:paineld" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanEditaVendedor.vendedor.nome}"
+							required="true">
+						</p:inputText>
+
+						<p:outputLabel value="Cpf:" for="cpf"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+						<p:inputMask mask="999.999.999-99" id="cpf" validator="cpfValidador"
+							value="#{beanEditaVendedor.pfisica.cpf}" required="true"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+						<p:outputLabel value="Rg:" for="rg"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+						<p:inputMask id="rg"
+							value="#{beanEditaVendedor.pfisica.rg}" required="true"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+						<p:outputLabel value="Data Nascimento:" for="dtnasc"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+						<p:calendar locale="pt_BR" id="dtnasc"
+							value="#{beanEditaVendedor.pfisica.dtnasc}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold"
+							rendered="#{beanEditaVendedor.isRederiza2}" />
+
+						<p:outputLabel value="Razão Social:" for="razao_social"
+							rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:inputText id="razao_social"
+							value="#{beanEditaVendedor.pjuridica.razao_social}"
+							required="true" rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:outputLabel value="Cnpj:" for="cnpj"
+							rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj" validator="cnpjValidador"
+							value="#{beanEditaVendedor.pjuridica.cnpj}" required="true"
+							rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
+							rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:inputText id="insc_estadual"
+							value="#{beanEditaVendedor.pjuridica.insc_estadual}"
+							required="true" rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:outputLabel value="Inscrição Suframa:" for="insc_suframa"
+							rendered="#{beanEditaVendedor.isRederiza}" />
+						<p:inputText id="insc_suframa"
+							value="#{beanEditaVendedor.pjuridica.insc_suframa}"
+							required="false" rendered="#{beanEditaVendedor.isRederiza}" />
+
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar disabled="true" autocomplete="#{beanEditaVendedor.data}" locale="pt_BR"
+							id="dtcadastro" value="#{beanEditaVendedor.vendedor.dtcadastro}"
+							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
+
+						<p:outputLabel value="% Comissão:" for="perc_comissao" />
+								<p:inputNumber id="perc_comissao" emptyValue="true"
+									value="#{beanEditaVendedor.vendedor.perc_comissao}"  />
+
+
+						<p:outputLabel value="Ativo : " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanEditaVendedor.vendedor.situacao}" required="true" />
+					</p:panelGrid>
+
+				</p:tab>
+				<!-- dados de endereco  -->
+				<p:tab title="Endereços" id="endereco">
+					<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanEditaVendedor.addNovoEndereco()}"
+						oncomplete="PF('dialogp').show()">
+						<f:setPropertyActionListener
+							target="#{beanEditaVendedor.endereco.pessoa}"
+							value="#{beanEditaVendedor.vendedor}" />
+					</p:commandButton>
+					<p:dataTable id="tabela" value="#{beanEditaVendedor.enderecos}"
+						var="enderecos">
+						<f:facet name="header">Lista de Endereços</f:facet>
+						<p:column headerText="Tipo" style="text-align:left" width="10%">
+								#{enderecos.tipoendereco.nome}
+								</p:column>
+						<p:column headerText="Cep" style="text-align:left" width="9%">
+								#{enderecos.cep}
+								</p:column>
+						<p:column headerText="Uf" style="text-align:left" width="3%">
+								#{enderecos.cidade.estado.sigla}
+								</p:column>
+						<p:column headerText="Cidade" style="text-align:left" width="15%">
+								#{enderecos.cidade.nome}
+								</p:column>
+						<p:column headerText="Logadouro" style="text-align:left">
+								#{enderecos.logadouro}
+								</p:column>
+						<p:column headerText="Bairro" style="text-align:left">
+								#{enderecos.bairro}
+								</p:column>
+						<p:column headerText="Numero" style="text-align:left" width="6%">
+								#{enderecos.numero}
+								</p:column>
+
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanEditaVendedor.removerEndereco()}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanEditaVendedor.enderecos}" icon="ui-icon-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{enderecos}"
+									target="#{beanEditaVendedor.endereco}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialogp').show();"
+								icon="ui-icon-pencil" update=":form:dlg">
+								<f:setPropertyActionListener value="#{enderecos}"
+									target="#{beanEditaVendedor.endereco}" />
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+					<!-- dados de endereco -->
+				</p:tab>
+
+				<!-- dados de contatos  -->
+				<p:tab title="Contatos" id="contato">
+					<p:commandButton id="nvc" value="Novo" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanEditaVendedor.novocontato()}"
+						oncomplete="PF('dialogCp').show()">
+						<f:setPropertyActionListener
+							target="#{beanEditaVendedor.contato.pessoa}"
+							value="#{beanEditaVendedor.vendedor}" />
+					</p:commandButton>
+					<p:dataTable id="tabelac" value="#{beanEditaVendedor.contatos}"
+						var="contatos">
+						<f:facet name="header">Lista de Contatos</f:facet>
+						<p:column headerText="Nome" style="text-align:left">
+								#{contatos.nome}
+								</p:column>
+						<p:column headerText="Email" style="text-align:left">
+								#{contatos.email}
+								</p:column>
+						<p:column headerText="Ddd" style="text-align:left" width="3%">
+								#{contatos.ddd}
+								</p:column>
+						<p:column headerText="Telefone" style="text-align:left"
+							width="15%">
+								#{contatos.numero}
+								</p:column>
+
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanEditaVendedor.excluirContato()}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanEditaVendedor.contatos}" icon="ui-icon-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{contatos}"
+									target="#{beanEditaVendedor.contato}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialogCp').show();"
+								icon="ui-icon-pencil" update=":form:dlgc">
+								<f:setPropertyActionListener value="#{contatos}"
+									target="#{beanEditaVendedor.contato}" />
+							</p:commandButton>
+
+						</p:column>
+
+					</p:dataTable>
+					<!-- dados de contatos -->
+				</p:tab>
+
+			</p:tabView>
+
+			<!-- dados de enderecos -->
+			<p:dialog id="dlg" header="Novo Endereço" widgetVar="dialogp"
+				responsive="true" resizable="true" modal="true">
+				<p:panelGrid id="painelDados" columns="2">
+
+					<p:outputLabel value="Cep:" for="cep" />
+					<p:inputMask mask="99.999-999" id="cep"
+						value="#{beanEditaVendedor.endereco.cep}" />
+
+					<p:outputLabel value="Tipo Endereço:" for="tipo" />
+					<p:selectOneMenu id="tipo"
+						value="#{beanEditaVendedor.endereco.tipoendereco}"
+						converter="conversorTipoEnde">
+						<f:selectItems value="#{beanEditaVendedor.tipos}" var="tipo"
+							itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Cidade:" for="cidade" />				
+					<h:panelGroup>
+						<p:autoComplete id="cidade"
+							value="#{beanEditaVendedor.endereco.cidade}" size="30"
+							completeMethod="#{beanEditaVendedor.completaCidade}" var="c"
+							itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}" forceSelection="true"
+							converter="conversorCidade" />
+						<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
+					</h:panelGroup>
+
+					<p:outputLabel value="Logradouro:" for="logradouro" />
+					<p:inputText id="logradouro"
+						value="#{beanEditaVendedor.endereco.logadouro}" maxlength="100"/>
+					<p:outputLabel value="Bairro:" for="bairro" />
+					<p:inputText id="bairro"
+						value="#{beanEditaVendedor.endereco.bairro}" maxlength="40"/>
+					<p:outputLabel value="Numero:" for="numero" />
+					<p:inputText id="numero"
+						value="#{beanEditaVendedor.endereco.numero}" maxlength="10"/>
+					<p:outputLabel value="Complemento:" for="complemento" />
+					<p:inputText id="complemento"
+						value="#{beanEditaVendedor.endereco.complemento}" maxlength="150"/>
+
+				</p:panelGrid>
+				<p:commandButton id="sle" icon="fa fa-check"
+					styleClass="btn-primary" action="#{beanEditaVendedor.editarEnd()}"
+					value="Salvar" ajax="false">
+				</p:commandButton>
+			</p:dialog>
+			<!-- fim dados de enderecos -->
+
+			<!-- dados de contatos -->
+			<p:dialog id="dlgc" header="Novo Contato" widgetVar="dialogCp"
+				responsive="true" resizable="true" modal="true">
+				<p:panelGrid id="painelDados3" columns="2">
+					<p:outputLabel value="Nome:" for="nomec" />
+					<p:inputText id="nomec" value="#{beanEditaVendedor.contato.nome}" maxlength="150"/>
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" value="#{beanEditaVendedor.contato.email}" maxlength="100"/>
+					<p:outputLabel value="Ddd" for="ddd" />
+					<p:inputText id="ddd" value="#{beanEditaVendedor.contato.ddd}" maxlength="3"/>
+					<p:outputLabel value="Numero:" for="numeroc"/>
+					<p:inputText id="numeroc"
+						value="#{beanEditaVendedor.contato.numero}" maxlength="9"/>
+
+				</p:panelGrid>
+				<p:commandButton id="slec" icon="fa fa-check"
+					styleClass="btn-primary" action="#{beanEditaVendedor.addcontato()}"
+					value="Salvar" ajax="false">
+				</p:commandButton>
+			</p:dialog>
+			<!--fim  dados de contatos -->
+
+
+			<p:commandButton action="#{beanEditaVendedor.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros"/>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

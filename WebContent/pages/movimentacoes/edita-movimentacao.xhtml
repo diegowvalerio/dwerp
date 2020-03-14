@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Movimentação
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Movimentação"
+			link="cadastro-movimentacao.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+
+					<p:panelGrid columns="2" id="paineld">
+						<p:outputLabel value="Tipo Movimentação" for="tipomv" />
+						<p:selectOneMenu id="tipomv"
+							value="#{beanEditaMovimento.movimento.tipomv}"
+							converter="conversorTipomv">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanEditaMovimento.tipoMvs}" var="tmv"
+								itemLabel="#{tmv.nome}" itemValue="#{tmv}" />
+								<p:ajax listener="#{beanEditaMovimento.vendedores()}"
+									update=":form:tabview:vendresp" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Vendedor:" for="vendresp" />					
+						<p:selectOneMenu id="vendresp"
+								value="#{beanEditaMovimento.movimento.vendresp}"
+								converter="conversorVendedor">
+								<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+								<f:selectItems value="#{beanEditaMovimento.vendedores()}"
+									var="vendedor"
+									itemLabel="#{vendedor.idpessoa} - #{vendedor.nome}"
+									itemValue="#{vendedor}" />
+									<p:ajax listener="#{beanEditaMovimento.completaCliente}"
+									update=":form:tabview:cliente" />
+							</p:selectOneMenu>
+
+
+						<p:outputLabel value="Cliente" for="cliente" />
+						<h:panelGroup>
+							<p:autoComplete id="cliente"
+								value="#{beanEditaMovimento.movimento.cliente}"
+								completeMethod="#{beanEditaMovimento.completaCliente}" var="c"
+								itemLabel="#{c.nome}" itemValue="#{c}" forceSelection="true"
+								converter="conversorCliente" />
+							<p:watermark value="Pesquise pelo Nome" for="cliente"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Forma de Pagamento" for="formapag" />
+						<p:selectOneMenu id="formapag"
+							value="#{beanEditaMovimento.movimento.formapag}"
+							converter="conversorFormaPag">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanEditaMovimento.formaPags}" var="formapag"
+								itemLabel="#{formapag.nome}" itemValue="#{formapag}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Condição de Pagamento" for="condpgto" />
+						<p:selectOneMenu id="condpgto"
+							value="#{beanEditaMovimento.movimento.condpgto}"
+							converter="conversorCondPag">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanEditaMovimento.condipagtos}"
+								var="condpgto" itemLabel="#{condpgto.nome}"
+								itemValue="#{condpgto}" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Data Cadastro:" for="dtvenda" />
+						<p:calendar locale="pt_BR" id="dtvenda" disabled="true"
+							value="#{beanEditaMovimento.movimento.dtvenda}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Observação:" for="observacao" />
+						<p:inputTextarea id="observacao" value="#{beanEditaMovimento.movimento.observacao}" maxlength="250"
+						counterTemplate="{0} caracteres restantes." />
+						
+					</p:panelGrid>
+
+				</p:tab>
+				<!-- dados items  -->
+				<p:tab title="Produtos" id="produtos">
+					<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanEditaMovimento.addNovoProduto}"
+						oncomplete="PF('dialogp').show()">
+						<f:setPropertyActionListener
+							target="#{beanEditaMovimento.item.movimento}"
+							value="#{beanEditaMovimento.movimento}" />
+					</p:commandButton>
+					<p:dataTable id="tabela" value="#{beanEditaMovimento.items}" var="items">
+						<f:facet name="header">Lista de Produtos</f:facet>
+						<p:column headerText="Id Produto" width="10%">
+								#{items.produto.idproduto}
+								</p:column>
+						<p:column headerText="Descrição">
+								#{items.produto.descricao}
+								</p:column>
+						<p:column headerText="Qtde" width="4%">
+								#{items.qtde}
+								</p:column>
+						<p:column headerText="Valor" width="5%">
+								#{items.valor}
+								</p:column>
+						<p:column headerText="Desconto" width="8%">
+								#{items.desconto}
+								</p:column>
+						<p:column headerText="Total Item" width="6%">
+								#{items.subtotal}
+								</p:column>
+
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanEditaMovimento.removerProduto}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanEditaMovimento.items}" icon="ui-icon-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanEditaMovimento.item}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialogp').show();"
+								icon="ui-icon-pencil" update=":form:dlg">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanEditaMovimento.item}" />
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+					
+					<p:separator />
+					<p:outputLabel value="Total :" ></p:outputLabel>
+					<p:outputLabel value="#{beanEditaMovimento.totalvenda}" style="color: red"></p:outputLabel>
+					
+					<!-- dados de items -->
+				</p:tab>
+
+			</p:tabView>
+
+			<!-- dados de items -->
+			<p:dialog id="dlg" header="Novo Item" widgetVar="dialogp"
+				responsive="true" resizable="true" modal="false" position="center"
+				onShow="#{beanEditaMovimento.calcularItem()}">
+				<p:panelGrid id="painelDados" columns="2">
+						
+					<p:outputLabel value="Produto:" for="produto" />
+						<p:autoComplete id="produto" value="#{beanEditaMovimento.item.produto}"
+							completeMethod="#{beanEditaMovimento.completaProduto}" var="c"
+							itemLabel="#{c.descricao}" itemValue="#{c}" forceSelection="true"
+							converter="conversorProduto" maxResults="10">
+							<p:ajax event="itemSelect" update="valor" />
+							<p:ajax event="blur" update="valor"/>
+							<p:ajax event="blur" update="tabelap"/>
+							</p:autoComplete>						
+					
+
+					<p:outputLabel value="Qtde:" for="qtde" />
+					<p:inputNumber id="qtde" value="#{beanEditaMovimento.item.qtde}" >
+					<p:ajax event="blur" listener="#{beanEditaMovimento.calcularItem()}" update="subtotal"/>
+					<p:ajax event="blur" update="valor"/>
+					<p:ajax event="blur" update="tabelap"/>
+					</p:inputNumber>
+
+					<p:outputLabel value="Tabela de Preço:" for="tabelap" /> 
+					<p:selectOneMenu id="tabelap" value="#{beanEditaMovimento.item.valor}">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanEditaMovimento.listasprecos()}" var="tmv"
+							itemLabel="#{tmv.listapreco.nome}- R$ #{tmv.valor}"
+							itemValue="#{tmv.valor}" />
+					<p:ajax event="blur" listener="#{beanEditaMovimento.calcularItem()}" update="subtotal"/>
+					<p:ajax event="blur" update="valor"/>		
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Valor:" for="valor" /> 
+					<p:inputNumber id="valor" value="#{beanEditaMovimento.item.valor}"  emptyValue="true" disabled="true">
+					<p:ajax event="blur" listener="#{beanEditaMovimento.calcularItem()}" update="subtotal"/>
+					</p:inputNumber>
+					
+					
+					
+					<p:outputLabel value="Desconto:" for="desconto" />
+					<p:inputNumber id="desconto" value="#{beanEditaMovimento.item.desconto}"  emptyValue="true">
+					<p:ajax event="blur" listener="#{beanEditaMovimento.calcularItem()}" update="subtotal"/>
+					</p:inputNumber>
+
+					<p:outputLabel value="Total Item:" for="subtotal" />
+					<p:inputNumber id="subtotal" value="#{beanEditaMovimento.item.subtotal}" emptyValue="true">
+					<p:ajax event="blur" listener="#{beanEditaMovimento.calcularItem_total()}" update="desconto"/>	
+					</p:inputNumber>
+
+					<p:outputLabel value="Observação:" for="itemobservacao" />
+					<p:inputText id="itemobservacao"
+						value="#{beanEditaMovimento.item.itemobservacao}" />
+
+				</p:panelGrid>
+
+				<p:commandButton id="sle" icon="fa fa-check"
+					styleClass="btn-primary"
+					action="#{beanEditaMovimento.editarsalvarProduto}" value="Salvar"
+					ajax="false">
+				</p:commandButton>
+			</p:dialog>
+			<!-- fim dados de enderecos -->
+
+			<p:commandButton action="#{beanEditaMovimento.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

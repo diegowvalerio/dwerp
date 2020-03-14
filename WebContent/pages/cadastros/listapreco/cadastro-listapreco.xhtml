@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Lista de Preço
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Lista de Preço"
+			link="cadastro-listapreco.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:panelGrid columns="4">
+				<p:outputLabel value="Nome:" for="nome" />
+				<p:inputText id="nome" value="#{beanListaPreco.listapreco.nome}"
+					required="true">
+					<f:validateLength maximum="150" />
+				</p:inputText>
+
+				<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+				<p:calendar locale="pt_BR" id="dtcadastro" disabled="true"
+					value="#{beanListaPreco.listapreco.dtcadastro}"
+					pattern="dd/MM/yyyy" mask="true" required="true"
+					readonlyInput="true" />
+
+
+			</p:panelGrid>
+			<p:panel header="Produtos">
+
+				<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
+					styleClass="btn-primary"
+					style="margin-top: 10px; horizontal-align:left;"
+					action="#{beanListaPreco.novoitem()}"
+					oncomplete="PF('dialogp').show()">
+					<f:setPropertyActionListener
+						target="#{beanListaPreco.listaprecoitem.listapreco}"
+						value="#{beanListaPreco.listapreco}" />
+				</p:commandButton>
+				<p:dataTable id="tabela" rows="10"
+					value="#{beanListaPreco.listaprecoitems}" var="items"
+					rowKey="#{items.produto.idproduto}" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+						
+					<f:facet name="header">Lista de Produtos</f:facet>
+					<p:column headerText="Cod." style="text-align:left" width="10%"
+					filterBy="#{items.produto.idproduto}"
+						sortBy="#{items.produto.idproduto}" filterMatchMode="contains" >
+								#{items.produto.idproduto}
+								</p:column>
+					<p:column headerText="Produto" 
+					filterBy="#{items.produto.descricao}"
+						sortBy="#{items.produto.descricao}" filterMatchMode="contains">
+								#{items.produto.descricao}
+								</p:column>
+					<p:column headerText="Valor"  width="20%"
+					filterBy="#{items.valor}"
+						sortBy="#{items.valor}" filterMatchMode="contains">
+								#{items.valor}
+								</p:column>
+
+					<p:column width="15%" headerText="Operações"
+						style="text-align:center">
+						<p:commandButton action="#{beanListaPreco.excluiritem()}"
+							oncomplete="#{beanListaPreco.listaprecoitems}"
+							icon="ui-icon-trash">
+							<f:setPropertyActionListener value="#{items}"
+								target="#{beanListaPreco.listaprecoitem}" />
+						</p:commandButton>
+						<p:commandButton oncomplete="PF('dialogp').show();"
+							icon="ui-icon-pencil" update=":form:dlg">
+							<f:setPropertyActionListener value="#{items}"
+								target="#{beanListaPreco.listaprecoitem}" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+				<p:dialog id="dlg" header="Novo Item" widgetVar="dialogp"
+					responsive="true" resizable="true" modal="true" position="center"
+					onShow="position='center'">
+					<p:panelGrid id="painelDados" columns="2">
+
+						<p:outputLabel value="Produto:" for="produto" />
+						<h:panelGroup>
+							<p:autoComplete id="produto"
+								value="#{beanListaPreco.listaprecoitem.produto}" size="30"
+								completeMethod="#{beanListaPreco.completaProduto}" var="c"
+								itemLabel="#{c.descricao}" itemValue="#{c}"
+								forceSelection="true" converter="conversorProduto" />
+							<p:watermark value="Pesquise pela Descrição" for="produto"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Valor :" for="valor" />
+						<p:inputNumber id="valor" emptyValue="true"
+							value="#{beanListaPreco.listaprecoitem.valor}" />
+
+						<p:outputLabel value="Ultima Alteração: " for="dtultimaalt"
+							rendered="false" />
+						<p:calendar locale="pt_BR" id="dtultimaalt"
+							value="#{beanListaPreco.listaprecoitem.dtultimaalt}"
+							pattern="dd/MM/yyyy" mask="true" rendered="false" />
+
+					</p:panelGrid>
+					<p:commandButton id="sle" icon="fa fa-check"
+						styleClass="btn-primary" action="#{beanListaPreco.additem()}"
+						value="Salvar" ajax="false">
+					</p:commandButton>
+				</p:dialog>
+
+			</p:panel>
+
+			<p:commandButton action="#{beanListaPreco.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary"  update="erros" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

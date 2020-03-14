@@ -1,0 +1,153 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        Pesquisa Produto
+    </ui:define>
+
+	<ui:define name="description">
+        Pesquise ... 
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Pesquisa Produto" />
+
+		<h:form id="form">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<p:commandButton action="cadastro-produto?faces-redirect=true"
+						ajax="false" icon="fa fa-plus" value="Novo"
+						styleClass="btn-primary" />
+						
+					<p:spacer width="5" />
+					
+					<p:separator />
+
+
+					<p:dataTable id="ProdutoTable" widgetVar="ProdutoTable" rows="10"
+						value="#{beanProduto.lista}" var="produto"
+						rowKey="#{produto.idproduto}" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+
+						<p:column headerText="Descrição" 
+						filterBy="#{produto.descricao}"
+						sortBy="#{produto.descricao}" filterMatchMode="contains">
+						<h:outputLabel value="#{produto.descricao}" /> 
+						</p:column>
+						
+						<p:column width="15%" headerText="Descrição Abreviada"  
+						filterBy="#{produto.descabreviada}"
+						sortBy="#{produto.descabreviada}" filterMatchMode="contains">
+						<h:outputLabel value="#{produto.descabreviada}" /> 
+						</p:column>
+						
+						<p:column width="13%" headerText="Ean"  
+						filterBy="#{produto.ean}"
+						sortBy="#{produto.ean}" filterMatchMode="contains">
+						<h:outputLabel value="#{produto.ean}" /> 
+						</p:column>
+						
+						<p:column width="8%" headerText="Situação"  
+						sortBy="#{produto.situacao}"> 
+						<h:selectBooleanCheckbox id="situacao"
+									value="#{produto.situacao}" />
+						</p:column>
+						
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanProduto.excluir()}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanProduto.lista}" icon="fa fa-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{beanProduto.produto}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialog').show();"
+								update=":form:painelDados" icon="fa fa-edit">
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{beanProduto.produto}" />
+							</p:commandButton>
+
+						</p:column>
+
+
+					</p:dataTable>
+				</div>
+			</div>
+		
+
+			<p:dialog id="dlg" header="Editar Produto" widgetVar="dialog"
+					 responsive="true" modal="true">
+					<p:panelGrid id="painelDados" columns="2">
+						<p:outputLabel value="Descrição:*" for="descricao" />
+						<p:inputText id="descricao"
+							value="#{beanProduto.produto.descricao}" size="50" />
+
+						<p:outputLabel value="Descrição Abreviada:*" for="descabreviada" />
+						<p:inputText id="descabreviada"
+							value="#{beanProduto.produto.descabreviada}" size="30" />
+
+						<p:outputLabel value="Ean:*" for="ean" />
+						<p:inputText id="ean" value="#{beanProduto.produto.ean}" />
+						
+						<p:outputLabel value="Ncm:" for="ncm" />
+						<p:selectOneMenu id="ncm"
+							value="#{beanProduto.produto.ncm}"
+							converter="conversorNcm">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanProduto.ncm}"
+								var="ncm"
+								itemLabel="#{ncm.ncm} - #{ncm.descricao}"
+								itemValue="#{ncm}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Cest:" for="cest" />
+						<p:selectOneMenu id="cest"
+							value="#{beanProduto.produto.cest}"
+							converter="conversorCest">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanProduto.cest}"
+								var="cest"
+								itemLabel="#{cest.cest} - NCM #{cest.ncm}"
+								itemValue="#{cest}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Ativo :* " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanProduto.produto.situacao}" />
+
+					</p:panelGrid>
+					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
+						action="#{beanProduto.salvar()}" ajax="false" />
+				</p:dialog>
+				
+		</h:form>
+	</ui:define>
+
+</ui:composition>

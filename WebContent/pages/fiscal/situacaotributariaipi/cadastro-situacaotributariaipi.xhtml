@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        Cadastro Situação Tributária IPI
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+
+        <adm:breadcrumb title="Cadastro Situação Tributária IPI" link="cadastro-situacaotributariaipi.xhtml"/>
+			<p:panel>
+				<h:form id="form">
+					<p:growl id="erros" showDetail="true" sticky="true" />
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Situação Tributária" for="situacaoTributariaIPI" />
+						<p:inputText id="situacaoTributariaIPI" value="#{beanSituacaoTributariaIPI.situacaoTributariaIPI.situacaotributariaipi}" required="true" />
+						
+						<p:outputLabel value="Descrição:" for="descricao" />
+						<p:inputText size="100" id="descricao" value="#{beanSituacaoTributariaIPI.situacaoTributariaIPI.nomesituacaotributariaipi}" required="true" />
+						
+					</p:panelGrid>
+					<p:commandButton action="#{beanSituacaoTributariaIPI.salvar()}" value="Salvar"
+						icon="fa fa-check" styleClass="btn-primary"/>
+				</h:form>
+			</p:panel>
+
+    </ui:define>
+
+</ui:composition>
