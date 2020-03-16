@@ -48,7 +48,7 @@
 
 
 					<p:dataTable id="EstadoTable" widgetVar="EstadoTable" rows="10"
-						value="#{beanListEstado.lista}" var="estado"
+						value="#{beanEstado.lista}" var="estado"
 						rowKey="#{estado.idestado}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
@@ -67,17 +67,17 @@
 						</p:column>
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanListEstado.excluir()}"
+							<p:commandButton action="#{beanEstado.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanListEstado.lista}" icon="fa fa-trash"
+								oncomplete="#{beanEstado.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{estado}"
-									target="#{beanListEstado.estado}" />
+									target="#{beanEstado.estado}" />
 							</p:commandButton>
 							<p:commandButton oncomplete="PF('dialog').show();"
 								update=":form:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{estado}"
-									target="#{beanListEstado.estado}" />
+									target="#{beanEstado.estado}" />
 							</p:commandButton>
 
 						</p:column>
@@ -92,13 +92,13 @@
 					 responsive="true" modal="true">
 					<p:panelGrid id="painelDados" columns="2">
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanListEstado.estado.nome}" />
+						<p:inputText id="nome" value="#{beanEstado.estado.nome}" />
 						<p:outputLabel value="Sigla:" for="sigla" />
-						<p:inputText id="sigla" value="#{beanListEstado.estado.sigla}" />
+						<p:inputText id="sigla" value="#{beanEstado.estado.sigla}" />
 						
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanListEstado.salvar()}" ajax="false" />
+						action="#{beanEstado.salvar()}" ajax="false" />
 				</p:dialog>
 				
 		</h:form>

@@ -48,37 +48,41 @@
 
 
 					<p:dataTable id="UsuarioTable" widgetVar="UsuarioTable" rows="10"
-						value="#{beanListUsuario.lista}" var="usuario"
-						rowKey="#{usuario.idpessoa}" paginator="true"
+						value="#{beanUsuario.lista}" var="usuario"
+						rowKey="#{usuario.idusuario}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
 
 						<p:column headerText="Id" style="text-align:right" width="3%">
-						<h:outputLabel value="#{usuario.idpessoa}" />
+						<h:outputLabel value="#{usuario.idusuario}" />
 						</p:column>
+						
 						<p:column headerText="Nome"
-						filterBy="#{usuario.nome}"
 						sortBy="#{usuario.nome}" filterMatchMode="contains">
 						<h:outputLabel value="#{usuario.nome}" />
 						</p:column>
 						
+						<p:column headerText="Login"
+						sortBy="#{usuario.login}" filterMatchMode="contains">
+						<h:outputLabel value="#{usuario.login}" />
+						</p:column>
+						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanListUsuario.excluir()}"
+							<p:commandButton action="#{beanUsuario.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanListUsuario.lista}"  icon="fa fa-trash"
+								oncomplete="#{beanUsuario.lista}"  icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{usuario}"
-									target="#{beanListUsuario.usuario}" />
+									target="#{beanUsuario.usuario}" />
 							</p:commandButton>
 
 							<p:commandButton  oncomplete="PF('dialog').show();"  
 								update=":form:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{usuario}"
-									target="#{beanListUsuario.usuario}" />
-									<p:ajax listener="#{beanListUsuario.renderizar(usuario)}" update=":form:painelDados"/>
+									target="#{beanUsuario.usuario}" />
 							</p:commandButton>
 
 						</p:column>
@@ -90,50 +94,25 @@
 			<p:dialog id="dlg" header="Editar Usuário" widgetVar="dialog"
 					 responsive="true" modal="true" resizable="true" position="center" onShow="position='center'">
 					<p:panelGrid id="painelDados" columns="2">
-						
-						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf" value="#{beanListUsuario.opcao}" lazy="true" style="width:125px"  >
-            				
-            				<f:selectItem itemLabel="Física" itemValue="F" />
-            				<f:selectItem itemLabel="Jurídica" itemValue="J" />
-            				 <p:ajax listener="#{beanListUsuario.renderizar2}" update=":form:painelDados"/>  
-        				</p:selectOneMenu>
         				
         				<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanListUsuario.usuario.nome}"  />
-        				  				
-						<p:outputLabel value="Cpf:" for="cpf" rendered="#{beanListUsuario.isRederiza2}" />
-						<p:inputMask  mask="999.999.999-99" id="cpf" value="#{beanListUsuario.pfisica.cpf}" rendered="#{beanListUsuario.isRederiza2}"/>
-						<p:outputLabel value="Rg:" for="rg" rendered="#{beanListUsuario.isRederiza2}" />
-						<p:inputMask  id="rg" value="#{beanListUsuario.pfisica.rg}"  rendered="#{beanListUsuario.isRederiza2}"/>
-						<p:outputLabel value="Data Nascimento:" for="dtnasc" rendered="#{beanListUsuario.isRederiza2}" />
-						<p:calendar locale="pt_BR" id="dtnasc" value="#{beanListUsuario.pfisica.dtnasc}" pattern="dd/MM/yyyy" mask="true"  effect="fold" rendered="#{beanListUsuario.isRederiza2}"/>
-						 	
-						<p:outputLabel value="Razão Social:" for="razao_social" rendered="#{beanListUsuario.isRederiza}" />
-						<p:inputText id="razao_social" value="#{beanListUsuario.pjuridica.razao_social}"  rendered="#{beanListUsuario.isRederiza}"/>
-						<p:outputLabel value="Cnpj:" for="cnpj" rendered="#{beanListUsuario.isRederiza}" />
-						<p:inputMask  mask="99.999.999/9999-99" id="cnpj" value="#{beanListUsuario.pjuridica.cnpj}"  rendered="#{beanListUsuario.isRederiza}"/>
-						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual" rendered="#{beanListUsuario.isRederiza}" />
-						<p:inputText id="insc_estadual" value="#{beanListUsuario.pjuridica.insc_estadual}" rendered="#{beanListUsuario.isRederiza}"/>
-						<p:outputLabel value="Inscrição Suframa:" for="insc_suframa" rendered="#{beanListUsuario.isRederiza}" />
-						<p:inputText id="insc_suframa" value="#{beanListUsuario.pjuridica.insc_suframa}"  rendered="#{beanListUsuario.isRederiza}"/>
-						
+						<p:inputText id="nome" value="#{beanUsuario.usuario.nome}"  />
 						
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar disabled="true" locale="pt_BR" id="dtcadastro" value="#{beanListUsuario.usuario.dtcadastro}" pattern="dd/MM/yyyy" mask="true"  effect="fold"/>
+						<p:calendar disabled="true" locale="pt_BR" id="dtcadastro" value="#{beanUsuario.usuario.dtcadastro}" pattern="dd/MM/yyyy" mask="true"  effect="fold"/>
 						
 						<p:outputLabel value="Login:" for="login" />
-						<p:inputText id="login"  value="#{beanListUsuario.usuario.login}" />
+						<p:inputText id="login"  value="#{beanUsuario.usuario.login}" />
 						
 						<p:outputLabel value="Senha: " for="senha" />
-						<p:password id="senha" value="#{beanListUsuario.usuario.senha}" redisplay="true" />
+						<p:password id="senha" value="#{beanUsuario.usuario.senha}" redisplay="true" />
 						
 						<p:outputLabel value="Ativo: " for="situacao" />
-						<p:selectBooleanCheckbox id="situacao" value="#{beanListUsuario.usuario.situacao}" />
+						<p:selectBooleanCheckbox id="situacao" value="#{beanUsuario.usuario.situacao}" />
 										
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanListUsuario.salvar()}" ajax="false" />
+						action="#{beanUsuario.salvar()}" ajax="false" />
 				</p:dialog>
 		</h:form>
 	</ui:define>

@@ -21,34 +21,11 @@
 				<p:growl id="erros" showDetail="true" sticky="false" />
 				
 						<p:panelGrid columns="2">
-						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf" value="#{beanUsuario.opcao}" lazy="true" style="width:125px" required="true" >
-            				<f:selectItem itemLabel="" itemValue=" " />
-            				<f:selectItem itemLabel="Física" itemValue="F" />
-            				<f:selectItem itemLabel="Jurídica" itemValue="J" />
-            				<p:ajax listener="#{beanUsuario.renderizar}" update=":form"/> 
-        				</p:selectOneMenu>
-        				
+	
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{beanUsuario.usuario.nome}" required="true" >
 						</p:inputText>
 						  					
-						<p:outputLabel value="Cpf:" for="cpf" rendered="#{beanUsuario.isRederiza2}" />
-						<p:inputMask  mask="999.999.999-99" id="cpf" value="#{beanUsuario.pfisica.cpf}" validator="cpfValidador" required="true" rendered="#{beanUsuario.isRederiza2}"/>
-						<p:outputLabel value="Rg:" for="rg" rendered="#{beanUsuario.isRederiza2}" />
-						<p:inputMask  id="rg" value="#{beanUsuario.pfisica.rg}" required="true" rendered="#{beanUsuario.isRederiza2}"/>
-						<p:outputLabel value="Data Nascimento:" for="dtnasc" rendered="#{beanUsuario.isRederiza2}" />
-						<p:calendar locale="pt_BR" id="dtnasc" value="#{beanUsuario.pfisica.dtnasc}" pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" rendered="#{beanUsuario.isRederiza2}"/>
-						
-						<p:outputLabel value="Razão Social:" for="razao_social" rendered="#{beanUsuario.isRederiza}" />
-						<p:inputText id="razao_social" value="#{beanUsuario.pjuridica.razao_social}" required="true" rendered="#{beanUsuario.isRederiza}"/>
-						<p:outputLabel value="Cnpj:" for="cnpj" rendered="#{beanUsuario.isRederiza}" />
-						<p:inputMask  mask="99.999.999/9999-99" id="cnpj" value="#{beanUsuario.pjuridica.cnpj}" validator="cnpjValidador" required="true" rendered="#{beanUsuario.isRederiza}"/>
-						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual" rendered="#{beanUsuario.isRederiza}" />
-						<p:inputText id="insc_estadual" value="#{beanUsuario.pjuridica.insc_estadual}" required="true" rendered="#{beanUsuario.isRederiza}"/>
-						<p:outputLabel value="Inscrição Suframa:" for="insc_suframa" rendered="#{beanUsuario.isRederiza}" />
-						<p:inputText id="insc_suframa" value="#{beanUsuario.pjuridica.insc_suframa}" required="false" rendered="#{beanUsuario.isRederiza}"/>
-						
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
 						<p:calendar  disabled="true" autocomplete="#{beanUsuario.data}" locale="pt_BR" id="dtcadastro" value="#{beanUsuario.usuario.dtcadastro}"  pattern="dd/MM/yyyy" mask="true" required="true" effect="fold"/>
 						

@@ -38,12 +38,30 @@ public class Pessoa implements Serializable {
 	@Column(nullable=false, columnDefinition="varchar(250)")
 	private String razao_social;
 	
+	//endereco
+	@Column(nullable=false,columnDefinition="varchar(100)")
+	private String logadouro;
+	@Column(nullable=false,columnDefinition="varchar(10)")
+	private String numero;
+	@Column(nullable=false,columnDefinition="varchar(10)")
+	private String cep;
+	@Column(nullable=false,columnDefinition="varchar(40)")
+	private String bairro;
+	@Column(nullable=true,columnDefinition="varchar(150)")
+	private String complemento;
+	@ManyToOne
+	private Cidade cidade;	
 	
-	//usuario
-	@Column(nullable=false, columnDefinition="varchar(10)")
-	private String login;
-	@Column(nullable=false, columnDefinition="varchar(10)")
-	private String senha;
+	//contato
+	@Column(nullable=false,columnDefinition="varchar(150)")
+	private String nomecontato;
+	@Column(nullable=false,columnDefinition="varchar(100)")
+	private String email;
+	@Column(nullable=false,columnDefinition="varchar(3)")
+	private String ddd;
+	@Column(nullable=false,columnDefinition="varchar(9)")
+	private String numerocontato;
+
 	
 	public Pessoa() {
 		super();
@@ -96,22 +114,6 @@ public class Pessoa implements Serializable {
 	public void setTipojf(String tipojf) {
 		this.tipojf = tipojf;
 	}
-	
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public String getCpf() {
 		return cpf;
@@ -151,6 +153,86 @@ public class Pessoa implements Serializable {
 
 	public void setRazao_social(String razao_social) {
 		this.razao_social = razao_social;
+	}
+
+	public String getLogadouro() {
+		return logadouro;
+	}
+
+	public void setLogadouro(String logadouro) {
+		this.logadouro = logadouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getNomecontato() {
+		return nomecontato;
+	}
+
+	public void setNomecontato(String nomecontato) {
+		this.nomecontato = nomecontato;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(String ddd) {
+		this.ddd = ddd;
+	}
+
+	public String getNumerocontato() {
+		return numerocontato;
+	}
+
+	public void setNumerocontato(String numerocontato) {
+		this.numerocontato = numerocontato;
 	}
 
 	@Override

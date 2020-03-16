@@ -3,6 +3,9 @@
 	<persistence-unit name="dwerp" transaction-type="RESOURCE_LOCAL">
 	
 		<class>br.com.dwerp.entidade.Pessoa</class>
+		<class>br.com.dwerp.entidade.Cidade</class>
+		<class>br.com.dwerp.entidade.Estado</class>
+		<class>br.com.dwerp.entidade.Usuario</class>
 	
 		<properties>
 			
@@ -11,7 +14,7 @@
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
       		
 			<property name="hibernate.show_sql" value="false" />
