@@ -23,17 +23,17 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
 	<authentication-manager>
 		<authentication-provider>
-			   
+			 <!--   
 			<user-service>
 				<user name="admin" authorities="ADM" password="123"/>
 			</user-service>
+			-->
 			
-			<!-- 
 			<jdbc-user-service data-source-ref="dataSource" 
-				users-by-username-query="SELECT U.LOGIN AS USERNAME, U.SENHA AS PASSWORD, P.SITUACAO AS ENABLE FROM TBUSUARIO U, TBPESSOA P WHERE U.IDPESSOA = P.IDPESSOA AND U.LOGIN=?"
-				authorities-by-username-query="SELECT U.LOGIN AS USERNAME, 'ADM' AS AUTHORITY FROM TBUSUARIO U WHERE  U.LOGIN=?"
+				users-by-username-query="SELECT U.LOGIN AS USERNAME, U.SENHA AS PASSWORD, U.SITUACAO AS ENABLE FROM TBPESSOA U WHERE U.LOGIN=?"
+				authorities-by-username-query="SELECT U.LOGIN AS USERNAME, 'ADM' AS AUTHORITY FROM TBPESSOA U WHERE  U.LOGIN=?"
 			 />
-			 -->
+			 
 		</authentication-provider>
 	</authentication-manager>
 	
