@@ -7,20 +7,20 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import br.com.dwerp.dao.DAOPessoa;
-import br.com.dwerp.entidade.Pessoa;
+import br.com.dwerp.entidade.Cliente;
 import br.com.dwerp.hibernate.Transacao;
 
 @Dependent
-public class ServicoPessoa implements Serializable{
+public class ServicoCliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private DAOPessoa dao;
 	
 	@Transacao
-	public void salvar(Pessoa pessoa){
+	public void salvar(Cliente pessoa){
 		try {
-			if(pessoa.getIdpessoa() == null){
+			if(pessoa.getIdcliente() == null){
 				dao.salvar(pessoa);
 			}else{
 				dao.alterar(pessoa);
@@ -37,7 +37,7 @@ public class ServicoPessoa implements Serializable{
 		return dao.excluir(id);
 	}
 	
-	public List<Pessoa> consultar(){
+	public List<Cliente> consultar(){
 		return dao.consultar();
 	}
 	

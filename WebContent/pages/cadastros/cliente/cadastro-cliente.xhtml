@@ -15,29 +15,128 @@
 		<f:metadata>
 		</f:metadata>
 
-		<adm:breadcrumb title="Cadastro Cliente"
-			link="cadastro-cliente.xhtml" />
+		<adm:breadcrumb title="Cadastro Cliente" link="cadastro-cliente.xhtml" />
 		<h:form id="form">
-				<p:growl id="erros" showDetail="true" sticky="false" />
-				<p:tabView dynamic="false" cache="false" id="tabview">
-					<p:tab title="Dados" id="dados">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
 
-							<p:outputLabel value="Nome:" for="nome" />
-							<p:inputText id="nome" value="#{beanPessoa.pessoa.nome}"
-								required="true">
-							</p:inputText>
+					<p:panelGrid columns="2" id="paineld">
+						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
+						<p:selectOneMenu id="tipojf" value="#{beanCliente.opcao}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Física" itemValue="F" />
+							<f:selectItem itemLabel="Jurídica" itemValue="J" />
+							<p:ajax listener="#{beanCliente.renderizar}"
+								update=":form:tabview:paineld" />
+						</p:selectOneMenu>
 
-							<p:outputLabel value="Ativo : " for="situacao" />
-							<p:selectBooleanCheckbox id="situacao"
-								value="#{beanPessoa.pessoa.situacao}" required="true" />
-						</p:panelGrid>
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanCliente.pessoa.nome}"
+							required="true">
+						</p:inputText>
 
-					</p:tab>
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar autocomplete="#{beanCliente.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanCliente.pessoa.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
 
-				</p:tabView>
-			
-			<p:commandButton action="#{beanPessoa.salvar()}"
-			value="Salvar" icon="fa fa-check" styleClass="btn-primary" update="erros"/>
+
+						<p:outputLabel value="Cpf:" for="cpf"
+							rendered="#{beanCliente.isRederiza2}" />
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							value="#{beanCliente.pessoa.cpf}" required="true"
+							validator="cpfValidador" rendered="#{beanCliente.isRederiza2}" />
+						<p:outputLabel value="Rg:" for="rg"
+							rendered="#{beanCliente.isRederiza2}" />
+						<p:inputMask id="rg" value="#{beanCliente.pessoa.rg}"
+							required="true" rendered="#{beanCliente.isRederiza2}" />
+
+						<p:outputLabel value="Razão Social:" for="razao_social"
+							rendered="#{beanCliente.isRederiza}" />
+						<p:inputText id="razao_social"
+							value="#{beanCliente.pessoa.razao_social}" required="true"
+							rendered="#{beanCliente.isRederiza}" />
+						<p:outputLabel value="Cnpj:" for="cnpj"
+							rendered="#{beanCliente.isRederiza}" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+							value="#{beanCliente.pessoa.cnpj}" required="true"
+							validator="cnpjValidador" rendered="#{beanCliente.isRederiza}" />
+						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
+							rendered="#{beanCliente.isRederiza}" />
+						<p:inputText id="insc_estadual"
+							value="#{beanCliente.pessoa.insc_estadual}" required="true"
+							rendered="#{beanCliente.isRederiza}" />
+
+						<p:outputLabel value="Ativo : " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanCliente.pessoa.situacao}" required="true" />
+					</p:panelGrid>
+
+				</p:tab>
+
+				<!-- dados de endereco  -->
+				<p:tab title="Endereços" id="endereco">
+
+					<p:panelGrid id="painelDados2" columns="2">
+
+						<p:outputLabel value="Cep:" for="cep" />
+						<p:inputMask mask="99.999-999" id="cep"
+							value="#{beanCliente.pessoa.cep}" />
+
+						<p:outputLabel value="Cidade:" for="cidade" />
+						<h:panelGroup>
+							<p:autoComplete id="cidade" value="#{beanCliente.pessoa.cidade}"
+								size="30" completeMethod="#{beanCliente.completaCidade}" var="c"
+								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
+								forceSelection="true" converter="conversorCidade" />
+							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Logradouro:" for="logradouro" />
+						<p:inputText id="logradouro"
+							value="#{beanCliente.pessoa.logadouro}" maxlength="100" />
+						<p:outputLabel value="Bairro:" for="bairro" />
+						<p:inputText id="bairro" value="#{beanCliente.pessoa.bairro}"
+							maxlength="40" />
+						<p:outputLabel value="Numero:" for="numero" />
+						<p:inputText id="numero" value="#{beanCliente.pessoa.numero}"
+							maxlength="10" />
+						<p:outputLabel value="Complemento:" for="complemento" />
+						<p:inputText id="complemento"
+							value="#{beanCliente.pessoa.complemento}" maxlength="150" />
+					</p:panelGrid>
+					<!-- dados de endereco -->
+				</p:tab>
+
+				<!-- dados de contatos  -->
+				<p:tab title="Contatos" id="contato">
+				
+					<p:panelGrid id="painelDados3" columns="2">
+						<p:outputLabel value="Nome:" for="nomec" />
+						<p:inputText id="nomec" value="#{beanCliente.pessoa.nomecontato}"
+							maxlength="150" />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" value="#{beanCliente.pessoa.email}"
+							maxlength="100" />
+						<p:outputLabel value="Ddd" for="ddd" />
+						<p:inputText id="ddd" value="#{beanCliente.pessoa.ddd}"
+							maxlength="3" />
+						<p:outputLabel value="Numero:" for="numeroc" />
+						<p:inputText id="numeroc" value="#{beanCliente.pessoa.numerocontato}"
+							maxlength="9" />
+
+					</p:panelGrid>
+					<!-- dados de contatos -->
+				</p:tab>
+
+			</p:tabView>
+
+			<p:commandButton action="#{beanCliente.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
 
 	</ui:define>

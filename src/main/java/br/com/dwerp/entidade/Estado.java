@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name="tbestado")

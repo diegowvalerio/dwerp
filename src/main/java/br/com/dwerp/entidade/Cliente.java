@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="tbpessoa")
-public class Pessoa implements Serializable {
+@Table(name="tbcliente")
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private Integer idpessoa;
+	private Integer idcliente;
 	@Column(nullable=false,columnDefinition="varchar(250)")
 	private String nome;
 	@Column(nullable=false) 
@@ -63,24 +63,22 @@ public class Pessoa implements Serializable {
 	private String numerocontato;
 
 	
-	public Pessoa() {
+	public Cliente() {
 		super();
 	}  
-	
-	 public Integer getIdpessoa() {
-		return idpessoa;
-	}
-
-
-	public void setIdpessoa(Integer idpessoa) {
-		this.idpessoa = idpessoa;
-	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
+
+	public Integer getIdcliente() {
+		return idcliente;
+	}
+
+	public void setIdcliente(Integer idcliente) {
+		this.idcliente = idcliente;
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -239,7 +237,7 @@ public class Pessoa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idpessoa == null) ? 0 : idpessoa.hashCode());
+		result = prime * result + ((idcliente == null) ? 0 : idcliente.hashCode());
 		return result;
 	}
 	@Override
@@ -250,11 +248,11 @@ public class Pessoa implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pessoa other = (Pessoa) obj;
-		if (idpessoa == null) {
-			if (other.idpessoa != null)
+		Cliente other = (Cliente) obj;
+		if (idcliente == null) {
+			if (other.idcliente != null)
 				return false;
-		} else if (!idpessoa.equals(other.idpessoa))
+		} else if (!idcliente.equals(other.idcliente))
 			return false;
 		return true;
 	}

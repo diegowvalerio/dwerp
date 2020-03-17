@@ -19,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 
 import br.com.dwerp.dao.DAOGenerico;
+import br.com.dwerp.entidade.Cidade;
 
 
 public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
@@ -61,6 +62,17 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 	@Override
 	public List<E> consultar() {
 		return manager.createQuery("from "+classeEntidade.getSimpleName()).getResultList();
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<E> buscacidadenome(String e){
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Cidade.class);
+		
+		criteria.add(Restrictions.ilike("nome", e.toUpperCase(),MatchMode.START));
+		
+		return criteria.list();
 	}
 	
 }

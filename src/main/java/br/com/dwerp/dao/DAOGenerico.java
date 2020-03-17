@@ -9,4 +9,6 @@ public interface DAOGenerico<E> {
 	public E consultar(Integer id);
 	public List<E> consultar();	
 	
+	public List<E> buscacidadenome(String e);
+	
 }

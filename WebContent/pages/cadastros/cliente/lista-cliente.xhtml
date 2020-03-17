@@ -47,34 +47,36 @@
 					<p:separator />
 
 					<p:dataTable id="ClienteTable" widgetVar="ClienteTable" rows="10"
-						value="#{beanPessoa.lista}" var="cliente"
-						rowKey="#{cliente.idpessoa}" paginator="true"
+						value="#{beanCliente.lista}" var="cliente"
+						rowKey="#{cliente.idcliente}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
 
 						<p:column headerText="Id" style="text-align:right" width="3%">
-							<h:outputLabel value="#{cliente.idpessoa}" />
+							<h:outputLabel value="#{cliente.idcliente}" />
 						</p:column>
+						
 						<p:column headerText="Nome" filterBy="#{cliente.nome}"
 							sortBy="#{cliente.nome}" filterMatchMode="contains">
 							<h:outputLabel value="#{cliente.nome}" />
 						</p:column>
+						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanPessoa.excluir()}"
+							<p:commandButton action="#{beanCliente.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanPessoa.lista}" icon="fa fa-trash"
+								oncomplete="#{beanCliente.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{pessoa}"
-									target="#{beanPessoa.pessoa}" />
+									target="#{beanCliente.pessoa}" />
 							</p:commandButton>
 
 							<p:commandButton icon="fa fa-edit"
-								action="#{beanPessoa.encaminha()}">
+								action="#{beanCliente.encaminha()}">
 								<f:setPropertyActionListener value="#{pessoa}"
-									target="#{beanPessoa.pessoa}" />
+									target="#{beanCliente.pessoa}" />
 							</p:commandButton>
 
 						</p:column>

@@ -6,45 +6,39 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import br.com.dwerp.dao.DAOCidade;
-import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.dao.DAOCondicaoPagto;
+import br.com.dwerp.entidade.CondPgto;
 import br.com.dwerp.hibernate.Transacao;
 
 @Dependent
-public class ServicoCidade implements Serializable{
+public class ServicoCondicaoPagto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private DAOCidade dao;
+	private DAOCondicaoPagto dao;
 	
 	@Transacao
-	public void salvar(Cidade cidade){
+	public void salvar(CondPgto condicaopagto){
 		try {
-			if(cidade.getIdcidade() == null){
-				dao.salvar(cidade);
+			if(condicaopagto.getIdcondpgto() == null){
+				dao.salvar(condicaopagto);
 			}else{
-				dao.alterar(cidade);
+				dao.alterar(condicaopagto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<Cidade> buscacidadenome(String nome){
-		List<Cidade> v = null;
-		if(!nome.equals("")){
-			v = dao.buscacidadenome(nome);
-		}
-		return v;
-	}
+	
 	
 	@Transacao
 	public boolean excluir(Integer id){
 		return dao.excluir(id);
 	}
 	
-	public List<Cidade> consultar(){
+	public List<CondPgto> consultar(){
 		return dao.consultar();
 	}
-	
+
 }

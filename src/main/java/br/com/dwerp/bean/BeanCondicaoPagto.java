@@ -1,7 +1,6 @@
 package br.com.dwerp.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,32 +8,47 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.dwerp.entidade.Usuario;
+import br.com.dwerp.entidade.CondPgto;
 import br.com.dwerp.msn.FacesMessageUtil;
-import br.com.dwerp.servico.ServicoUsuario;
+import br.com.dwerp.servico.ServicoCondicaoPagto;
 
 @Named
 @ViewScoped
-public class BeanUsuario implements Serializable{
+public class BeanCondicaoPagto implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Usuario usuario = new Usuario();
+	private CondPgto condicaopagto = new CondPgto();
 	@Inject
-	private ServicoUsuario servico;
-	private List<Usuario> lista;
-	private Date data;
+	private ServicoCondicaoPagto servico;
+	
+	private List<CondPgto> lista;
 
 	@PostConstruct
 	public void carregar(){
 		lista = servico.consultar();
-	}	
+		
+		this.condicaopagto = this.getCondicaopagto();
+	}
 	
+	public CondPgto getCondicaopagto() {
+		return condicaopagto;
+	}
+
+	public void setCondicaopagto(CondPgto condicaopagto) {
+		this.condicaopagto = condicaopagto;
+	}
+
+	public List<CondPgto> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<CondPgto> lista) {
+		this.lista = lista;
+	}
+
 	public String salvar(){
-		if (usuario.getIdusuario() == null){
-			usuario.setDtcadastro(data);
-		}
 		try{
-		servico.salvar(usuario);
+		servico.salvar(condicaopagto);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro j� existente! N�o foi poss�vel realizar a opera��o.");
@@ -43,45 +57,23 @@ public class BeanUsuario implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-usuario";
+		
+		return "lista-condicaopagto";
 	}
-	
-	public void excluir(){
+
+	public String excluir() {
 		try{
-		servico.excluir(usuario.getIdusuario());
+		servico.excluir(condicaopagto.getIdcondpgto());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
-				FacesMessageUtil.addMensagemError("Registro utilizado em outro local! Não foi possível realizar a operação.");
+				FacesMessageUtil.addMensagemError("Registro utilizado em outro local! N�o foi poss�vel realizar a opera��o.");
 			}else{
 				FacesMessageUtil.addMensagemError(e.getCause().toString());
+			}
 		}
-	}
 		lista = servico.consultar();
-	}
 
-	public Date getData() {
-		return data;
+		return "lista-condicaopagto";
 	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public List<Usuario> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Usuario> lista) {
-		this.lista = lista;
-	}
-		
 
 }

@@ -6,45 +6,40 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import br.com.dwerp.dao.DAOCidade;
-import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.dao.DAOFormaPag;
+import br.com.dwerp.entidade.FormaPag;
 import br.com.dwerp.hibernate.Transacao;
 
 @Dependent
-public class ServicoCidade implements Serializable{
+public class ServicoFormaPag implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private DAOCidade dao;
+	private DAOFormaPag dao;
 	
 	@Transacao
-	public void salvar(Cidade cidade){
+	public void salvar(FormaPag formpag){
 		try {
-			if(cidade.getIdcidade() == null){
-				dao.salvar(cidade);
+			if(formpag.getIdformapag() == null){
+				dao.salvar(formpag);
 			}else{
-				dao.alterar(cidade);
+				dao.alterar(formpag);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<Cidade> buscacidadenome(String nome){
-		List<Cidade> v = null;
-		if(!nome.equals("")){
-			v = dao.buscacidadenome(nome);
-		}
-		return v;
-	}
+	
 	
 	@Transacao
 	public boolean excluir(Integer id){
 		return dao.excluir(id);
 	}
 	
-	public List<Cidade> consultar(){
+	public List<FormaPag> consultar(){
 		return dao.consultar();
 	}
-	
+
+
 }
