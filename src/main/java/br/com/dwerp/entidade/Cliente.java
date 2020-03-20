@@ -21,21 +21,23 @@ public class Cliente implements Serializable {
 	private Date dtcadastro;
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT TRUE")
 	private Boolean situacao;
+	@Column(nullable=true, columnDefinition="varchar(250)")
+	private String observacao;
 	@Column(nullable=false)
 	private String tipojf;
 	
 	//pessoa fisica
-	@Column(nullable=false, columnDefinition="varchar(14)", unique=true)
+	@Column(nullable=true, columnDefinition="varchar(14)", unique=true)
 	private String cpf;
-	@Column(nullable=false, columnDefinition="varchar(14)")
+	@Column(nullable=true, columnDefinition="varchar(14)")
 	private String rg;
 	
 	//pessoa juridica
-	@Column(nullable=false, columnDefinition="varchar(18)")
+	@Column(nullable=true, columnDefinition="varchar(18)")
 	private String cnpj;
-	@Column(nullable=false, columnDefinition="varchar(14)")
+	@Column(nullable=true, columnDefinition="varchar(14)")
 	private String insc_estadual;
-	@Column(nullable=false, columnDefinition="varchar(250)")
+	@Column(nullable=true, columnDefinition="varchar(250)")
 	private String razao_social;
 	
 	//endereco
@@ -57,9 +59,9 @@ public class Cliente implements Serializable {
 	private String nomecontato;
 	@Column(nullable=false,columnDefinition="varchar(100)")
 	private String email;
-	@Column(nullable=false,columnDefinition="varchar(3)")
-	private String ddd;
-	@Column(nullable=false,columnDefinition="varchar(9)")
+	@Column(nullable=false,columnDefinition="varchar(150)")
+	private String observacaocontato;
+	@Column(nullable=false,columnDefinition="varchar(15)")
 	private String numerocontato;
 
 	
@@ -103,6 +105,14 @@ public class Cliente implements Serializable {
 		this.situacao = situacao;
 	}
 
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 
 	public String getTipojf() {
 		return tipojf;
@@ -217,12 +227,12 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
-	public String getDdd() {
-		return ddd;
+	public String getObservacaocontato() {
+		return observacaocontato;
 	}
 
-	public void setDdd(String ddd) {
-		this.ddd = ddd;
+	public void setObservacaocontato(String observacaocontato) {
+		this.observacaocontato = observacaocontato;
 	}
 
 	public String getNumerocontato() {

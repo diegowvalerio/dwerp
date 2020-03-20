@@ -20,7 +20,7 @@ import br.com.dwerp.servico.ServicoCliente;
 
 @Named
 @ViewScoped
-public class BeanCliente implements Serializable{
+public class BeanClienteEdita implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Cliente pessoa = new Cliente();
@@ -36,23 +36,20 @@ public class BeanCliente implements Serializable{
 	private Boolean isRederiza = false;
 	private Boolean isRederiza2 = false;
 	
-	public BeanCliente() {
-		data = new Date();
-	}
-	
 	@PostConstruct
-	public void carregar(){
-		lista = servico.consultar();
+	public void ini(){
 		
-		this.pessoa = this.getPessoa();
-		this.pessoa.setDtcadastro(data);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) request.getSession();
+		this.pessoa = (Cliente) session.getAttribute("clienteAux");
+
+		renderizar();
+
+		session.removeAttribute("clienteAux");
 		
 	}
 	
 	public String salvar(){
-		if(pessoa.getIdcliente() == null){
-			pessoa.setDtcadastro(data);
-		}
 		try{
 		servico.salvar(pessoa);
 		}catch(Exception e){
@@ -79,15 +76,6 @@ public class BeanCliente implements Serializable{
 		lista = servico.consultar();
 
 		return "lista-cliente";
-	}
-	
-	/* editar cliente */
-	public String encaminha() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
-		session.setAttribute("clienteAux", this.pessoa);
-
-		return "edita-cliente";
 	}
 	
 	public void renderizar() {

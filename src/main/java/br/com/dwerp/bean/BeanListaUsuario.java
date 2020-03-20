@@ -15,7 +15,7 @@ import br.com.dwerp.servico.ServicoUsuario;
 
 @Named
 @ViewScoped
-public class BeanUsuario implements Serializable{
+public class BeanListaUsuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Usuario usuario = new Usuario();
@@ -23,21 +23,13 @@ public class BeanUsuario implements Serializable{
 	private ServicoUsuario servico;
 	private List<Usuario> lista;
 	private Date data;
-
-	public BeanUsuario() {
-		data = new Date();
-	}
 	
 	@PostConstruct
 	public void carregar(){
-		this.usuario = this.getUsuario();
-		this.usuario.setDtcadastro(data);
+		lista = servico.consultar();
 	}	
 	
 	public String salvar(){
-		if (usuario.getIdusuario() == null){
-			usuario.setDtcadastro(data);
-		}
 		try{
 		servico.salvar(usuario);
 		}catch(Exception e){

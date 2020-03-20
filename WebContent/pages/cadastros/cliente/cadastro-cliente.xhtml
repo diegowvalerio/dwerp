@@ -21,17 +21,10 @@
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
 
-					<p:panelGrid columns="2" id="paineld">
-						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf" value="#{beanCliente.opcao}"
-							lazy="true" style="width:125px" required="true">
-							<f:selectItem itemLabel="" itemValue=" " />
-							<f:selectItem itemLabel="Física" itemValue="F" />
-							<f:selectItem itemLabel="Jurídica" itemValue="J" />
-							<p:ajax listener="#{beanCliente.renderizar}"
-								update=":form:tabview:paineld" />
-						</p:selectOneMenu>
-
+					<p:panelGrid columns="4" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{beanCliente.pessoa.nome}"
 							required="true">
@@ -42,7 +35,20 @@
 							id="dtcadastro" disabled="true"
 							value="#{beanCliente.pessoa.dtcadastro}" pattern="dd/MM/yyyy"
 							mask="true" required="true" effect="fold" />
-
+							
+						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
+						<p:selectOneMenu id="tipojf" value="#{beanCliente.pessoa.tipojf}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Física" itemValue="F" />
+							<f:selectItem itemLabel="Jurídica" itemValue="J" />
+							<p:ajax listener="#{beanCliente.renderizar}"
+								update=":form:tabview:paineld" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Ativo : " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanCliente.pessoa.situacao}" required="true" />
 
 						<p:outputLabel value="Cpf:" for="cpf"
 							rendered="#{beanCliente.isRederiza2}" />
@@ -69,18 +75,24 @@
 						<p:inputText id="insc_estadual"
 							value="#{beanCliente.pessoa.insc_estadual}" required="true"
 							rendered="#{beanCliente.isRederiza}" />
+							
+						<p:outputLabel for="observacao" value="Observacão"/>
+                   		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
+                   		value="#{beanCliente.pessoa.observacao}"/>
 
-						<p:outputLabel value="Ativo : " for="situacao" />
-						<p:selectBooleanCheckbox id="situacao"
-							value="#{beanCliente.pessoa.situacao}" required="true" />
 					</p:panelGrid>
 
 				</p:tab>
-
+			</p:tabView>
+			
+			
+			<p:tabView dynamic="false" cache="false" id="tabendereco">
 				<!-- dados de endereco  -->
-				<p:tab title="Endereços" id="endereco">
+				<p:tab title="Endereço" id="endereco">
 
-					<p:panelGrid id="painelDados2" columns="2">
+					<p:panelGrid id="painelDados2" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
 
 						<p:outputLabel value="Cep:" for="cep" />
 						<p:inputMask mask="99.999-999" id="cep"
@@ -88,8 +100,9 @@
 
 						<p:outputLabel value="Cidade:" for="cidade" />
 						<h:panelGroup>
-							<p:autoComplete id="cidade" value="#{beanCliente.pessoa.cidade}"
-								size="30" completeMethod="#{beanCliente.completaCidade}" var="c"
+							<p:autoComplete id="cidade"
+								value="#{beanCliente.pessoa.cidade}" size="30"
+								completeMethod="#{beanCliente.completaCidade}" var="c"
 								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
 								forceSelection="true" converter="conversorCidade" />
 							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
@@ -111,28 +124,32 @@
 					<!-- dados de endereco -->
 				</p:tab>
 
+
 				<!-- dados de contatos  -->
-				<p:tab title="Contatos" id="contato">
-				
-					<p:panelGrid id="painelDados3" columns="2">
+				<p:tab title="Contato" id="contato">
+
+					<p:panelGrid id="painelDados3" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
 						<p:outputLabel value="Nome:" for="nomec" />
-						<p:inputText id="nomec" value="#{beanCliente.pessoa.nomecontato}"
-							maxlength="150" />
+						<p:inputText id="nomec"
+							value="#{beanCliente.pessoa.nomecontato}" maxlength="150" />
 
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{beanCliente.pessoa.email}"
 							maxlength="100" />
-						<p:outputLabel value="Ddd" for="ddd" />
-						<p:inputText id="ddd" value="#{beanCliente.pessoa.ddd}"
-							maxlength="3" />
-						<p:outputLabel value="Numero:" for="numeroc" />
-						<p:inputText id="numeroc" value="#{beanCliente.pessoa.numerocontato}"
-							maxlength="9" />
+						<p:outputLabel value="Telefone:" for="numeroc" />
+						<p:inputText id="numeroc"
+							value="#{beanCliente.pessoa.numerocontato}" maxlength="15" />
+							
+						<p:outputLabel value="Observação:" for="observacaocontato" />
+						<p:inputText id="observacaocontato" value="#{beanCliente.pessoa.observacaocontato}"
+							maxlength="150" />
 
 					</p:panelGrid>
 					<!-- dados de contatos -->
 				</p:tab>
-
 			</p:tabView>
 
 			<p:commandButton action="#{beanCliente.salvar()}" value="Salvar"

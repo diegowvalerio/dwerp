@@ -21,276 +21,141 @@
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
 
-					
-					<p:panelGrid columns="2" id="paineld">
-						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf" value="#{beanEditaCliente.opcao}"
-							lazy="true" style="width:125px" required="true">
-							<f:selectItem itemLabel="" itemValue=" " />
-							<f:selectItem itemLabel="Física" itemValue="F" />
-							<f:selectItem itemLabel="Jurídica" itemValue="J" />
-							<p:ajax listener="#{beanEditaCliente.renderizar}"
-								update=":form:tabview:paineld" />
-						</p:selectOneMenu>
+					<p:panelGrid columns="4" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
 
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanEditaCliente.cliente.nome}"
+						<p:inputText id="nome" value="#{beanClienteEdita.pessoa.nome}"
 							required="true">
 						</p:inputText>
 
-						<p:outputLabel value="Cpf:" for="cpf"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-						<p:inputMask mask="999.999.999-99" id="cpf"
-							value="#{beanEditaCliente.pfisica.cpf}" required="true" validator="cpfValidador"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-						<p:outputLabel value="Rg:" for="rg"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-						<p:inputMask id="rg"
-							value="#{beanEditaCliente.pfisica.rg}" required="true"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-						<p:outputLabel value="Data Nascimento:" for="dtnasc"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-						<p:calendar locale="pt_BR" id="dtnasc"
-							value="#{beanEditaCliente.pfisica.dtnasc}" pattern="dd/MM/yyyy"
-							mask="true" required="true" effect="fold"
-							rendered="#{beanEditaCliente.isRederiza2}" />
-
-						<p:outputLabel value="Razão Social:" for="razao_social"
-							rendered="#{beanEditaCliente.isRederiza}" />
-						<p:inputText id="razao_social"
-							value="#{beanEditaCliente.pjuridica.razao_social}"
-							required="true" rendered="#{beanEditaCliente.isRederiza}" />
-						<p:outputLabel value="Cnpj:" for="cnpj"
-							rendered="#{beanEditaCliente.isRederiza}" />
-						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
-							value="#{beanEditaCliente.pjuridica.cnpj}" required="true" validator="cnpjValidador"
-							rendered="#{beanEditaCliente.isRederiza}" />
-						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
-							rendered="#{beanEditaCliente.isRederiza}" />
-						<p:inputText id="insc_estadual"
-							value="#{beanEditaCliente.pjuridica.insc_estadual}"
-							required="true" rendered="#{beanEditaCliente.isRederiza}" />
-						<p:outputLabel value="Inscrição Suframa:" for="insc_suframa"
-							rendered="#{beanEditaCliente.isRederiza}" />
-						<p:inputText id="insc_suframa"
-							value="#{beanEditaCliente.pjuridica.insc_suframa}"
-							required="false" rendered="#{beanEditaCliente.isRederiza}" />
-
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar autocomplete="#{beanEditaCliente.data}" locale="pt_BR" disabled="true"
-							id="dtcadastro" value="#{beanEditaCliente.cliente.dtcadastro}"
+						<p:calendar autocomplete="#{beanClienteEdita.data}" locale="pt_BR"
+							disabled="true" id="dtcadastro"
+							value="#{beanClienteEdita.pessoa.dtcadastro}"
 							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
 
-						<p:outputLabel value="Vendedor:" for="vendedor" />
-						<p:selectOneMenu id="vendedor"
-							value="#{beanEditaCliente.cliente.vendresp}"
-							converter="conversorVendedor">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems value="#{beanEditaCliente.vendedores}"
-								var="vendedor"
-								itemLabel="#{vendedor.idpessoa} - #{vendedor.nome}"
-								itemValue="#{vendedor}" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Cnae:" for="cnae" />
-						<p:selectOneMenu id="cnae"
-							value="#{beanEditaCliente.cliente.cnae}"
-							converter="conversorCnae">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems value="#{beanEditaCliente.cnae}"
-								var="cnae"
-								itemLabel="#{cnae.cnae} - #{cnae.descricao}"
-								itemValue="#{cnae}" />
+						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
+						<p:selectOneMenu id="tipojf"
+							value="#{beanClienteEdita.pessoa.tipojf}" lazy="true"
+							style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Física" itemValue="F" />
+							<f:selectItem itemLabel="Jurídica" itemValue="J" />
+							<p:ajax listener="#{beanClienteEdita.renderizar}"
+								update=":form:tabview:paineld" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Ativo : " for="situacao" />
 						<p:selectBooleanCheckbox id="situacao"
-							value="#{beanEditaCliente.cliente.situacao}" required="true" />
+							value="#{beanClienteEdita.pessoa.situacao}" required="true" />
+
+						<p:outputLabel value="Cpf:" for="cpf"
+							rendered="#{beanClienteEdita.isRederiza2}" />
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							value="#{beanClienteEdita.pessoa.cpf}" required="true"
+							validator="cpfValidador"
+							rendered="#{beanClienteEdita.isRederiza2}" />
+						<p:outputLabel value="Rg:" for="rg"
+							rendered="#{beanClienteEdita.isRederiza2}" />
+						<p:inputMask id="rg" value="#{beanClienteEdita.pessoa.rg}"
+							required="true" rendered="#{beanClienteEdita.isRederiza2}" />
+
+						<p:outputLabel value="Razão Social:" for="razao_social"
+							rendered="#{beanClienteEdita.isRederiza}" />
+						<p:inputText id="razao_social"
+							value="#{beanClienteEdita.pessoa.razao_social}" required="true"
+							rendered="#{beanClienteEdita.isRederiza}" />
+						<p:outputLabel value="Cnpj:" for="cnpj"
+							rendered="#{beanClienteEdita.isRederiza}" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+							value="#{beanClienteEdita.pessoa.cnpj}" required="true"
+							validator="cnpjValidador"
+							rendered="#{beanClienteEdita.isRederiza}" />
+						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
+							rendered="#{beanClienteEdita.isRederiza}" />
+						<p:inputText id="insc_estadual"
+							value="#{beanClienteEdita.pessoa.insc_estadual}" required="true"
+							rendered="#{beanClienteEdita.isRederiza}" />
+							
+						<p:outputLabel for="observacao" value="Observacão"/>
+                   		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
+                   		value="#{beanClienteEdita.pessoa.observacao}"/>
+                   		
 					</p:panelGrid>
 
 				</p:tab>
+			</p:tabView>
+
+			<p:tabView dynamic="false" cache="false" id="tabendereco">
 				<!-- dados de endereco  -->
-				<p:tab title="Endereços" id="endereco">
-					<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
-						styleClass="btn-primary"
-						style="margin-top: 10px; horizontal-align:left;"
-						action="#{beanEditaCliente.addNovoEndereco()}"
-						oncomplete="PF('dialogp').show()">
-						<f:setPropertyActionListener
-							target="#{beanEditaCliente.endereco.pessoa}"
-							value="#{beanEditaCliente.cliente}" />
-					</p:commandButton>
-					<p:dataTable id="tabela" value="#{beanEditaCliente.enderecos}"
-						var="enderecos">
-						<f:facet name="header">Lista de Endereços</f:facet>
-						<p:column headerText="Tipo" style="text-align:left" width="10%">
-								#{enderecos.tipoendereco.nome}
-								</p:column>
-						<p:column headerText="Cep" style="text-align:left" width="9%">
-								#{enderecos.cep}
-								</p:column>
-						<p:column headerText="Uf" style="text-align:left" width="3%">
-								#{enderecos.cidade.estado.sigla}
-								</p:column>
-						<p:column headerText="Cidade" style="text-align:left" width="15%">
-								#{enderecos.cidade.nome}
-								</p:column>
-						<p:column headerText="Logadouro" style="text-align:left">
-								#{enderecos.logadouro}
-								</p:column>
-						<p:column headerText="Bairro" style="text-align:left">
-								#{enderecos.bairro}
-								</p:column>
-						<p:column headerText="Numero" style="text-align:left" width="6%">
-								#{enderecos.numero}
-								</p:column>
+				<p:tab title="Endereço" id="endereco">
 
-						<p:column width="15%" headerText="Operações"
-							style="text-align:center">
-							<p:commandButton action="#{beanEditaCliente.removerEndereco()}"
-								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanEditaCliente.enderecos}" icon="ui-icon-trash"
-								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
-								<f:setPropertyActionListener value="#{enderecos}"
-									target="#{beanEditaCliente.endereco}" />
-							</p:commandButton>
-							<p:commandButton oncomplete="PF('dialogp').show();"
-								icon="ui-icon-pencil" update=":form:dlg">
-								<f:setPropertyActionListener value="#{enderecos}"
-									target="#{beanEditaCliente.endereco}" />
-							</p:commandButton>
+					<p:panelGrid id="painelDados2" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
 
-						</p:column>
-					</p:dataTable>
+						<p:outputLabel value="Cep:" for="cep" />
+						<p:inputMask mask="99.999-999" id="cep"
+							value="#{beanClienteEdita.pessoa.cep}" />
+
+						<p:outputLabel value="Cidade:" for="cidade" />
+						<h:panelGroup>
+							<p:autoComplete id="cidade"
+								value="#{beanClienteEdita.pessoa.cidade}" size="30"
+								completeMethod="#{beanClienteEdita.completaCidade}" var="c"
+								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
+								forceSelection="true" converter="conversorCidade" />
+							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Logradouro:" for="logradouro" />
+						<p:inputText id="logradouro"
+							value="#{beanClienteEdita.pessoa.logadouro}" maxlength="100" />
+						<p:outputLabel value="Bairro:" for="bairro" />
+						<p:inputText id="bairro" value="#{beanClienteEdita.pessoa.bairro}"
+							maxlength="40" />
+						<p:outputLabel value="Numero:" for="numero" />
+						<p:inputText id="numero" value="#{beanClienteEdita.pessoa.numero}"
+							maxlength="10" />
+						<p:outputLabel value="Complemento:" for="complemento" />
+						<p:inputText id="complemento"
+							value="#{beanClienteEdita.pessoa.complemento}" maxlength="150" />
+					</p:panelGrid>
 					<!-- dados de endereco -->
 				</p:tab>
 
+
 				<!-- dados de contatos  -->
-				<p:tab title="Contatos" id="contato">
-					<p:commandButton id="nvc" value="Novo" icon="fa fa-plus"
-						styleClass="btn-primary"
-						style="margin-top: 10px; horizontal-align:left;"
-						action="#{beanEditaCliente.novocontato()}"
-						oncomplete="PF('dialogCp').show()">
-						<f:setPropertyActionListener
-							target="#{beanEditaCliente.contato.pessoa}"
-							value="#{beanEditaCliente.cliente}" />
-					</p:commandButton>
-					<p:dataTable id="tabelac" value="#{beanEditaCliente.contatos}"
-						var="contatos">
-						<f:facet name="header">Lista de Contatos</f:facet>
-						<p:column headerText="Nome" style="text-align:left">
-								#{contatos.nome}
-								</p:column>
-						<p:column headerText="Email" style="text-align:left">
-								#{contatos.email}
-								</p:column>
-						<p:column headerText="Ddd" style="text-align:left" width="3%">
-								#{contatos.ddd}
-								</p:column>
-						<p:column headerText="Telefone" style="text-align:left"
-							width="15%">
-								#{contatos.numero}
-								</p:column>
+				<p:tab title="Contato" id="contato">
 
-						<p:column width="15%" headerText="Operações"
-							style="text-align:center">
-							<p:commandButton action="#{beanEditaCliente.excluirContato()}"
-								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanEditaCliente.contatos}" icon="ui-icon-trash"
-								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
-								<f:setPropertyActionListener value="#{contatos}"
-									target="#{beanEditaCliente.contato}" />
-							</p:commandButton>
-							<p:commandButton oncomplete="PF('dialogCp').show();"
-								icon="ui-icon-pencil" update=":form:dlgc">
-								<f:setPropertyActionListener value="#{contatos}"
-									target="#{beanEditaCliente.contato}" />
-							</p:commandButton>
+					<p:panelGrid id="painelDados3" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Nome:" for="nomec" />
+						<p:inputText id="nomec"
+							value="#{beanClienteEdita.pessoa.nomecontato}" maxlength="150" />
 
-						</p:column>
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" value="#{beanClienteEdita.pessoa.email}"
+							maxlength="100" />
+						<p:outputLabel value="Telefone:" for="numeroc" />
+						<p:inputText id="numeroc"
+							value="#{beanClienteEdita.pessoa.numerocontato}" maxlength="15" />
+							
+						<p:outputLabel value="Observação:" for="observacaocontato" />
+						<p:inputText id="observacaocontato" value="#{beanClienteEdita.pessoa.observacaocontato}"
+							maxlength="150" />
 
-					</p:dataTable>
+					</p:panelGrid>
 					<!-- dados de contatos -->
 				</p:tab>
-
 			</p:tabView>
 
-			<!-- dados de enderecos -->
-			<p:dialog id="dlg" header="Novo Endereço" widgetVar="dialogp"
-				responsive="true" resizable="true" modal="true">
-				<p:panelGrid id="painelDados" columns="2">
-
-					<p:outputLabel value="Cep:" for="cep" />
-					<p:inputMask mask="99.999-999" id="cep" 
-						value="#{beanEditaCliente.endereco.cep}" />
-
-					<p:outputLabel value="Tipo Endereço:" for="tipo" />
-					<p:selectOneMenu id="tipo"
-						value="#{beanEditaCliente.endereco.tipoendereco}"
-						converter="conversorTipoEnde">
-						<f:selectItems value="#{beanEditaCliente.tipos}" var="tipo"
-							itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
-					</p:selectOneMenu>
-
-					<p:outputLabel value="Cidade:" for="cidade" />
-					<h:panelGroup>
-						<p:autoComplete id="cidade"
-							value="#{beanEditaCliente.endereco.cidade}" size="30"
-							completeMethod="#{beanEditaCliente.completaCidade}" var="c"
-							itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}" forceSelection="true"
-							converter="conversorCidade" />
-						<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
-					</h:panelGroup>
-
-					<p:outputLabel value="Logradouro:" for="logradouro" />
-					<p:inputText id="logradouro"
-						value="#{beanEditaCliente.endereco.logadouro}" maxlength="100"/>
-					<p:outputLabel value="Bairro:" for="bairro" />
-					<p:inputText id="bairro"
-						value="#{beanEditaCliente.endereco.bairro}" maxlength="40"/>
-					<p:outputLabel value="Numero:" for="numero" />
-					<p:inputText id="numero"
-						value="#{beanEditaCliente.endereco.numero}" maxlength="10"/>
-					<p:outputLabel value="Complemento:" for="complemento" />
-					<p:inputText id="complemento"
-						value="#{beanEditaCliente.endereco.complemento}" maxlength="150"/>
-
-				</p:panelGrid>
-				<p:commandButton id="sle" icon="fa fa-check"
-					styleClass="btn-primary" action="#{beanEditaCliente.editarEnd()}"
-					value="Salvar" ajax="false">
-				</p:commandButton>
-			</p:dialog>
-			<!-- fim dados de enderecos -->
-			
-			<!-- dados de contatos -->
-			<p:dialog id="dlgc" header="Novo Contato" widgetVar="dialogCp"
-				responsive="true" resizable="true" modal="true">
-				
-				<p:panelGrid id="painelDados3" columns="2">
-					<p:outputLabel value="Nome:" for="nomec" />
-					<p:inputText id="nomec" value="#{beanEditaCliente.contato.nome}" maxlength="150"/>
-
-					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" value="#{beanEditaCliente.contato.email}" maxlength="100"/>
-					<p:outputLabel value="Ddd" for="ddd" />
-					<p:inputText id="ddd" value="#{beanEditaCliente.contato.ddd}" maxlength="3"/>
-					<p:outputLabel value="Numero:" for="numeroc" />
-					<p:inputText id="numeroc"
-						value="#{beanEditaCliente.contato.numero}" maxlength="9"/>
-
-				</p:panelGrid>
-				<p:commandButton id="slec" icon="fa fa-check"
-					styleClass="btn-primary" action="#{beanEditaCliente.addcontato()}"
-					value="Salvar" ajax="false">
-				</p:commandButton>
-			</p:dialog>
-			<!--fim  dados de contatos -->
-
-
-			<p:commandButton action="#{beanEditaCliente.salvar()}" value="Salvar"
-				icon="fa fa-check" styleClass="btn-primary" update="erros"/>
+			<p:commandButton action="#{beanClienteEdita.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
 
 	</ui:define>

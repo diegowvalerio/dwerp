@@ -29,6 +29,8 @@ public class BeanCidade implements Serializable{
 	@PostConstruct
 	public void carregar(){
 		lista = servico.consultar();
+		
+		this.cidade = this.getCidade();
 	}	
 	
 	public String salvar(){
@@ -36,7 +38,7 @@ public class BeanCidade implements Serializable{
 		servico.salvar(cidade);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
-				FacesMessageUtil.addMensagemError("Registro j� existente! N�o foi poss�vel realizar a opera��o.");
+				FacesMessageUtil.addMensagemError("Registro já existente!");
 			}else{
 				FacesMessageUtil.addMensagemError(e.getCause().toString());
 			}

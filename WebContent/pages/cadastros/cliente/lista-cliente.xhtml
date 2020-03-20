@@ -63,19 +63,35 @@
 							<h:outputLabel value="#{cliente.nome}" />
 						</p:column>
 						
+						<p:column headerText="Telefone" filterBy="#{cliente.numerocontato}"
+							sortBy="#{cliente.numerocontato}" filterMatchMode="contains">
+							<h:outputLabel value="#{cliente.numerocontato}" />
+						</p:column>
+						
+						<p:column headerText="Email" filterBy="#{cliente.email}"
+							sortBy="#{cliente.email}" filterMatchMode="contains">
+							<h:outputLabel value="#{cliente.email}" />
+						</p:column>
+						
+						<p:column headerText="Cidade" filterBy="#{cliente.cidade.nome}"
+							sortBy="#{cliente.cidade.nome}" filterMatchMode="contains">
+							<h:outputLabel value="#{cliente.cidade.nome}" />
+						</p:column>
+						
+						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
 							<p:commandButton action="#{beanCliente.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
 								oncomplete="#{beanCliente.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
-								<f:setPropertyActionListener value="#{pessoa}"
+								<f:setPropertyActionListener value="#{cliente}"
 									target="#{beanCliente.pessoa}" />
 							</p:commandButton>
 
 							<p:commandButton icon="fa fa-edit"
 								action="#{beanCliente.encaminha()}">
-								<f:setPropertyActionListener value="#{pessoa}"
+								<f:setPropertyActionListener value="#{cliente}"
 									target="#{beanCliente.pessoa}" />
 							</p:commandButton>
 

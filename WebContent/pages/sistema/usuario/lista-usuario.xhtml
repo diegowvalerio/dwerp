@@ -48,7 +48,7 @@
 
 
 					<p:dataTable id="UsuarioTable" widgetVar="UsuarioTable" rows="10"
-						value="#{beanUsuario.lista}" var="usuario"
+						value="#{beanListaUsuario.lista}" var="usuario"
 						rowKey="#{usuario.idusuario}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
@@ -71,18 +71,18 @@
 						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanUsuario.excluir()}"
+							<p:commandButton action="#{beanListaUsuario.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanUsuario.lista}"  icon="fa fa-trash"
+								oncomplete="#{beanListaUsuario.lista}"  icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{usuario}"
-									target="#{beanUsuario.usuario}" />
+									target="#{beanListaUsuario.usuario}" />
 							</p:commandButton>
 
 							<p:commandButton  oncomplete="PF('dialog').show();"  
 								update=":form:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{usuario}"
-									target="#{beanUsuario.usuario}" />
+									target="#{beanListaUsuario.usuario}" />
 							</p:commandButton>
 
 						</p:column>
@@ -96,23 +96,23 @@
 					<p:panelGrid id="painelDados" columns="2">
         				
         				<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanUsuario.usuario.nome}"  />
+						<p:inputText id="nome" value="#{beanListaUsuario.usuario.nome}"  />
 						
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar disabled="true" locale="pt_BR" id="dtcadastro" value="#{beanUsuario.usuario.dtcadastro}" pattern="dd/MM/yyyy" mask="true"  effect="fold"/>
+						<p:calendar disabled="true" locale="pt_BR" id="dtcadastro" value="#{beanListaUsuario.usuario.dtcadastro}" pattern="dd/MM/yyyy" mask="true"  effect="fold"/>
 						
 						<p:outputLabel value="Login:" for="login" />
-						<p:inputText id="login"  value="#{beanUsuario.usuario.login}" />
+						<p:inputText id="login"  value="#{beanListaUsuario.usuario.login}" />
 						
 						<p:outputLabel value="Senha: " for="senha" />
-						<p:password id="senha" value="#{beanUsuario.usuario.senha}" redisplay="true" />
+						<p:password id="senha" value="#{beanListaUsuario.usuario.senha}" redisplay="true" />
 						
 						<p:outputLabel value="Ativo: " for="situacao" />
-						<p:selectBooleanCheckbox id="situacao" value="#{beanUsuario.usuario.situacao}" />
+						<p:selectBooleanCheckbox id="situacao" value="#{beanListaUsuario.usuario.situacao}" />
 										
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanUsuario.salvar()}" ajax="false" />
+						action="#{beanListaUsuario.salvar()}" ajax="false" />
 				</p:dialog>
 		</h:form>
 	</ui:define>

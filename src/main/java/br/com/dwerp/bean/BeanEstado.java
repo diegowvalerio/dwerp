@@ -25,6 +25,8 @@ public class BeanEstado implements Serializable{
 	@PostConstruct
 	public void carregar(){
 		lista = servico.consultar();
+		
+		this.estado = this.getEstado();
 	}
 	
 	
