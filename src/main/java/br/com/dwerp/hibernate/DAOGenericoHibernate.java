@@ -1,22 +1,15 @@
 package br.com.dwerp.hibernate;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 
 import br.com.dwerp.dao.DAOGenerico;
 import br.com.dwerp.entidade.Cidade;

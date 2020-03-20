@@ -8,6 +8,8 @@
 		<class>br.com.dwerp.entidade.Usuario</class>
 		<class>br.com.dwerp.entidade.CondPgto</class>
 		<class>br.com.dwerp.entidade.FormaPag</class>
+		<class>br.com.dwerp.entidade.Fornecedor</class>
+		<class>br.com.dwerp.entidade.CentroConsumo</class>
 	
 		<properties>
 			

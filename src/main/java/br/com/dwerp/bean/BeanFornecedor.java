@@ -12,20 +12,20 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.dwerp.entidade.Cidade;
-import br.com.dwerp.entidade.Cliente;
+import br.com.dwerp.entidade.Fornecedor;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
-import br.com.dwerp.servico.ServicoCliente;
+import br.com.dwerp.servico.ServicoFornecedor;
 
 @Named
 @ViewScoped
-public class BeanCliente implements Serializable{
+public class BeanFornecedor implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Cliente pessoa = new Cliente();
+	private Fornecedor pessoa = new Fornecedor();
 	@Inject
-	private ServicoCliente servico;
-	private List<Cliente> lista;
+	private ServicoFornecedor servico;
+	private List<Fornecedor> lista;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
@@ -35,7 +35,7 @@ public class BeanCliente implements Serializable{
 	private Boolean isRederiza = false;
 	private Boolean isRederiza2 = false;
 	
-	public BeanCliente() {
+	public BeanFornecedor() {
 		data = new Date();
 	}
 	
@@ -49,7 +49,7 @@ public class BeanCliente implements Serializable{
 	}
 	
 	public String salvar(){
-		if(pessoa.getIdcliente() == null){
+		if(pessoa.getIdfornecedor() == null){
 			pessoa.setDtcadastro(data);
 		}
 		try{
@@ -62,12 +62,12 @@ public class BeanCliente implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-cliente";
+		return "lista-fornecedor";
 	}
 
 	public String excluir() {
 		try{
-		servico.excluir(pessoa.getIdcliente());
+		servico.excluir(pessoa.getIdfornecedor());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro utilizado em outro local!");
@@ -77,16 +77,16 @@ public class BeanCliente implements Serializable{
 		}
 		lista = servico.consultar();
 
-		return "lista-cliente";
+		return "lista-fornecedor";
 	}
 	
-	/* editar cliente */
+	/* editar fornecedor */
 	public String encaminha() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
-		session.setAttribute("clienteAux", this.pessoa);
+		session.setAttribute("fornecedorAux", this.pessoa);
 
-		return "edita-cliente";
+		return "edita-fornecedor";
 	}
 	
 	public void renderizar() {
@@ -136,11 +136,11 @@ public class BeanCliente implements Serializable{
 		this.isRederiza2 = isRederiza2;
 	}
 
-	public Cliente getPessoa() {
+	public Fornecedor getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Cliente pessoa) {
+	public void setPessoa(Fornecedor pessoa) {
 		this.pessoa = pessoa;
 	}
 
@@ -152,11 +152,11 @@ public class BeanCliente implements Serializable{
 		this.data = data;
 	}
 
-	public List<Cliente> getLista() {
+	public List<Fornecedor> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cliente> lista) {
+	public void setLista(List<Fornecedor> lista) {
 		this.lista = lista;
 	}
 	
