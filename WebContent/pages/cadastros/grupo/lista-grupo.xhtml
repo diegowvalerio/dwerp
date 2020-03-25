@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        Pesquisa Grupo
+    </ui:define>
+
+	<ui:define name="description">
+        Pesquise ... 
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Pesquisa Grupo" />
+
+		<h:form id="form">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<p:commandButton action="cadastro-grupo?faces-redirect=true"
+						ajax="false" icon="fa fa-plus" value="Novo"
+						styleClass="btn-primary" />
+
+					<p:spacer width="5" />
+
+					<p:separator />
+
+					<p:dataTable id="GrupoTable" widgetVar="GrupoTable" rows="10"
+						value="#{beanGrupo.lista}" var="grupo"
+						rowKey="#{grupo.idgrupo}" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+
+						<p:column headerText="Id" style="text-align:right" width="3%">
+							<h:outputLabel value="#{grupo.idgrupo}" />
+						</p:column>
+						
+						<p:column headerText="Nome" filterBy="#{grupo.nome}"
+							sortBy="#{grupo.nome}" filterMatchMode="contains">
+							<h:outputLabel value="#{grupo.nome}" />
+						</p:column>
+						
+						<p:column headerText="Situação"  
+						sortBy="#{grupo.situacao}"> 
+						<h:selectBooleanCheckbox id="situacao"
+						disabled="true"	value="#{grupo.situacao}" />
+						</p:column>
+						
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanGrupo.excluir()}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanGrupo.lista}" icon="fa fa-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{grupo}"
+									target="#{beanGrupo.grupo}" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-edit"
+								action="#{beanGrupo.encaminha()}">
+								<f:setPropertyActionListener value="#{grupo}"
+									target="#{beanGrupo.grupo}" />
+							</p:commandButton>
+
+						</p:column>
+
+
+					</p:dataTable>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

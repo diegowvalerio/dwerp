@@ -10,6 +10,9 @@
 		<class>br.com.dwerp.entidade.FormaPag</class>
 		<class>br.com.dwerp.entidade.Fornecedor</class>
 		<class>br.com.dwerp.entidade.CentroConsumo</class>
+		<class>br.com.dwerp.entidade.Produto</class>
+		<class>br.com.dwerp.entidade.Grupo</class>
+		<class>br.com.dwerp.entidade.SubGrupo</class>
 	
 		<properties>
 			
