@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,9 @@ public class Produto implements Serializable {
 	private String descricao;
 	@Column(nullable=false,columnDefinition="varchar(100)")
 	private String descabreviada;
+	@Column(nullable=false) 
+	@Temporal(TemporalType.DATE)
+	private Date dtcadastro;
 	@Column(nullable=true,columnDefinition="varchar(13)")
 	private String ean;
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT TRUE")
@@ -100,6 +105,13 @@ public class Produto implements Serializable {
 	}
 	public void setSubgrupo(SubGrupo subgrupo) {
 		this.subgrupo = subgrupo;
+	}
+	
+	public Date getDtcadastro() {
+		return dtcadastro;
+	}
+	public void setDtcadastro(Date dtcadastro) {
+		this.dtcadastro = dtcadastro;
 	}
 	@Override
 	public int hashCode() {

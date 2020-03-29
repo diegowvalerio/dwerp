@@ -16,7 +16,13 @@
 			<p:panel>
 				<h:form id="form">
 				<p:growl id="erros" showDetail="true" sticky="false" />
-					<p:panelGrid columns="2">
+				<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+				
+					<p:panelGrid columns="4" id="paineld" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
 						<p:outputLabel value="Descrição:" for="descricao" />
 						<p:inputText id="descricao" value="#{beanProduto.produto.descricao}" required="true" />
 						
@@ -24,35 +30,38 @@
 						<p:inputText id="descricao_ab" value="#{beanProduto.produto.descabreviada}" required="true" />
 						
 						<p:outputLabel value="Ean:" for="ean" />
-						<p:inputText id="ean" value="#{beanProduto.produto.ean}" required="true" />
-						
-						<p:outputLabel value="Ncm:" for="ncm" />
-						<p:selectOneMenu id="ncm"
-							value="#{beanProduto.produto.ncm}"
-							converter="conversorNcm">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems value="#{beanProduto.ncm}"
-								var="ncm"
-								itemLabel="#{ncm.ncm} - #{ncm.descricao}"
-								itemValue="#{ncm}" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Cest:" for="cest" />
-						<p:selectOneMenu id="cest"
-							value="#{beanProduto.produto.cest}"
-							converter="conversorCest">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems value="#{beanProduto.cest}"
-								var="cest"
-								itemLabel="#{cest.cest} - NCM #{cest.ncm}"
-								itemValue="#{cest}" />
-						</p:selectOneMenu>
+						<p:inputText id="ean" value="#{beanProduto.produto.ean}" />
 						
 						<p:outputLabel value="Ativo: " for="situacao" />
-								<p:selectBooleanCheckbox id="situacao"
-									value="#{beanProduto.produto.situacao}" required="true" />
+						<p:selectBooleanCheckbox id="situacao"
+						value="#{beanProduto.produto.situacao}" required="true" />
+									
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar autocomplete="#{beanProduto.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanProduto.produto.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+						
+						<p:outputLabel value="Grupo/SubGrupo" for="subgrupo" />
+						<p:selectOneMenu id="subgrupo"	value="#{beanProduto.produto.subgrupo}" 
+						filter="true" filterMatchMode="contains" converter="conversorSubGrupo">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanProduto.listasubgrupo}" var="subs"
+								itemLabel="#{subs.grupo.nome} / #{subs.nome}" itemValue="#{subs}" />
+                   		</p:selectOneMenu>
+							
+						<p:outputLabel value="Valor Custo:" for="valor_custo" />
+						<p:inputNumber id="valor_custo" emptyValue="true"
+							value="#{beanProduto.produto.valor_custo}" />
+							
+						<p:outputLabel value="Valor Venda:" for="valor_venda" />
+						<p:inputNumber id="valor_venda" emptyValue="true"
+							value="#{beanProduto.produto.valor_venda}" />
 									
 					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+			
 					<p:commandButton action="#{beanProduto.salvar()}" value="Salvar"
 						icon="fa fa-check" styleClass="btn-primary" update="erros"/>
 				</h:form>

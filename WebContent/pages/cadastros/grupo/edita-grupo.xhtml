@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Grupo
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Grupo" link="cadastro-grupo.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+
+					<p:panelGrid columns="2" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanGrupoEdita.grupo.nome}"
+							required="true">
+						</p:inputText>
+						
+						<p:outputLabel value="Ativo : " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanGrupoEdita.grupo.situacao}" required="true" />
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:tabView>
+			
+			<p:tabView dynamic="false" cache="false" id="tabsubgrupo">
+				<!-- dados de subgrupo  -->
+				<p:tab title="SubGrupo" id="subgrupo">
+				
+					<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanGrupoEdita.addNovoSubGrupo}"
+						oncomplete="PF('dialogp').show()">
+						<f:setPropertyActionListener
+							target="#{beanGrupoEdita.subgrupo.grupo}"
+							value="#{beanGrupoEdita.grupo}" />
+					</p:commandButton>
+					<p:dataTable id="tabela" value="#{beanGrupoEdita.subgrupos}" var="items">
+						<f:facet name="header">Lista SubGrupo</f:facet>
+						<p:column headerText="SubGrupo" width="10%">
+								#{items.idsubgrupo}
+								</p:column>
+						<p:column headerText="Descrição">
+								#{items.nome}
+								</p:column>
+						<p:column headerText="Ativo" width="5%">								
+						<h:selectBooleanCheckbox disabled="true"
+								value="#{items.situacao}" />
+								</p:column>
+
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanGrupoEdita.removerSubGrupo}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanGrupoEdita.subgrupos}" icon="ui-icon-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanGrupoEdita.subgrupo}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialogp').show();"
+								icon="ui-icon-pencil" update=":form:dlg">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanGrupoEdita.subgrupo}" />
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+					<!-- dados de subgrupo -->
+				</p:tab>
+			</p:tabView>
+
+			<p:dialog id="dlg" header="SubGrupo" widgetVar="dialogp"
+				responsive="true" resizable="true" modal="false" position="center">
+				<p:panelGrid id="painelDados" columns="2">			
+
+					<p:outputLabel value="Descrição:" for="nome" />
+					<p:inputText id="nome"
+						value="#{beanGrupoEdita.subgrupo.nome}" />
+					
+					<p:outputLabel value="Situação:" for="situacao" />
+					<p:selectBooleanCheckbox id="situacao"
+					value="#{beanGrupoEdita.subgrupo.situacao}"  />
+
+				</p:panelGrid>
+
+				<p:commandButton id="sle" icon="fa fa-check"
+					styleClass="btn-primary"
+					action="#{beanGrupoEdita.editarsalvarSubGrupo}" value="Salvar"
+					ajax="false">
+				</p:commandButton>
+			</p:dialog>
+			<p:commandButton action="#{beanGrupoEdita.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
