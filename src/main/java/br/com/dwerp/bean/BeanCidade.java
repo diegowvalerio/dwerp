@@ -1,7 +1,10 @@
 package br.com.dwerp.bean;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -79,5 +82,4 @@ public class BeanCidade implements Serializable{
 		this.lista = lista;
 	}
 		
-
 }

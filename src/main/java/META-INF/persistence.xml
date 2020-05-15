@@ -13,6 +13,7 @@
 		<class>br.com.dwerp.entidade.Produto</class>
 		<class>br.com.dwerp.entidade.Grupo</class>
 		<class>br.com.dwerp.entidade.SubGrupo</class>
+		<class>br.com.dwerp.entidade.CadastroGeral</class>
 	
 		<properties>
 			

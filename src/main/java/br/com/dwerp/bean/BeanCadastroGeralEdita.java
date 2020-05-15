@@ -9,25 +9,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.omnifaces.util.Xml;
-
 import br.com.dwerp.entidade.Cidade;
-import br.com.dwerp.entidade.Cliente;
+import br.com.dwerp.entidade.CadastroGeral;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
-import br.com.dwerp.servico.ServicoCliente;
+import br.com.dwerp.servico.ServicoCadastroGeral;
 
 @Named
 @ViewScoped
-public class BeanCliente implements Serializable{
+public class BeanCadastroGeralEdita implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Cliente pessoa = new Cliente();
+	private CadastroGeral cadastroGeral = new CadastroGeral();
 	@Inject
-	private ServicoCliente servico;
-	private List<Cliente> lista;
+	private ServicoCadastroGeral servico;
+	private List<CadastroGeral> lista;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
@@ -37,25 +36,22 @@ public class BeanCliente implements Serializable{
 	private Boolean isRederiza = false;
 	private Boolean isRederiza2 = false;
 	
-	public BeanCliente() {
-		data = new Date();
-	}
-	
 	@PostConstruct
-	public void carregar(){
-		lista = servico.consultar();
+	public void ini(){
 		
-		this.pessoa = this.getPessoa();
-		this.pessoa.setDtcadastro(data);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) request.getSession();
+		this.cadastroGeral = (CadastroGeral) session.getAttribute("cadastrogeralAux");
+
+		renderizar();
+
+		session.removeAttribute("cadastrogeralAux");
 		
 	}
 	
 	public String salvar(){
-		if(pessoa.getIdcliente() == null){
-			pessoa.setDtcadastro(data);
-		}
 		try{
-		servico.salvar(pessoa);
+		servico.salvar(cadastroGeral);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro já existente!");
@@ -64,12 +60,12 @@ public class BeanCliente implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-cliente";
+		return "lista-cadastrogeral";
 	}
 
 	public String excluir() {
 		try{
-		servico.excluir(pessoa.getIdcliente());
+		servico.excluir(cadastroGeral.getIdcadastrogeral());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro utilizado em outro local!");
@@ -79,32 +75,23 @@ public class BeanCliente implements Serializable{
 		}
 		lista = servico.consultar();
 
-		return "lista-cliente";
-	}
-	
-	/* editar cliente */
-	public String encaminha() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
-		session.setAttribute("clienteAux", this.pessoa);
-
-		return "edita-cliente";
+		return "lista-cadastrogeral";
 	}
 	
 	public void renderizar() {
-		if (this.pessoa.getTipojf().equals("J")) {
+		if (this.cadastroGeral.getTipojf().equals("J")) {
 			isRederiza = true;
 			isRederiza2 = false;
-			pessoa.setCpf(null);
-			pessoa.setRg(null);
+			cadastroGeral.setCpf(null);
+			cadastroGeral.setRg(null);
 
 		}
-		if (this.pessoa.getTipojf().equals("F")) {
+		if (this.cadastroGeral.getTipojf().equals("F")) {
 			isRederiza = false;
 			isRederiza2 = true;
-			pessoa.setCnpj(null);
-			pessoa.setInsc_estadual(null);
-			pessoa.setRazao_social(null);
+			cadastroGeral.setCnpj(null);
+			cadastroGeral.setInsc_estadual(null);
+			cadastroGeral.setRazao_social(null);
 
 		}
 
@@ -138,12 +125,12 @@ public class BeanCliente implements Serializable{
 		this.isRederiza2 = isRederiza2;
 	}
 
-	public Cliente getPessoa() {
-		return pessoa;
+	public CadastroGeral getCadastroGeral() {
+		return cadastroGeral;
 	}
 
-	public void setPessoa(Cliente pessoa) {
-		this.pessoa = pessoa;
+	public void setCadastroGeral(CadastroGeral cadastroGeral) {
+		this.cadastroGeral = cadastroGeral;
 	}
 
 	public Date getData() {
@@ -154,11 +141,11 @@ public class BeanCliente implements Serializable{
 		this.data = data;
 	}
 
-	public List<Cliente> getLista() {
+	public List<CadastroGeral> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cliente> lista) {
+	public void setLista(List<CadastroGeral> lista) {
 		this.lista = lista;
 	}
 	

@@ -11,23 +11,22 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.omnifaces.util.Xml;
 
 import br.com.dwerp.entidade.Cidade;
-import br.com.dwerp.entidade.Cliente;
+import br.com.dwerp.entidade.CadastroGeral;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
-import br.com.dwerp.servico.ServicoCliente;
+import br.com.dwerp.servico.ServicoCadastroGeral;
 
 @Named
 @ViewScoped
-public class BeanCliente implements Serializable{
+public class BeanCadastroGeral implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Cliente pessoa = new Cliente();
+	private CadastroGeral cadastrogeral = new CadastroGeral();
 	@Inject
-	private ServicoCliente servico;
-	private List<Cliente> lista;
+	private ServicoCadastroGeral servico;
+	private List<CadastroGeral> lista;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
@@ -37,7 +36,7 @@ public class BeanCliente implements Serializable{
 	private Boolean isRederiza = false;
 	private Boolean isRederiza2 = false;
 	
-	public BeanCliente() {
+	public BeanCadastroGeral() {
 		data = new Date();
 	}
 	
@@ -45,17 +44,17 @@ public class BeanCliente implements Serializable{
 	public void carregar(){
 		lista = servico.consultar();
 		
-		this.pessoa = this.getPessoa();
-		this.pessoa.setDtcadastro(data);
+		this.cadastrogeral = this.getCadastroGeral();
+		this.cadastrogeral.setDtcadastro(data);
 		
 	}
 	
 	public String salvar(){
-		if(pessoa.getIdcliente() == null){
-			pessoa.setDtcadastro(data);
+		if(cadastrogeral.getIdcadastrogeral() == null){
+			cadastrogeral.setDtcadastro(data);
 		}
 		try{
-		servico.salvar(pessoa);
+		servico.salvar(cadastrogeral);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro já existente!");
@@ -64,12 +63,12 @@ public class BeanCliente implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-cliente";
+		return "lista-cadastrogeral";
 	}
 
 	public String excluir() {
 		try{
-		servico.excluir(pessoa.getIdcliente());
+		servico.excluir(cadastrogeral.getIdcadastrogeral());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro utilizado em outro local!");
@@ -79,33 +78,32 @@ public class BeanCliente implements Serializable{
 		}
 		lista = servico.consultar();
 
-		return "lista-cliente";
+		return "lista-cadastrogeral";
 	}
 	
-	/* editar cliente */
+	/* editar cadastro */
 	public String encaminha() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
-		session.setAttribute("clienteAux", this.pessoa);
+		session.setAttribute("cadastrogeralAux", this.cadastrogeral);
 
-		return "edita-cliente";
+		return "edita-cadastrogeral";
 	}
 	
 	public void renderizar() {
-		if (this.pessoa.getTipojf().equals("J")) {
+		if (this.cadastrogeral.getTipojf().equals("J")) {
 			isRederiza = true;
 			isRederiza2 = false;
-			pessoa.setCpf(null);
-			pessoa.setRg(null);
+			cadastrogeral.setCpf(null);
+			cadastrogeral.setRg(null);
 
 		}
-		if (this.pessoa.getTipojf().equals("F")) {
+		if (this.cadastrogeral.getTipojf().equals("F")) {
 			isRederiza = false;
 			isRederiza2 = true;
-			pessoa.setCnpj(null);
-			pessoa.setInsc_estadual(null);
-			pessoa.setRazao_social(null);
-
+			cadastrogeral.setCnpj(null);
+			cadastrogeral.setInsc_estadual(null);
+			cadastrogeral.setRazao_social(null);
 		}
 
 	}
@@ -138,14 +136,6 @@ public class BeanCliente implements Serializable{
 		this.isRederiza2 = isRederiza2;
 	}
 
-	public Cliente getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Cliente pessoa) {
-		this.pessoa = pessoa;
-	}
-
 	public Date getData() {
 		return data;
 	}
@@ -154,13 +144,20 @@ public class BeanCliente implements Serializable{
 		this.data = data;
 	}
 
-	public List<Cliente> getLista() {
+	public CadastroGeral getCadastroGeral() {
+		return cadastrogeral;
+	}
+
+	public void setCadastroGeral(CadastroGeral cadastrogeral) {
+		this.cadastrogeral = cadastrogeral;
+	}
+
+	public List<CadastroGeral> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cliente> lista) {
+	public void setLista(List<CadastroGeral> lista) {
 		this.lista = lista;
 	}
-	
 
 }

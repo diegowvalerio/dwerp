@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Cadastro" link="cadastro-geral.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+
+					<p:panelGrid columns="4" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
+							required="true">
+						</p:inputText>
+
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar autocomplete="#{beanCadastroGeral.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanCadastroGeral.cadastroGeral.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
+						<p:selectOneMenu id="tipojf" value="#{beanCadastroGeral.cadastroGeral.tipojf}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Física" itemValue="F" />
+							<f:selectItem itemLabel="Jurídica" itemValue="J" />
+							<p:ajax listener="#{beanCadastroGeral.renderizar}"
+								update=":form:tabview:paineld" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Ativo : " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{beanCadastroGeral.cadastroGeral.situacao}" required="true" />
+
+						<p:outputLabel value="Cpf:" for="cpf"
+							rendered="#{beanCadastroGeral.isRederiza2}" />
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							value="#{beanCadastroGeral.cadastroGeral.cpf}" required="true"
+							validator="cpfValidador" rendered="#{beanCadastroGeral.isRederiza2}" />
+						<p:outputLabel value="Rg:" for="rg"
+							rendered="#{beanCadastroGeral.isRederiza2}" />
+						<p:inputMask id="rg" value="#{beanCadastroGeral.cadastroGeral.rg}"
+							required="true" rendered="#{beanCadastroGeral.isRederiza2}" />
+
+						<p:outputLabel value="Razão Social:" for="razao_social"
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:inputText id="razao_social"
+							value="#{beanCadastroGeral.cadastroGeral.razao_social}" required="true"
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:outputLabel value="Cnpj:" for="cnpj"
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+							value="#{beanCadastroGeral.cadastroGeral.cnpj}" required="true"
+							validator="cnpjValidador" rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:inputText id="insc_estadual"
+							value="#{beanCadastroGeral.cadastroGeral.insc_estadual}" required="true"
+							rendered="#{beanCadastroGeral.isRederiza}" />
+							
+						<p:outputLabel for="observacao" value="Observacão"/>
+                   		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
+                   		value="#{beanCadastroGeral.cadastroGeral.observacao}"/>
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:tabView>
+			
+			
+			<p:tabView dynamic="false" cache="false" id="tabendereco">
+				<!-- dados de endereco  -->
+				<p:tab title="Endereço" id="endereco">
+
+					<p:panelGrid id="painelDados2" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+
+						<p:outputLabel value="Cep:" for="cep" />
+						<p:inputMask mask="99.999-999" id="cep"
+							value="#{beanCadastroGeral.cadastroGeral.cep}" />
+
+						<p:outputLabel value="Cidade:" for="cidade" />
+						<h:panelGroup>
+							<p:autoComplete id="cidade"
+								value="#{beanCadastroGeral.cadastroGeral.cidade}" size="30"
+								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
+								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
+								forceSelection="true" converter="conversorCidade" />
+							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Logradouro:" for="logradouro" />
+						<p:inputText id="logradouro"
+							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" />
+						<p:outputLabel value="Bairro:" for="bairro" />
+						<p:inputText id="bairro" value="#{beanCadastroGeral.cadastroGeral.bairro}"
+							maxlength="40" />
+						<p:outputLabel value="Numero:" for="numero" />
+						<p:inputText id="numero" value="#{beanCadastroGeral.cadastroGeral.numero}"
+							maxlength="10" />
+						<p:outputLabel value="Complemento:" for="complemento" />
+						<p:inputText id="complemento"
+							value="#{beanCadastroGeral.cadastroGeral.complemento}" maxlength="150" />
+					</p:panelGrid>
+					<!-- dados de endereco -->
+				</p:tab>
+
+
+				<!-- dados de contatos  -->
+				<p:tab title="Contato" id="contato">
+
+					<p:panelGrid id="painelDados3" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Nome:" for="nomec" />
+						<p:inputText id="nomec"
+							value="#{beanCadastroGeral.cadastroGeral.nomecontato}" maxlength="150" />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" value="#{beanCadastroGeral.cadastroGeral.email}"
+							maxlength="100" />
+						<p:outputLabel value="Telefone:" for="numeroc" />
+						<p:inputText id="numeroc"
+							value="#{beanCadastroGeral.cadastroGeral.numerocontato}" maxlength="15" />
+							
+						<p:outputLabel value="Observação:" for="observacaocontato" />
+						<p:inputText id="observacaocontato" value="#{beanCadastroGeral.cadastroGeral.observacaocontato}"
+							maxlength="150" />
+
+					</p:panelGrid>
+					<!-- dados de contatos -->
+				</p:tab>
+			</p:tabView>
+
+			<p:commandButton action="#{beanCadastroGeral.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
