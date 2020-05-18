@@ -18,6 +18,9 @@ public class Estado implements Serializable {
 	@Column(nullable=false,columnDefinition="varchar(2)")
 	private String sigla;
 	
+	@Column(nullable=true,columnDefinition="varchar(2)")
+	private String codigoibge;
+	
 
 	public Estado() {
 		super();
@@ -42,6 +45,13 @@ public class Estado implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+	
+	public String getCodigoibge() {
+		return codigoibge;
+	}
+	public void setCodigoibge(String codigoibge) {
+		this.codigoibge = codigoibge;
 	}
 	@Override
 	public int hashCode() {

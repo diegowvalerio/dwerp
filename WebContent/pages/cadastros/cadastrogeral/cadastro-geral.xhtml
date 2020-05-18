@@ -20,22 +20,37 @@
 			<p:growl id="erros" showDetail="true" sticky="false" />
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
-
+				
+					<p:panelGrid columns="10" id="painelA"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+					
+					<p:outputLabel value="Cliente: " for="op_cliente" />
+						<p:selectBooleanCheckbox id="op_cliente"
+							value="#{beanCadastroGeral.cadastroGeral.op_cliente}"  />
+							
+					<p:outputLabel value="Forncedor: " for="op_fornecedor" />
+						<p:selectBooleanCheckbox id="op_fornecedor"
+							value="#{beanCadastroGeral.cadastroGeral.op_fornecedor}"  />
+							
+					<p:outputLabel value="Transportadora: " for="op_transportadora" />
+						<p:selectBooleanCheckbox id="op_transportadora"
+							value="#{beanCadastroGeral.cadastroGeral.op_transportadora}"  />
+					
+					<p:outputLabel value="Vendedor: " for="op_vendedor" />
+						<p:selectBooleanCheckbox id="op_vendedor"
+							value="#{beanCadastroGeral.cadastroGeral.op_vendedor}"  />
+							
+					<p:outputLabel value="Funcionário: " for="op_funcionario" />
+						<p:selectBooleanCheckbox id="op_funcionario"
+							value="#{beanCadastroGeral.cadastroGeral.op_funcionario}"  />
+								
+					</p:panelGrid>
+					<p:separator></p:separator>
 					<p:panelGrid columns="4" id="paineld"
 						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 						layout="grid" styleClass="ui-fluid card">
 						
-						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
-							required="true">
-						</p:inputText>
-
-						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar autocomplete="#{beanCadastroGeral.data}" locale="pt_BR"
-							id="dtcadastro" disabled="true"
-							value="#{beanCadastroGeral.cadastroGeral.dtcadastro}" pattern="dd/MM/yyyy"
-							mask="true" required="true" effect="fold" />
-							
 						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
 						<p:selectOneMenu id="tipojf" value="#{beanCadastroGeral.cadastroGeral.tipojf}"
 							lazy="true" style="width:125px" required="true">
@@ -45,6 +60,17 @@
 							<p:ajax listener="#{beanCadastroGeral.renderizar}"
 								update=":form:tabview:paineld" />
 						</p:selectOneMenu>
+
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar autocomplete="#{beanCadastroGeral.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanCadastroGeral.cadastroGeral.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
+							required="true" style="text-transform:uppercase;">
+						</p:inputText>
 						
 						<p:outputLabel value="Ativo : " for="situacao" />
 						<p:selectBooleanCheckbox id="situacao"
@@ -64,7 +90,7 @@
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputText id="razao_social"
 							value="#{beanCadastroGeral.cadastroGeral.razao_social}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" />
+							rendered="#{beanCadastroGeral.isRederiza}" style="text-transform:uppercase;"/>
 						<p:outputLabel value="Cnpj:" for="cnpj"
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
@@ -74,7 +100,7 @@
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputText id="insc_estadual"
 							value="#{beanCadastroGeral.cadastroGeral.insc_estadual}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" />
+							rendered="#{beanCadastroGeral.isRederiza}" style="text-transform:uppercase;"/>
 							
 						<p:outputLabel for="observacao" value="Observacão"/>
                    		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
@@ -110,10 +136,10 @@
 
 						<p:outputLabel value="Logradouro:" for="logradouro" />
 						<p:inputText id="logradouro"
-							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" />
+							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" style="text-transform:uppercase;"/>
 						<p:outputLabel value="Bairro:" for="bairro" />
 						<p:inputText id="bairro" value="#{beanCadastroGeral.cadastroGeral.bairro}"
-							maxlength="40" />
+							maxlength="40" style="text-transform:uppercase;"/>
 						<p:outputLabel value="Numero:" for="numero" />
 						<p:inputText id="numero" value="#{beanCadastroGeral.cadastroGeral.numero}"
 							maxlength="10" />
@@ -133,12 +159,12 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Nome:" for="nomec" />
-						<p:inputText id="nomec"
+						<p:inputText id="nomec" style="text-transform:uppercase;"
 							value="#{beanCadastroGeral.cadastroGeral.nomecontato}" maxlength="150" />
 
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{beanCadastroGeral.cadastroGeral.email}"
-							maxlength="100" />
+							maxlength="100" style="text-transform:lowercase"/>
 						<p:outputLabel value="Telefone:" for="numeroc" />
 						<p:inputText id="numeroc"
 							value="#{beanCadastroGeral.cadastroGeral.numerocontato}" maxlength="15" />

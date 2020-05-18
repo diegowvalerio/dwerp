@@ -15,6 +15,8 @@ public class Cidade implements Serializable {
 	private Integer idcidade;
 	@Column(nullable=false,columnDefinition="varchar(100)")
 	private String nome;
+	@Column(nullable=true,columnDefinition="varchar(10)")
+	private String codigoibge;
 	@ManyToOne(optional =false)
 	private Estado estado;
 
@@ -40,6 +42,13 @@ public class Cidade implements Serializable {
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	
+	public String getCodigoibge() {
+		return codigoibge;
+	}
+	public void setCodigoibge(String codigoibge) {
+		this.codigoibge = codigoibge;
 	}
 	@Override
 	public int hashCode() {
