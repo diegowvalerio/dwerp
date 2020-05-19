@@ -11,7 +11,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.com.dwerp.entidade.Cliente;
 import br.com.dwerp.entidade.Grupo;
 import br.com.dwerp.entidade.SubGrupo;
 import br.com.dwerp.msn.FacesMessageUtil;

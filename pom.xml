@@ -14,14 +14,7 @@
   </properties>
 
   <dependencies>
-  
-  		<!-- projeto NFE SAMUEL - https://github.com/Samuel-Oliveira/Java_NFe -->
-		<dependency>
-    		<groupId>br.com.swconsultoria</groupId>
-    		<artifactId>java-nfe</artifactId>
-    		<version>4.00.13</version>
-		</dependency>
-		
+  		
 	<!-- servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

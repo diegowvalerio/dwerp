@@ -11,8 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.omnifaces.util.Xml;
-
 import br.com.dwerp.entidade.Cidade;
 import br.com.dwerp.entidade.Cliente;
 import br.com.dwerp.msn.FacesMessageUtil;

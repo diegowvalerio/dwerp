@@ -29,18 +29,25 @@ public class CadastroGeral implements Serializable {
 	//tipos de cadastro
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
 	private Boolean op_cliente;
-	
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
 	private Boolean op_fornecedor;
-	
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
 	private Boolean op_transportadora;
 	
-	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
-	private Boolean op_vendedor;
+	//fiscal
+	@Column(nullable=true, columnDefinition="varchar(10)")
+	private String insc_suframa;
+	@Column(nullable=true, columnDefinition= "BOOLEAN DEFAULT FALSE")
+	private Boolean desc_icms_suframa;
+	@Column(nullable=true, columnDefinition= "BOOLEAN DEFAULT FALSE")
+	private Boolean desc_cofins_suframa;
+	@Column(nullable=true, columnDefinition= "BOOLEAN DEFAULT FALSE")
+	private Boolean desc_pis_suframa;
+	@Column(nullable=true, columnDefinition= "BOOLEAN DEFAULT FALSE")
+	private Boolean desc_ipi_suframa;
+	@Column(nullable=true, columnDefinition="char(1)")
+	private String tipo_tributacao;
 	
-	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
-	private Boolean op_funcionario;
 	
 	//pessoa fisica
 	@Column(nullable=true, columnDefinition="varchar(14)", unique=true)
@@ -282,20 +289,51 @@ public class CadastroGeral implements Serializable {
 		this.op_transportadora = op_transportadora;
 	}
 
-	public Boolean getOp_vendedor() {
-		return op_vendedor;
+	public String getInsc_suframa() {
+		return insc_suframa;
 	}
 
-	public void setOp_vendedor(Boolean op_vendedor) {
-		this.op_vendedor = op_vendedor;
+	public void setInsc_suframa(String insc_suframa) {
+		this.insc_suframa = insc_suframa;
 	}
 
-	public Boolean getOp_funcionario() {
-		return op_funcionario;
+	public Boolean getDesc_icms_suframa() {
+		return desc_icms_suframa;
 	}
 
-	public void setOp_funcionario(Boolean op_funcionario) {
-		this.op_funcionario = op_funcionario;
+	public void setDesc_icms_suframa(Boolean desc_icms_suframa) {
+		this.desc_icms_suframa = desc_icms_suframa;
+	}
+
+	public Boolean getDesc_cofins_suframa() {
+		return desc_cofins_suframa;
+	}
+
+	public void setDesc_cofins_suframa(Boolean desc_cofins_suframa) {
+		this.desc_cofins_suframa = desc_cofins_suframa;
+	}
+
+	public Boolean getDesc_ipi_suframa() {
+		return desc_ipi_suframa;
+	}
+
+	public void setDesc_ipi_suframa(Boolean desc_ipi_suframa) {
+		this.desc_ipi_suframa = desc_ipi_suframa;
+	}
+	public String getTipo_tributacao() {
+		return tipo_tributacao;
+	}
+
+	public void setTipo_tributacao(String tipo_tributacao) {
+		this.tipo_tributacao = tipo_tributacao;
+	}
+
+	public Boolean getDesc_pis_suframa() {
+		return desc_pis_suframa;
+	}
+
+	public void setDesc_pis_suframa(Boolean desc_pis_suframa) {
+		this.desc_pis_suframa = desc_pis_suframa;
 	}
 
 	@Override

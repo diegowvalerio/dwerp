@@ -1,10 +1,7 @@
 package br.com.dwerp.bean;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

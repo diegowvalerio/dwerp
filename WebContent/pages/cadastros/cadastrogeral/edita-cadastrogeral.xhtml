@@ -21,7 +21,7 @@
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
 				
-					<p:panelGrid columns="10" id="painelA"
+					<p:panelGrid columns="6" id="painelA"
 						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 						layout="grid" styleClass="ui-fluid card">
 					
@@ -36,14 +36,6 @@
 					<p:outputLabel value="Transportadora: " for="op_transportadora" />
 						<p:selectBooleanCheckbox id="op_transportadora"
 							value="#{beanCadastroGeralEdita.cadastroGeral.op_transportadora}"  />
-					
-					<p:outputLabel value="Vendedor: " for="op_vendedor" />
-						<p:selectBooleanCheckbox id="op_vendedor"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_vendedor}"  />
-							
-					<p:outputLabel value="Funcionário: " for="op_funcionario" />
-						<p:selectBooleanCheckbox id="op_funcionario"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_funcionario}"  />
 								
 					</p:panelGrid>
 					<p:separator></p:separator>
@@ -179,7 +171,51 @@
 					</p:panelGrid>
 					<!-- dados de contatos -->
 				</p:tab>
-			</p:tabView>
+				
+				<!-- dados de fiscal  -->
+				<p:tab title="Fiscal" id="fiscal">
+
+					<p:panelGrid id="painelDados4" columns="04"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Suframa:" for="insc_suframa" />
+						<p:inputText id="insc_suframa" style="text-transform:uppercase;"
+							value="#{beanCadastroGeralEdita.cadastroGeral.insc_suframa}" maxlength="10" />	
+							
+					<p:outputLabel value="Tipo Tributação:" for="tipo_tributacao" />
+						<p:selectOneMenu id="tipo_tributacao" value="#{beanCadastroGeralEdita.cadastroGeral.tipo_tributacao}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Consumidor Final" itemValue="1" />
+							<f:selectItem itemLabel="Normal" itemValue="0" />
+						</p:selectOneMenu>	
+					</p:panelGrid>	
+					<br />	
+					<p:panelGrid id="painelDados5" columns="08" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+								
+					<p:outputLabel value="Desc. ICMS Suframa" for="desc_icms_suframa" />
+						<p:selectBooleanCheckbox id="desc_icms_suframa"
+							value="#{beanCadastroGeralEdita.cadastroGeral.desc_icms_suframa}"  />
+					
+					<p:outputLabel value="Desc. COFINS Suframa" for="desc_cofins_suframa" />
+						<p:selectBooleanCheckbox id="desc_cofins_suframa"
+							value="#{beanCadastroGeralEdita.cadastroGeral.desc_cofins_suframa}"  />
+					
+					<p:outputLabel value="Desc. PIS Suframa" for="desc_pis_suframa" />
+						<p:selectBooleanCheckbox id="desc_pis_suframa"
+							value="#{beanCadastroGeralEdita.cadastroGeral.desc_pis_suframa}"  />
+					
+					<p:outputLabel value="Desc. IPI Suframa" for="desc_ipi_suframa" />
+						<p:selectBooleanCheckbox id="desc_ipi_suframa"
+							value="#{beanCadastroGeralEdita.cadastroGeral.desc_ipi_suframa}"  />	
+									
+					</p:panelGrid>
+					<!-- dados de fiscal -->
+				</p:tab> 
+			</p:tabView>  
 
 			<p:commandButton action="#{beanCadastroGeralEdita.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
