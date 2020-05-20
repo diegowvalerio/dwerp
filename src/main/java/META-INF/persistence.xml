@@ -14,6 +14,15 @@
 		<class>br.com.dwerp.entidade.Grupo</class>
 		<class>br.com.dwerp.entidade.SubGrupo</class>
 		<class>br.com.dwerp.entidade.CadastroGeral</class>
+		<class>br.com.dwerp.entidade.Cest</class>
+		<class>br.com.dwerp.entidade.Cfop</class>
+		<class>br.com.dwerp.entidade.Cnae</class>
+		<class>br.com.dwerp.entidade.Ncm</class>
+		<class>br.com.dwerp.entidade.RegraImposto</class>
+		<class>br.com.dwerp.entidade.RegraImpostoItem</class>
+		<class>br.com.dwerp.entidade.SituacaoTributaria</class>
+		<class>br.com.dwerp.entidade.SituacaoTributariaIPI</class>
+		<class>br.com.dwerp.entidade.SituacaoTributariaPISCOFINS</class>
 	
 		<properties>
 			

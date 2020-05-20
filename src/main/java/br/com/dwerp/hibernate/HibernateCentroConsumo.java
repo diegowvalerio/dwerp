@@ -6,6 +6,7 @@ import javax.enterprise.context.Dependent;
 
 import br.com.dwerp.dao.DAOCentroConsumo;
 import br.com.dwerp.entidade.CentroConsumo;
+import br.com.dwerp.hibernate.generico.DAOGenericoHibernate;
 
 @Dependent
 public class HibernateCentroConsumo extends DAOGenericoHibernate<CentroConsumo> implements DAOCentroConsumo,Serializable {

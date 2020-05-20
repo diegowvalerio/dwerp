@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        Cadastro Cfop
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+
+        <adm:breadcrumb title="Cadastro Cfop" link="cadastro-cfop.xhtml"/>
+			<p:panel>
+				<h:form id="form">
+					<p:growl id="erros" showDetail="true" sticky="true" />
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Cfop" for="cfop" />
+						<p:inputText id="cfop" value="#{beanCfop.cfop.cfop}" required="true" />
+						
+						<p:outputLabel value="Descrição:" for="descricao" />
+						<p:inputText size="100" id="descricao" value="#{beanCfop.cfop.descricao}" required="true" />
+						
+						<p:outputLabel value="Tipo Cfop:" for="tipocfop" />
+						<p:selectOneMenu id="tipocfop"
+							value="#{beanCfop.cfop.tipocfop}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="ENTRADA" itemValue="ENTRADA" />
+							<f:selectItem itemLabel="SAIDA" itemValue="SAIDA" />
+						</p:selectOneMenu>	
+						
+						<p:outputLabel value="Tipo Operação:" for="tipooperacaocfop" />
+						<p:selectOneMenu id="tipooperacaocfop"
+							value="#{beanCfop.cfop.tipooperacaocfop}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="VENDA" itemValue="VENDA" />
+							<f:selectItem itemLabel="COMPRA" itemValue="COMPRA" />
+							<f:selectItem itemLabel="DEVOLUCAO_VENDA" itemValue="DEVOLUCAO_VENDA" />
+							<f:selectItem itemLabel="DEVOLUCAO_COMPRA" itemValue="DEVOLUCAO_COMPRA" />
+							<f:selectItem itemLabel="OUTRAS_SAIDAS" itemValue="OUTRAS_SAIDAS" />
+							<f:selectItem itemLabel="SAIDA_DOACAO" itemValue="SAIDA_DOACAO" />
+							<f:selectItem itemLabel="ENTRADA_DOACAO" itemValue="ENTRADA_DOACAO" />
+							<f:selectItem itemLabel="REM_CONSIGNADO" itemValue="REM_CONSIGNADO" />
+							<f:selectItem itemLabel="RET_CONSIGNADO" itemValue="RET_CONSIGNADO" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="ST Pis Cofins: " for="situacaoTributariaPISCOFINS" />
+						<p:selectOneMenu id="situacaoTributariaPISCOFINS"
+							value="#{beanCfop.cfop.situacaoTributariaPISCOFINS}"
+							converter="conversorSituacaoTributariaPISCOFINS">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanCfop.situacaoTributariaPISCOFINS}"
+								var="situacaoTributariaPISCOFINS"
+								itemLabel="#{situacaoTributariaPISCOFINS.situacaotributariapiscofins} - #{situacaoTributariaPISCOFINS.nomesituacaotributariapiscofins}"
+								itemValue="#{situacaoTributariaPISCOFINS}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="ST IPI: " for="situacaoTributariaIPI" />
+						<p:selectOneMenu id="situacaoTributariaIPI"
+							value="#{beanCfop.cfop.situacaoTributariaIPI}"
+							converter="conversorSituacaoTributariaIPI">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems value="#{beanCfop.situacaoTributariaIPI}"
+								var="situacaoTributariaIPI"
+								itemLabel="#{situacaoTributariaIPI.situacaotributariaipi} - #{situacaoTributariaIPI.nomesituacaotributariaipi}"
+								itemValue="#{situacaoTributariaIPI}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Gerar Financeiro: " for="gerafinanceiro" />
+						<p:selectBooleanCheckbox id="gerafinanceiro"
+						value="#{beanCfop.cfop.gerafinanceiro}" required="true" />
+						
+						<p:outputLabel value="Calcula Estoque: " for="calcula_estoque" />
+						<p:selectBooleanCheckbox id="calcula_estoque"
+						value="#{beanCfop.cfop.calcula_estoque}" required="true" />
+						
+						<p:outputLabel value="Calcula Icms: " for="calcula_icms" />
+						<p:selectBooleanCheckbox id="calcula_icms"
+						value="#{beanCfop.cfop.calcula_icms}" required="true" />
+						
+						<p:outputLabel value="Calcula Icms ST: " for="calcula_icmsst" />
+						<p:selectBooleanCheckbox id="calcula_icmsst"
+						value="#{beanCfop.cfop.calcula_icmsst}" required="true" />
+						
+						<p:outputLabel value="Calcula IPI: " for="calcula_ipi" />
+						<p:selectBooleanCheckbox id="calcula_ipi"
+						value="#{beanCfop.cfop.calcula_ipi}" required="true" />
+						
+						<p:outputLabel value="Calcula IRPJ: " for="calcula_irpj" />
+						<p:selectBooleanCheckbox id="calcula_irpj"
+						value="#{beanCfop.cfop.calcula_irpj}" required="true" />
+						
+						<p:outputLabel value="Calcula CSSL: " for="calcula_cssl" />
+						<p:selectBooleanCheckbox id="calcula_cssl"
+						value="#{beanCfop.cfop.calcula_cssl}" required="true" />
+						
+					</p:panelGrid>
+					<p:commandButton action="#{beanCfop.salvar()}" value="Salvar"
+						icon="fa fa-check" styleClass="btn-primary"/>
+				</h:form>
+			</p:panel>
+
+    </ui:define>
+
+</ui:composition>

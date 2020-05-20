@@ -1,4 +1,4 @@
-package br.com.dwerp.dao;
+package br.com.dwerp.dao.generico;
 
 import java.util.List;
 

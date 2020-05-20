@@ -6,6 +6,7 @@ import javax.enterprise.context.Dependent;
 
 import br.com.dwerp.dao.DAOCondicaoPagto;
 import br.com.dwerp.entidade.CondPgto;
+import br.com.dwerp.hibernate.generico.DAOGenericoHibernate;
 
 @Dependent
 public class HibernateCondicaoPagto extends DAOGenericoHibernate<CondPgto> implements DAOCondicaoPagto,Serializable {

@@ -1,4 +1,4 @@
-package br.com.dwerp.hibernate;
+package br.com.dwerp.hibernate.generico;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.dwerp.dao.DAOGenerico;
+import br.com.dwerp.dao.generico.DAOGenerico;
 import br.com.dwerp.entidade.Cidade;
 
 

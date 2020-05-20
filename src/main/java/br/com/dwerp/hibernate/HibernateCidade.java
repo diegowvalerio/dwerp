@@ -6,6 +6,7 @@ import javax.enterprise.context.Dependent;
 
 import br.com.dwerp.dao.DAOCidade;
 import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.hibernate.generico.DAOGenericoHibernate;
 
 
 @Dependent

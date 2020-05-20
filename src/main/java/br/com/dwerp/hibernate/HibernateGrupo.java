@@ -6,6 +6,7 @@ import javax.enterprise.context.Dependent;
 
 import br.com.dwerp.dao.DAOGrupo;
 import br.com.dwerp.entidade.Grupo;
+import br.com.dwerp.hibernate.generico.DAOGenericoHibernate;
 
 @Dependent
 public class HibernateGrupo extends DAOGenericoHibernate<Grupo> implements DAOGrupo,Serializable {
