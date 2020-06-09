@@ -10,5 +10,6 @@ public interface DAOGenerico<E> {
 	public List<E> consultar();	
 	
 	public List<E> buscacidadenome(String e);
+	public List<E> buscaproduto(String e);
 	
 }

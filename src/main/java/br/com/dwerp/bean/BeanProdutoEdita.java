@@ -9,10 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.dwerp.entidade.SubGrupo;
-import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.entidade.Empresa;
 import br.com.dwerp.entidade.Estrutura;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.msn.FacesMessageUtil;
@@ -21,7 +22,7 @@ import br.com.dwerp.servico.ServicoProduto;
 
 @Named
 @ViewScoped
-public class BeanProduto implements Serializable{
+public class BeanProdutoEdita implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Produto produto = new Produto();
@@ -39,21 +40,23 @@ public class BeanProduto implements Serializable{
 	
 	private String opcao;
 	private Date data;
-	private Boolean isRederiza = false;
+	private Boolean habilita_tipoproduto = false;
 	private Boolean isRederiza2 = false;
 	
-	public BeanProduto() {
+	public BeanProdutoEdita() {
 		data = new Date();
 	}
 	
 	@PostConstruct
 	public void carregar(){
-		lista = servico.consultar();
 		listasubgrupo = servicoSubGrupo.consultar();
 		
-		this.produto = this.getProduto();
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) request.getSession();
+		this.produto = (Produto) session.getAttribute("produtoAux");
 		this.estruturas = this.produto.getEstruturas();
-		this.produto.setDtcadastro(data);
+
+		session.removeAttribute("produtoAux");
 		
 	}
 	
@@ -139,6 +142,14 @@ public class BeanProduto implements Serializable{
 		return totalcusto;		
 	}
 	
+	public boolean habiliata_tipoproduto() {
+		if(produto.getEstruturas().size()>0) {
+			habilita_tipoproduto = true;
+		}else {
+			habilita_tipoproduto = false;
+		}
+		return habilita_tipoproduto;		
+	}
 	
 	public List<Produto> completaproduto(String nome) {
 		return servico.buscaproduto(nome);
@@ -161,16 +172,16 @@ public class BeanProduto implements Serializable{
 		this.estrutura = estrutura;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
 	public List<Estrutura> getEstruturas() {
 		return estruturas;
 	}
 
 	public void setEstruturas(List<Estrutura> estruturas) {
 		this.estruturas = estruturas;
+	}
+
+	public Produto getProduto() {
+		return produto;
 	}
 
 	public void setProduto(Produto produto) {
@@ -201,22 +212,13 @@ public class BeanProduto implements Serializable{
 		this.opcao = opcao;
 	}
 
-	public Boolean getIsRederiza() {
-		return isRederiza;
+	public Boolean getHabilita_tipoproduto() {
+		return habilita_tipoproduto;
 	}
 
-	public void setIsRederiza(Boolean isRederiza) {
-		this.isRederiza = isRederiza;
+	public void setHabilita_tipoproduto(Boolean habilita_tipoproduto) {
+		this.habilita_tipoproduto = habilita_tipoproduto;
 	}
-
-	public Boolean getIsRederiza2() {
-		return isRederiza2;
-	}
-
-	public void setIsRederiza2(Boolean isRederiza2) {
-		this.isRederiza2 = isRederiza2;
-	}
-
 
 	public Date getData() {
 		return data;

@@ -13,7 +13,7 @@ public class ValidadorCPF implements Validator{
 	@Override
 	public void validate(FacesContext fc, UIComponent ui1, Object valor) throws ValidatorException {
 		if(!CPF.validar(valor.toString())){
-			FacesMessage msg = new FacesMessage("CPF Inv�lido","Por favor, informe um valor v�lido!");
+			FacesMessage msg = new FacesMessage("CPF Inválido","Por favor, informe um valor válido!");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(msg);
 		}

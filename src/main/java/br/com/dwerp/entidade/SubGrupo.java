@@ -59,5 +59,30 @@ public class SubGrupo implements Serializable {
 		this.grupo = grupo;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idsubgrupo == null) ? 0 : idsubgrupo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SubGrupo other = (SubGrupo) obj;
+		if (idsubgrupo == null) {
+			if (other.idsubgrupo != null)
+				return false;
+		} else if (!idsubgrupo.equals(other.idsubgrupo))
+			return false;
+		return true;
+	}
+
    
 }

@@ -6,24 +6,25 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import br.com.dwerp.dao.DAOFornecedor;
-import br.com.dwerp.entidade.Fornecedor;
+import br.com.dwerp.dao.DAOEmpresa;
+import br.com.dwerp.entidade.Empresa;
 import br.com.dwerp.hibernate.Transacao;
 
+
 @Dependent
-public class ServicoFornecedor implements Serializable{
+public class ServicoEmpresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private DAOFornecedor dao;
+	private DAOEmpresa dao;
 	
 	@Transacao
-	public void salvar(Fornecedor pessoa){
+	public void salvar(Empresa empresa){
 		try {
-			if(pessoa.getIdfornecedor() == null){
-				dao.salvar(pessoa);
+			if(empresa.getIdempresa() == null){
+				dao.salvar(empresa);
 			}else{
-				dao.alterar(pessoa);
+				dao.alterar(empresa);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,7 +38,7 @@ public class ServicoFornecedor implements Serializable{
 		return dao.excluir(id);
 	}
 	
-	public List<Fornecedor> consultar(){
+	public List<Empresa> consultar(){
 		return dao.consultar();
 	}
 	

@@ -24,43 +24,43 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText id="descricao" value="#{beanProduto.produto.descricao}" required="true" style="text-transform:uppercase;"/>
+						<p:inputText id="descricao" value="#{beanProdutoEdita.produto.descricao}" style="text-transform:uppercase;" />
 						
 						<p:outputLabel value="Descrição Abreviada:" for="descricao_ab" />
-						<p:inputText id="descricao_ab" value="#{beanProduto.produto.descabreviada}" required="true" style="text-transform:uppercase;"/>
+						<p:inputText id="descricao_ab" value="#{beanProdutoEdita.produto.descabreviada}" style="text-transform:uppercase;" />
 						
 						<p:outputLabel value="Ean:" for="ean" />
-						<p:inputText id="ean" value="#{beanProduto.produto.ean}" />
+						<p:inputText id="ean" value="#{beanProdutoEdita.produto.ean}" />
 						
 						<p:outputLabel value="Ativo: " for="situacao" />
 						<p:selectBooleanCheckbox id="situacao"
-						value="#{beanProduto.produto.situacao}" required="true" />
+						value="#{beanProdutoEdita.produto.situacao}" required="true" />
 									
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar autocomplete="#{beanProduto.data}" locale="pt_BR"
+						<p:calendar autocomplete="#{beanProdutoEdita.data}" locale="pt_BR"
 							id="dtcadastro" disabled="true"
-							value="#{beanProduto.produto.dtcadastro}" pattern="dd/MM/yyyy"
+							value="#{beanProdutoEdita.produto.dtcadastro}" pattern="dd/MM/yyyy"
 							mask="true" required="true" effect="fold" />
 						
 						<p:outputLabel value="Grupo/SubGrupo" for="subgrupo" />
-						<p:selectOneMenu id="subgrupo"	value="#{beanProduto.produto.subgrupo}" 
+						<p:selectOneMenu id="subgrupo"	value="#{beanProdutoEdita.produto.subgrupo}" 
 						filter="true" filterMatchMode="contains" converter="conversorSubGrupo">
 						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanProduto.listasubgrupo}" var="subs"
+						<f:selectItems value="#{beanProdutoEdita.listasubgrupo}" var="subs"
 								itemLabel="#{subs.grupo.nome} / #{subs.nome}" itemValue="#{subs}" />
                    		</p:selectOneMenu>
 							
 						<p:outputLabel value="Valor Custo:" for="valor_custo" />
 						<p:inputNumber id="valor_custo" emptyValue="true"
-							value="#{beanProduto.produto.valor_custo}" />
+							value="#{beanProdutoEdita.produto.valor_custo}" />
 							
 						<p:outputLabel value="Valor Venda:" for="valor_venda" />
 						<p:inputNumber id="valor_venda" emptyValue="true"
-							value="#{beanProduto.produto.valor_venda}" />
+							value="#{beanProdutoEdita.produto.valor_venda}" />
 							
 						<p:outputLabel value="Tipo Produto:" for="tipoproduto" />
-						<p:selectOneMenu id="tipoproduto"
-							value="#{beanProduto.produto.tipoproduto}">
+						<p:selectOneMenu id="tipoproduto" disabled="#{beanProdutoEdita.habiliata_tipoproduto()}"
+							value="#{beanProdutoEdita.produto.tipoproduto}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="Acabado" itemValue="ACABADO" />
 							<f:selectItem itemLabel="Matéria-Prima" itemValue="MATERIA-PRIMA" />
@@ -77,13 +77,13 @@
 					<p:commandButton id="nve" value="Novo" icon="fa fa-plus"
 						styleClass="btn-primary"
 						style="margin-top: 10px; horizontal-align:left;"
-						action="#{beanProduto.addNovoEstrutura}"
+						action="#{beanProdutoEdita.addNovoEstrutura}"
 						oncomplete="PF('dialogp').show()">
 						<f:setPropertyActionListener
-							target="#{beanProduto.estrutura.produto}"
-							value="#{beanProduto.produto}" />
+							target="#{beanProdutoEdita.estrutura.produto}"
+							value="#{beanProdutoEdita.produto}" />
 					</p:commandButton>
-					<p:dataTable id="tabela" value="#{beanProduto.estruturas}" var="items">
+					<p:dataTable id="tabela" value="#{beanProdutoEdita.estruturas}" var="items">
 						<f:facet name="header">Lista Estrutura</f:facet>
 						<p:column headerText="Cód. Produto" width="10%">
 								#{items.produto_estrutura.idproduto}
@@ -103,17 +103,17 @@
 
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanProduto.removerEstrutura}"
+							<p:commandButton action="#{beanProdutoEdita.removerEstrutura}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanProduto.estruturas}" icon="ui-icon-trash"
+								oncomplete="#{beanProdutoEdita.estruturas}" icon="ui-icon-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{items}"
-									target="#{beanProduto.estrutura}" />
+									target="#{beanProdutoEdita.estrutura}" />
 							</p:commandButton>
 							<p:commandButton oncomplete="PF('dialogp').show();"
 								icon="ui-icon-pencil" update=":form:dlg">
 								<f:setPropertyActionListener value="#{items}"
-									target="#{beanProduto.estrutura}" />
+									target="#{beanProdutoEdita.estrutura}" />
 							</p:commandButton>
 
 						</p:column>
@@ -122,15 +122,14 @@
 								<p:row>
 									<p:column colspan="4" style="text-align:right"
 										footerText="Total Custo:" />
-									<p:column footerText="R$ #{beanProduto.TotalCusto()}" />
+									<p:column footerText="R$ #{beanProdutoEdita.TotalCusto()}" />
 								</p:row>
 						</p:columnGroup>
-						
+							
 					</p:dataTable>
-					<!-- dados de estrutura -->
+					<!-- dados de estrutura -->					
 				</p:tab>
 			</p:tabView>
-			
 			
 			<p:dialog id="dlg" header="Estrutura" widgetVar="dialogp"
 				responsive="true" resizable="true" modal="false" position="center">
@@ -139,18 +138,16 @@
 					<p:outputLabel value="Produto" for="produto_estrutura" />
 					<h:panelGroup>
 						<p:autoComplete id="produto_estrutura"
-							value="#{beanProduto.estrutura.produto_estrutura}" size="30"
-							completeMethod="#{beanProduto.completaproduto}" var="c"
+							value="#{beanProdutoEdita.estrutura.produto_estrutura}" size="30"
+							completeMethod="#{beanProdutoEdita.completaproduto}" var="c"
 							itemLabel="#{c.idproduto} - #{c.descricao}" itemValue="#{c}"
-							forceSelection="true" converter="conversorProduto" >
-							
-							</p:autoComplete>
+							forceSelection="true" converter="conversorProduto" />
 						<p:watermark value="Pesquise pelo Nome ou Código" for="produto_estrutura"></p:watermark>
 					</h:panelGroup>		
 					
 					<p:outputLabel value="Quantidade" for="qtde_estrutura" />
 					<p:inputNumber id="qtde_estrutura"
-					value="#{beanProduto.estrutura.qtde_estrutura}"  />
+					value="#{beanProdutoEdita.estrutura.qtde_estrutura}"  />
 					
 					
 
@@ -158,13 +155,12 @@
 
 				<p:commandButton id="sle" icon="fa fa-check"
 					styleClass="btn-primary"
-					action="#{beanProduto.editarsalvarEstrutura()}" value="Salvar"
+					action="#{beanProdutoEdita.editarsalvarEstrutura()}" value="Salvar"
 					ajax="false">
 				</p:commandButton>
 			</p:dialog>
 			
-			
-					<p:commandButton action="#{beanProduto.salvar()}" value="Salvar"
+					<p:commandButton action="#{beanProdutoEdita.salvar()}" value="Salvar"
 						icon="fa fa-check" styleClass="btn-primary" update="erros"/>
 				</h:form>
 			</p:panel>

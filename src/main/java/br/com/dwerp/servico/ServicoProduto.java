@@ -7,6 +7,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import br.com.dwerp.dao.DAOProduto;
+import br.com.dwerp.entidade.Cidade;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.hibernate.Transacao;
 
@@ -39,6 +40,14 @@ public class ServicoProduto implements Serializable{
 	
 	public List<Produto> consultar(){
 		return dao.consultar();
+	}
+	
+	public List<Produto> buscaproduto(String nome){
+		List<Produto> v = null;
+		if(!nome.equals("")){
+			v = dao.buscaproduto(nome);
+		}
+		return v;
 	}
 
 

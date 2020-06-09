@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="tbproduto")
@@ -16,9 +21,9 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idproduto;
-	@Column(nullable=false,columnDefinition="varchar(300)")
+	@Column(nullable=false,columnDefinition="varchar(120)")
 	private String descricao;
-	@Column(nullable=false,columnDefinition="varchar(100)")
+	@Column(nullable=false,columnDefinition="varchar(50)")
 	private String descabreviada;
 	@Column(nullable=false) 
 	@Temporal(TemporalType.DATE)
@@ -29,16 +34,26 @@ public class Produto implements Serializable {
 	private Boolean situacao;
 	@ManyToOne
 	private SubGrupo subgrupo;
+	//acabado
+	//materia-prima
+	//componente
+	@Column(nullable=true)
+	private String tipoproduto;
 	
 	@Column(nullable=true, columnDefinition="numeric(6,2)")
 	private double valor_custo;
 	@Column(nullable=true, columnDefinition="numeric(6,2)")
 	private double valor_venda;
+	
 	@Column(nullable=true, columnDefinition="bytea")
 	private byte[] imagem;
 	
 	//exemplo de como salvar e buscar imagem
 	//http://pgdocptbr.sourceforge.net/pg74/jdbc-binary-data.html
+	
+	@OneToMany(mappedBy="produto", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+    private List<Estrutura> estruturas = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 
@@ -112,6 +127,21 @@ public class Produto implements Serializable {
 	}
 	public void setDtcadastro(Date dtcadastro) {
 		this.dtcadastro = dtcadastro;
+	}
+	
+	
+	public String getTipoproduto() {
+		return tipoproduto;
+	}
+	public void setTipoproduto(String tipoproduto) {
+		this.tipoproduto = tipoproduto;
+	}
+	
+	public List<Estrutura> getEstruturas() {
+		return estruturas;
+	}
+	public void setEstruturas(List<Estrutura> estruturas) {
+		this.estruturas = estruturas;
 	}
 	@Override
 	public int hashCode() {

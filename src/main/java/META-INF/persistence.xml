@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="dwerp" transaction-type="RESOURCE_LOCAL">
-	
-		<class>br.com.dwerp.entidade.Cliente</class>
 		<class>br.com.dwerp.entidade.Cidade</class>
 		<class>br.com.dwerp.entidade.Estado</class>
 		<class>br.com.dwerp.entidade.Usuario</class>
 		<class>br.com.dwerp.entidade.CondPgto</class>
 		<class>br.com.dwerp.entidade.FormaPag</class>
-		<class>br.com.dwerp.entidade.Fornecedor</class>
 		<class>br.com.dwerp.entidade.CentroConsumo</class>
 		<class>br.com.dwerp.entidade.Produto</class>
 		<class>br.com.dwerp.entidade.Grupo</class>
@@ -23,6 +20,8 @@
 		<class>br.com.dwerp.entidade.SituacaoTributaria</class>
 		<class>br.com.dwerp.entidade.SituacaoTributariaIPI</class>
 		<class>br.com.dwerp.entidade.SituacaoTributariaPISCOFINS</class>
+		<class>br.com.dwerp.entidade.Empresa</class>
+		<class>br.com.dwerp.entidade.Estrutura</class>
 	
 		<properties>
 			

@@ -11,31 +11,30 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+
 import br.com.dwerp.entidade.Cidade;
-import br.com.dwerp.entidade.Cliente;
+import br.com.dwerp.entidade.Empresa;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
-import br.com.dwerp.servico.ServicoCliente;
+import br.com.dwerp.servico.ServicoEmpresa;
 
 @Named
 @ViewScoped
-public class BeanCliente implements Serializable{
+public class BeanEmpresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Cliente pessoa = new Cliente();
+	private Empresa empresa = new Empresa();
 	@Inject
-	private ServicoCliente servico;
-	private List<Cliente> lista;
+	private ServicoEmpresa servico;
+	private List<Empresa> lista;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
 	
 	private String opcao;
 	private Date data;
-	private Boolean isRederiza = false;
-	private Boolean isRederiza2 = false;
 	
-	public BeanCliente() {
+	public BeanEmpresa() {
 		data = new Date();
 	}
 	
@@ -43,17 +42,17 @@ public class BeanCliente implements Serializable{
 	public void carregar(){
 		lista = servico.consultar();
 		
-		this.pessoa = this.getPessoa();
-		this.pessoa.setDtcadastro(data);
+		this.empresa = this.getEmpresa();
+		this.empresa.setDtcadastro(data);
 		
 	}
 	
 	public String salvar(){
-		if(pessoa.getIdcliente() == null){
-			pessoa.setDtcadastro(data);
+		if(empresa.getIdempresa() == null){
+			empresa.setDtcadastro(data);
 		}
 		try{
-		servico.salvar(pessoa);
+		servico.salvar(empresa);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro já existente!");
@@ -62,12 +61,12 @@ public class BeanCliente implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-cliente";
+		return "lista-empresa";
 	}
 
 	public String excluir() {
 		try{
-		servico.excluir(pessoa.getIdcliente());
+		servico.excluir(empresa.getIdempresa());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro utilizado em outro local!");
@@ -77,35 +76,16 @@ public class BeanCliente implements Serializable{
 		}
 		lista = servico.consultar();
 
-		return "lista-cliente";
+		return "lista-empresa";
 	}
 	
-	/* editar cliente */
+	/* editar cadastro */
 	public String encaminha() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
-		session.setAttribute("clienteAux", this.pessoa);
+		session.setAttribute("empresaAux", this.empresa);
 
-		return "edita-cliente";
-	}
-	
-	public void renderizar() {
-		if (this.pessoa.getTipojf().equals("J")) {
-			isRederiza = true;
-			isRederiza2 = false;
-			pessoa.setCpf(null);
-			pessoa.setRg(null);
-
-		}
-		if (this.pessoa.getTipojf().equals("F")) {
-			isRederiza = false;
-			isRederiza2 = true;
-			pessoa.setCnpj(null);
-			pessoa.setInsc_estadual(null);
-			pessoa.setRazao_social(null);
-
-		}
-
+		return "edita-empresa";
 	}
 	
 	public List<Cidade> completaCidade(String nome) {
@@ -120,30 +100,6 @@ public class BeanCliente implements Serializable{
 		this.opcao = opcao;
 	}
 
-	public Boolean getIsRederiza() {
-		return isRederiza;
-	}
-
-	public void setIsRederiza(Boolean isRederiza) {
-		this.isRederiza = isRederiza;
-	}
-
-	public Boolean getIsRederiza2() {
-		return isRederiza2;
-	}
-
-	public void setIsRederiza2(Boolean isRederiza2) {
-		this.isRederiza2 = isRederiza2;
-	}
-
-	public Cliente getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Cliente pessoa) {
-		this.pessoa = pessoa;
-	}
-
 	public Date getData() {
 		return data;
 	}
@@ -152,13 +108,20 @@ public class BeanCliente implements Serializable{
 		this.data = data;
 	}
 
-	public List<Cliente> getLista() {
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public List<Empresa> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cliente> lista) {
+	public void setLista(List<Empresa> lista) {
 		this.lista = lista;
 	}
-	
 
 }

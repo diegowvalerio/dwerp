@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.dwerp.entidade.Cidade;
-import br.com.dwerp.entidade.Cliente;
+import br.com.dwerp.entidade.Empresa;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
-import br.com.dwerp.servico.ServicoCliente;
+import br.com.dwerp.servico.ServicoEmpresa;
 
 @Named
 @ViewScoped
-public class BeanClienteEdita implements Serializable{
+public class BeanEmpresaEdita implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Cliente pessoa = new Cliente();
+	private Empresa cadastroGeral = new Empresa();
 	@Inject
-	private ServicoCliente servico;
-	private List<Cliente> lista;
+	private ServicoEmpresa servico;
+	private List<Empresa> lista;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
@@ -41,17 +41,15 @@ public class BeanClienteEdita implements Serializable{
 		
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) request.getSession();
-		this.pessoa = (Cliente) session.getAttribute("clienteAux");
+		this.cadastroGeral = (Empresa) session.getAttribute("empresaAux");
 
-		renderizar();
-
-		session.removeAttribute("clienteAux");
+		session.removeAttribute("empresaAux");
 		
 	}
 	
 	public String salvar(){
 		try{
-		servico.salvar(pessoa);
+		servico.salvar(cadastroGeral);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro já existente!");
@@ -60,12 +58,12 @@ public class BeanClienteEdita implements Serializable{
 			}
 		}
 		lista = servico.consultar();
-		return "lista-cliente";
+		return "lista-empresa";
 	}
 
 	public String excluir() {
 		try{
-		servico.excluir(pessoa.getIdcliente());
+		servico.excluir(cadastroGeral.getIdempresa());
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
 				FacesMessageUtil.addMensagemError("Registro utilizado em outro local!");
@@ -75,28 +73,9 @@ public class BeanClienteEdita implements Serializable{
 		}
 		lista = servico.consultar();
 
-		return "lista-cliente";
+		return "lista-empresa";
 	}
-	
-	public void renderizar() {
-		if (this.pessoa.getTipojf().equals("J")) {
-			isRederiza = true;
-			isRederiza2 = false;
-			pessoa.setCpf(null);
-			pessoa.setRg(null);
-
-		}
-		if (this.pessoa.getTipojf().equals("F")) {
-			isRederiza = false;
-			isRederiza2 = true;
-			pessoa.setCnpj(null);
-			pessoa.setInsc_estadual(null);
-			pessoa.setRazao_social(null);
-
-		}
-
-	}
-	
+		
 	public List<Cidade> completaCidade(String nome) {
 		return servicoCidade.buscacidadenome(nome);
 	}
@@ -125,12 +104,12 @@ public class BeanClienteEdita implements Serializable{
 		this.isRederiza2 = isRederiza2;
 	}
 
-	public Cliente getPessoa() {
-		return pessoa;
+	public Empresa getEmpresa() {
+		return cadastroGeral;
 	}
 
-	public void setPessoa(Cliente pessoa) {
-		this.pessoa = pessoa;
+	public void setEmpresa(Empresa cadastroGeral) {
+		this.cadastroGeral = cadastroGeral;
 	}
 
 	public Date getData() {
@@ -141,11 +120,11 @@ public class BeanClienteEdita implements Serializable{
 		this.data = data;
 	}
 
-	public List<Cliente> getLista() {
+	public List<Empresa> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Cliente> lista) {
+	public void setLista(List<Empresa> lista) {
 		this.lista = lista;
 	}
 	

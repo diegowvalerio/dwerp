@@ -25,15 +25,15 @@
 	</ui:define>
 
 	<ui:define name="title">
-        Pesquisa Empresa
+        Pesquisa Cadastro
     </ui:define>
 
 	<ui:define name="description">
-        Pesquise ... 
+       ... 
     </ui:define>
 
 	<ui:define name="body">
-		<adm:breadcrumb title="Pesquisa Empresa" />
+		<adm:breadcrumb title="Pesquisa Cadastro" />
 
 		<h:form id="form">
 			<div class="box box-primary">
@@ -46,40 +46,54 @@
 
 					<p:separator />
 
-
 					<p:dataTable id="EmpresaTable" widgetVar="EmpresaTable" rows="10"
 						value="#{beanEmpresa.lista}" var="empresa"
-						rowKey="#{empresa.idpessoa}" paginator="true"
+						rowKey="#{empresa.idempresa}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
 
 						<p:column headerText="Id" style="text-align:right" width="3%">
-						<h:outputLabel value="#{empresa.idpessoa}" />
+							<h:outputLabel value="#{empresa.idempresa}" />
 						</p:column>
-						<p:column headerText="Nome"
-						filterBy="#{empresa.nome}"
-						sortBy="#{empresa.nome}" filterMatchMode="contains">
-						<h:outputLabel value="#{empresa.nome}" />
+						
+						<p:column headerText="Nome" filterBy="#{empresa.nome}"
+							sortBy="#{empresa.nome}" filterMatchMode="contains">
+							<h:outputLabel value="#{empresa.nome}" style="text-transform:uppercase;"/>
 						</p:column>
-
+						
+						<p:column headerText="Telefone" filterBy="#{empresa.numerocontato}"
+							sortBy="#{empresa.numerocontato}" filterMatchMode="contains">
+							<h:outputLabel value="#{empresa.numerocontato}" />
+						</p:column>
+						
+						<p:column headerText="Email" filterBy="#{empresa.email}"
+							sortBy="#{empresa.email}" filterMatchMode="contains">
+							<h:outputLabel value="#{empresa.email}" />
+						</p:column>
+						
+						<p:column headerText="Cidade" filterBy="#{empresa.cidade.nome}"
+							sortBy="#{empresa.cidade.nome}" filterMatchMode="contains">
+							<h:outputLabel value="#{empresa.cidade.nome}" />
+						</p:column>
+						
+						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
 							<p:commandButton action="#{beanEmpresa.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanEmpresa.lista}"  icon="fa fa-trash"
+								oncomplete="#{beanEmpresa.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{empresa}"
 									target="#{beanEmpresa.empresa}" />
 							</p:commandButton>
 
-							<p:commandButton  icon="fa fa-edit"
+							<p:commandButton icon="fa fa-edit"
 								action="#{beanEmpresa.encaminha()}">
 								<f:setPropertyActionListener value="#{empresa}"
 									target="#{beanEmpresa.empresa}" />
 							</p:commandButton>
-							
 
 						</p:column>
 

@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.dwerp.dao.generico.DAOGenerico;
 import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.entidade.Produto;
 
 
 public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
@@ -64,6 +65,20 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		Criteria criteria = session.createCriteria(Cidade.class);
 		
 		criteria.add(Restrictions.ilike("nome", e.toUpperCase(),MatchMode.START));
+		
+		return criteria.list();
+	}
+	
+	//busca produto por nome
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<E> buscaproduto(String e){
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Produto.class);
+		
+		criteria.add(Restrictions.ilike("descricao", e.toUpperCase(),MatchMode.START));
+		//criteria.add(Restrictions.in("tipoproduto",new String[] {"MATERIA-PRIMA","COMPONENTE"}));
+		criteria.add(Restrictions.not(Restrictions.in("tipoproduto", "ACABADO")));
 		
 		return criteria.list();
 	}

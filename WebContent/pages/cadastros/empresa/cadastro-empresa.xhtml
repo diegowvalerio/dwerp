@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Empresa" link="cadastro-empresa.xhtml" />
+		<h:form id="form">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+				
+					<p:panelGrid columns="4" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+							
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanEmpresa.empresa.nome}"
+							required="true" style="text-transform:uppercase;">
+						</p:inputText>
+						
+						<p:outputLabel value="Razão Social:" for="razao_social"/>
+						<p:inputText id="razao_social"
+							value="#{beanEmpresa.empresa.razao_social}" required="true"
+							style="text-transform:uppercase;"/>
+							
+						<p:outputLabel value="Cnpj:" for="cnpj" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+							value="#{beanEmpresa.empresa.cnpj}" required="true"
+							validator="cnpjValidador" />
+							
+						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"/>
+						<p:inputText id="insc_estadual"
+							value="#{beanEmpresa.empresa.insc_estadual}" required="true"
+							 style="text-transform:uppercase;"/>
+							
+						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
+						<p:calendar autocomplete="#{beanEmpresa.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanEmpresa.empresa.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:tabView>
+			
+			
+			<p:tabView dynamic="false" cache="false" id="tabendereco">
+				<!-- dados de endereco  -->
+				<p:tab title="Endereço" id="endereco">
+
+					<p:panelGrid id="painelDados2" columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+
+						<p:outputLabel value="Cep:" for="cep" />
+						<p:inputMask mask="99.999-999" id="cep"
+							value="#{beanEmpresa.empresa.cep}" />
+
+						<p:outputLabel value="Cidade:" for="cidade" />
+						<h:panelGroup>
+							<p:autoComplete id="cidade"
+								value="#{beanEmpresa.empresa.cidade}" size="30"
+								completeMethod="#{beanEmpresa.completaCidade}" var="c"
+								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
+								forceSelection="true" converter="conversorCidade" />
+							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
+						</h:panelGroup>
+
+						<p:outputLabel value="Logradouro:" for="logradouro" />
+						<p:inputText id="logradouro"
+							value="#{beanEmpresa.empresa.logadouro}" maxlength="100" style="text-transform:uppercase;"/>
+						<p:outputLabel value="Bairro:" for="bairro" />
+						<p:inputText id="bairro" value="#{beanEmpresa.empresa.bairro}"
+							maxlength="40" style="text-transform:uppercase;"/>
+						<p:outputLabel value="Numero:" for="numero" />
+						<p:inputText id="numero" value="#{beanEmpresa.empresa.numero}"
+							maxlength="10" />
+						<p:outputLabel value="Complemento:" for="complemento" />
+						<p:inputText id="complemento"
+							value="#{beanEmpresa.empresa.complemento}" maxlength="150" />
+							
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" value="#{beanEmpresa.empresa.email}"
+							maxlength="100" style="text-transform:lowercase"/>
+							
+						<p:outputLabel value="Telefone:" for="numerocontato" />
+						<p:inputText id="numerocontato"
+							value="#{beanEmpresa.empresa.numerocontato}" maxlength="15" />
+							
+					</p:panelGrid>
+					<!-- dados de endereco -->
+				</p:tab>
+				
+				<!-- dados de fiscal  -->
+				<p:tab title="Fiscal" id="fiscal">
+
+					<p:panelGrid id="painelDados4" columns="04"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Suframa:" for="insc_suframa" />
+						<p:inputText id="insc_suframa" style="text-transform:uppercase;"
+							value="#{beanEmpresa.empresa.insc_suframa}" maxlength="10" />	
+							
+					<p:outputLabel value="Regime Tributavél" for="regimetributavel" />
+						<p:selectOneMenu id="regimetributavel" value="#{beanEmpresa.empresa.regimetributavel}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Simples Nacional" itemValue="1" />
+							<f:selectItem itemLabel="Simples Nacional, excesso sublimite de receita bruta" itemValue="2" />
+							<f:selectItem itemLabel="Regime Normal" itemValue="3" />
+						</p:selectOneMenu>	
+						
+					</p:panelGrid>	
+					<!-- dados de fiscal -->
+				</p:tab>
+			</p:tabView>
+
+			<p:commandButton action="#{beanEmpresa.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
