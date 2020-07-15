@@ -54,8 +54,8 @@
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
-						<p:column headerText="Id" style="text-align:right" width="7%" sortBy="#{produto.idproduto}" 
-							filterBy="#{produto.idproduto}" filterMatchMode="contains">
+						<p:column headerText="Id" style="text-align:right" width="7%" filterBy="#{produto.idproduto}" 
+						sortBy="#{produto.idproduto}" filterMatchMode="contains">
 							<h:outputLabel value="#{produto.idproduto}" />
 						</p:column>
 						
