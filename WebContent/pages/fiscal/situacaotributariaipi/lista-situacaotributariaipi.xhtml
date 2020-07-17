@@ -48,7 +48,7 @@
 
 
 					<p:dataTable id="situacaotributariaipiTable" widgetVar="situacaotributariaipiTable" rows="10"
-						value="#{beanEditaSituacaoTributariaIPI.lista}" var="situacaotributariaipi"
+						value="#{beanSituacaoTributariaIPIEdita.lista}" var="situacaotributariaipi"
 						rowKey="#{situacaotributariaipi.idsituacaotributariaipi}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
@@ -65,17 +65,17 @@
 						</p:column>
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanEditaSituacaoTributariaIPI.excluir()}"
+							<p:commandButton action="#{beanSituacaoTributariaIPIEdita.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanEditaSituacaoTributariaIPI.lista}" icon="fa fa-trash"
+								oncomplete="#{beanSituacaoTributariaIPIEdita.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{situacaotributariaipi}"
-									target="#{beanEditaSituacaoTributariaIPI.situacaoTributariaIPI}" />
+									target="#{beanSituacaoTributariaIPIEdita.situacaoTributariaIPI}" />
 							</p:commandButton>
 							<p:commandButton oncomplete="PF('dialog').show();"
 								update=":fdlg:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{situacaotributariaipi}"
-									target="#{beanEditaSituacaoTributariaIPI.situacaoTributariaIPI}" />
+									target="#{beanSituacaoTributariaIPIEdita.situacaoTributariaIPI}" />
 							</p:commandButton>
 							
 						</p:column>
@@ -92,15 +92,15 @@
 					<p:panelGrid id="painelDados" columns="2">
 					
 						<p:outputLabel value="Situação Tributária:" for="situacaotributariaipi" />
-						<p:inputText id="situacaotributariaipi" value="#{beanEditaSituacaoTributariaIPI.situacaoTributariaIPI.situacaotributariaipi}" />
+						<p:inputText id="situacaotributariaipi" value="#{beanSituacaoTributariaIPIEdita.situacaoTributariaIPI.situacaotributariaipi}" />
 										
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="80" id="descricao" value="#{beanEditaSituacaoTributariaIPI.situacaoTributariaIPI.nomesituacaotributariaipi}" />
+						<p:inputText size="80" id="descricao" value="#{beanSituacaoTributariaIPIEdita.situacaoTributariaIPI.nomesituacaotributariaipi}" />
 											
 						
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanEditaSituacaoTributariaIPI.salvar()}" ajax="false" />
+						action="#{beanSituacaoTributariaIPIEdita.salvar()}" ajax="false" />
 				</h:form>
 			</p:dialog>
 	</ui:define>

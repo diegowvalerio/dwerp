@@ -28,7 +28,7 @@ public class BeanSituacaoTributaria implements Serializable{
 		servico.salvar(situacaotributaria);
 		}catch(Exception e){
 			if(e.getCause().toString().contains("ConstraintViolationException")){
-				FacesMessageUtil.addMensagemError("Registro j� existente! N�o foi poss�vel realizar a opera��o.");
+				FacesMessageUtil.addMensagemError("Registro já existente! Não foi possivel realizar a operação.");
 			}else{
 				FacesMessageUtil.addMensagemError(e.getCause().toString());
 			}

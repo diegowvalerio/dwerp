@@ -40,6 +40,10 @@ public class ServicoSubGrupo implements Serializable{
 	public List<SubGrupo> consultar(){
 		return dao.consultar();
 	}
+	
+	public List<SubGrupo> consultar_ativos(){
+		return dao.consultar_ativos();
+	}
 
 
 }

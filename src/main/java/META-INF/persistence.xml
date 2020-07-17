@@ -11,7 +11,6 @@
 		<class>br.com.dwerp.entidade.Grupo</class>
 		<class>br.com.dwerp.entidade.SubGrupo</class>
 		<class>br.com.dwerp.entidade.CadastroGeral</class>
-		<class>br.com.dwerp.entidade.Cest</class>
 		<class>br.com.dwerp.entidade.Cfop</class>
 		<class>br.com.dwerp.entidade.Cnae</class>
 		<class>br.com.dwerp.entidade.Ncm</class>
@@ -22,6 +21,7 @@
 		<class>br.com.dwerp.entidade.SituacaoTributariaPISCOFINS</class>
 		<class>br.com.dwerp.entidade.Empresa</class>
 		<class>br.com.dwerp.entidade.Estrutura</class>
+		<class>br.com.dwerp.entidade.Cest</class>
 	
 		<properties>
 			

@@ -34,6 +34,10 @@ public class Produto implements Serializable {
 	private Boolean situacao;
 	@ManyToOne
 	private SubGrupo subgrupo;
+	@ManyToOne
+	private Cest cest;
+	@ManyToOne
+	private Ncm ncm;
 	//acabado
 	//materia-prima
 	//componente
@@ -142,6 +146,19 @@ public class Produto implements Serializable {
 	}
 	public void setEstruturas(List<Estrutura> estruturas) {
 		this.estruturas = estruturas;
+	}
+	
+	public Cest getCest() {
+		return cest;
+	}
+	public void setCest(Cest cest) {
+		this.cest = cest;
+	}
+	public Ncm getNcm() {
+		return ncm;
+	}
+	public void setNcm(Ncm ncm) {
+		this.ncm = ncm;
 	}
 	@Override
 	public int hashCode() {

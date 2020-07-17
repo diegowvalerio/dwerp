@@ -67,6 +67,22 @@
 							<f:selectItem itemLabel="Componente" itemValue="COMPONENTE" />
 							<f:selectItem itemLabel="Serviço" itemValue="SERVICO" />
 						</p:selectOneMenu>	
+						
+						<p:outputLabel value="Cest:" for="cest" />
+						<p:selectOneMenu id="cest"	value="#{beanProduto.produto.cest}" 
+						filter="true" filterMatchMode="contains" converter="conversorCest">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanProduto.listacest}" var="cests"
+								itemLabel="#{cests.cest} / #{cests.descricao}" itemValue="#{cests}" />
+                   		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="Ncm:" for="ncm" />
+						<p:selectOneMenu id="ncm"	value="#{beanProduto.produto.ncm}" 
+						filter="true" filterMatchMode="contains" converter="conversorNcm">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanProduto.listancm}" var="ncms"
+								itemLabel="#{ncms.ncm} / #{ncms.descricao}" itemValue="#{ncms}" />
+                   		</p:selectOneMenu>
 									
 					</p:panelGrid>
 				</p:tab>
@@ -129,8 +145,23 @@
 					</p:dataTable>
 					<!-- dados de estrutura -->
 				</p:tab>
+				
+				<!-- dados de imagem  -->
+				<p:tab title="Imagem" id="tabimagem">
+				
+					<p:graphicImage value="#{beanProdutoImg.image}" id="imagem" >
+						<f:param name="id" value="#{beanProduto.produto.idproduto}"></f:param>
+					</p:graphicImage>
+					
+					<p:separator></p:separator>
+					
+					<p:fileUpload label="Buscar" cancelLabel="Cancelar" id="upload" mode="advanced" fileUploadListener="#{beanProduto.upload}" 
+					allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="form:tabview:imagem"/>
+								
+				</p:tab>
 			</p:tabView>
 			
+			<p:separator></p:separator>
 			
 			<p:dialog id="dlg" header="Estrutura" widgetVar="dialogp"
 				responsive="true" resizable="true" modal="false" position="center">

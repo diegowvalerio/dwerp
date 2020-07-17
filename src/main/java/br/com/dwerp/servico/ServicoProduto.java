@@ -38,8 +38,16 @@ public class ServicoProduto implements Serializable{
 		return dao.excluir(id);
 	}
 	
+	public Produto consultar(Integer id) {
+		return dao.consultar(id);
+	}
+	
 	public List<Produto> consultar(){
 		return dao.consultar();
+	}
+	
+	public List<Produto> consultar_ativos(){
+		return dao.consultar_ativos();
 	}
 	
 	public List<Produto> buscaproduto(String nome){

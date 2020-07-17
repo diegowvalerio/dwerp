@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -58,6 +59,12 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		return manager.createQuery("from "+classeEntidade.getSimpleName()).getResultList();
 	}
 	
+	@Override
+	public List<E> consultar_ativos() {		
+		return manager.createQuery("from "+classeEntidade.getSimpleName()+" where situacao = true").getResultList();
+	}
+	
+	
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<E> buscacidadenome(String e){
@@ -77,8 +84,8 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		Criteria criteria = session.createCriteria(Produto.class);
 		
 		criteria.add(Restrictions.ilike("descricao", e.toUpperCase(),MatchMode.START));
-		//criteria.add(Restrictions.in("tipoproduto",new String[] {"MATERIA-PRIMA","COMPONENTE"}));
 		criteria.add(Restrictions.not(Restrictions.in("tipoproduto", "ACABADO")));
+		criteria.add(Restrictions.eq("situacao", Boolean.TRUE));
 		
 		return criteria.list();
 	}

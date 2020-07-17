@@ -48,7 +48,7 @@
 
 
 					<p:dataTable id="cestTable" widgetVar="cestTable" rows="10"
-						value="#{beanEditaCest.lista}" var="cest"
+						value="#{beanCestEdita.lista}" var="cest"
 						rowKey="#{cest.idcest}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
@@ -65,17 +65,17 @@
 						</p:column>
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanEditaCest.excluir()}"
+							<p:commandButton action="#{beanCestEdita.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanEditaCest.lista}" icon="fa fa-trash"
+								oncomplete="#{beanCestEdita.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
 								<f:setPropertyActionListener value="#{cest}"
-									target="#{beanEditaCest.cest}" />
+									target="#{beanCestEdita.cest}" />
 							</p:commandButton>
 							<p:commandButton oncomplete="PF('dialog').show();"
 								update=":fdlg:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{cest}"
-									target="#{beanEditaCest.cest}" />
+									target="#{beanCestEdita.cest}" />
 							</p:commandButton>
 							
 						</p:column>
@@ -92,18 +92,18 @@
 					<p:panelGrid id="painelDados" columns="2">
 					
 						<p:outputLabel value="Cest:" for="cest" />
-						<p:inputText id="cest" value="#{beanEditaCest.cest.cest}" />
+						<p:inputText id="cest" value="#{beanCestEdita.cest.cest}" />
 						
 						<p:outputLabel value="Ncm:" for="ncm" />
-						<p:inputText id="ncm" value="#{beanEditaCest.cest.ncm}" />
+						<p:inputText id="ncm" value="#{beanCestEdita.cest.ncm}" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanEditaCest.cest.descricao}" />
+						<p:inputText size="100" id="descricao" value="#{beanCestEdita.cest.descricao}" />
 											
 						
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanEditaCest.salvar()}" ajax="false" />
+						action="#{beanCestEdita.salvar()}" ajax="false" />
 				</h:form>
 			</p:dialog>
 	</ui:define>

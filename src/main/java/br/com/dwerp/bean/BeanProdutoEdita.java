@@ -1,10 +1,17 @@
 package br.com.dwerp.bean;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -12,12 +19,18 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 import br.com.dwerp.entidade.SubGrupo;
-import br.com.dwerp.entidade.Empresa;
+import br.com.dwerp.entidade.Cest;
 import br.com.dwerp.entidade.Estrutura;
+import br.com.dwerp.entidade.Ncm;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoSubGrupo;
+import br.com.dwerp.servico.ServicoCest;
+import br.com.dwerp.servico.ServicoNcm;
 import br.com.dwerp.servico.ServicoProduto;
 
 @Named
@@ -36,6 +49,14 @@ public class BeanProdutoEdita implements Serializable{
 	private SubGrupo subGrupo = new SubGrupo();
 	private List<SubGrupo> listasubgrupo;
 	
+	@Inject
+	private ServicoCest servicoCest;
+	private List<Cest> listacest;
+	
+	@Inject
+	private ServicoNcm servicoNcm;
+	private List<Ncm> listancm;
+	
 	private List<Estrutura> estruturas;
 	
 	private String opcao;
@@ -50,6 +71,8 @@ public class BeanProdutoEdita implements Serializable{
 	@PostConstruct
 	public void carregar(){
 		listasubgrupo = servicoSubGrupo.consultar();
+		listacest = servicoCest.consultar();
+		listancm = servicoNcm.consultar();
 		
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) request.getSession();
@@ -59,6 +82,7 @@ public class BeanProdutoEdita implements Serializable{
 		session.removeAttribute("produtoAux");
 		
 	}
+
 	
 	public String salvar(){
 		if(produto.getIdproduto() == null){
@@ -93,11 +117,15 @@ public class BeanProdutoEdita implements Serializable{
 	}
 	
 	public void addNovoEstrutura() {
+		if (this.produto.getTipoproduto().equals("MATERIA-PRIMA")) {
+			FacesMessageUtil.addMensagemInfo("Matéria-Prima não pode possuir estrutura");
+		}else {
 		if (this.produto.getDescricao() == null) {
 			throw new RuntimeException("O Nome do Produto não pode ser nulo");
 		} else {
 			estrutura = new Estrutura();
 			estrutura.setProduto(produto);
+		}
 		}
 	}
 	
@@ -109,7 +137,9 @@ public class BeanProdutoEdita implements Serializable{
 	}
 	
 	public void editarsalvarEstrutura() {
-
+		if (this.produto.getTipoproduto().equals("MATERIA-PRIMA")) {
+			FacesMessageUtil.addMensagemInfo("Matéria-Prima não pode possuir estrutura");
+		}else {
 		if (estrutura.getProduto_estrutura() == null) {
 			FacesMessageUtil.addMensagemError("Preencha os dados corretamente");
 		} else {
@@ -131,6 +161,28 @@ public class BeanProdutoEdita implements Serializable{
 				e.printStackTrace();
 			}
 			estrutura = new Estrutura();
+		}
+		}
+	}
+	
+	//carregar imagem
+	public void upload(FileUploadEvent evento) {
+		try {
+			UploadedFile img = evento.getFile();
+			Path img_temp = Files.createTempFile(null, null );
+			Files.copy(img.getInputstream(), img_temp, StandardCopyOption.REPLACE_EXISTING);
+			
+			FileInputStream fis = new FileInputStream(img_temp.toFile());
+			byte[] bytes = new byte[(int) img_temp.toFile().length()];
+			fis.read(bytes);
+			fis.close();
+			
+			produto.setImagem(bytes);
+			Files.deleteIfExists(img_temp);
+			
+		} catch (IOException e) {
+			FacesMessageUtil.addMensagemError("Erro ao realizar Upload da Imagem");
+			e.printStackTrace();
 		}
 	}
 	
@@ -162,6 +214,22 @@ public class BeanProdutoEdita implements Serializable{
 		session.setAttribute("produtoAux", this.produto);
 
 		return "edita-produto";
+	}
+
+	public List<Ncm> getListancm() {
+		return listancm;
+	}
+
+	public void setListancm(List<Ncm> listancm) {
+		this.listancm = listancm;
+	}
+
+	public List<Cest> getListacest() {
+		return listacest;
+	}
+
+	public void setListacest(List<Cest> listacest) {
+		this.listacest = listacest;
 	}
 
 	public Estrutura getEstrutura() {

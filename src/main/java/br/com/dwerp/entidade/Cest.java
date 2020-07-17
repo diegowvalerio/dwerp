@@ -23,7 +23,7 @@ public class Cest implements Serializable {
 	@Column(nullable=true,columnDefinition="varchar(8)")
 	@Expose
 	private String ncm;
-	@Column(nullable=false,columnDefinition="varchar()")
+	@Column(nullable=false,columnDefinition="varchar(100)")
 	@Expose
 	private String descricao;
 	

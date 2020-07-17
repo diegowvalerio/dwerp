@@ -8,6 +8,8 @@ public interface DAOGenerico<E> {
 	public boolean excluir(Integer id);
 	public E consultar(Integer id);
 	public List<E> consultar();	
+	public List<E> consultar_ativos();	
+	
 	
 	public List<E> buscacidadenome(String e);
 	public List<E> buscaproduto(String e);
