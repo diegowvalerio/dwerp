@@ -83,6 +83,14 @@
 						<f:selectItems value="#{beanProduto.listancm}" var="ncms"
 								itemLabel="#{ncms.ncm} / #{ncms.descricao}" itemValue="#{ncms}" />
                    		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="Unidade:" for="unidade" />
+						<p:selectOneMenu id="unidade"	value="#{beanProduto.produto.unidade}" 
+						filter="true" filterMatchMode="contains" converter="conversorUnidade">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanProduto.listaunidade}" var="unidades"
+								itemLabel="#{unidades.unidade} - #{unidades.descricao}" itemValue="#{unidades}" />
+                   		</p:selectOneMenu>
 									
 					</p:panelGrid>
 				</p:tab>

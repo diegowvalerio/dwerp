@@ -5,7 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -25,7 +27,7 @@ import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.servico.ServicoProduto;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class BeanProdutoImg implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -49,9 +51,8 @@ public class BeanProdutoImg implements Serializable{
         }
     }
 	
-	public StreamedContent getImageByte() throws IOException {
+	public StreamedContent getImagebyte() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
-
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
             return new DefaultStreamedContent();
@@ -59,7 +60,6 @@ public class BeanProdutoImg implements Serializable{
         else {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
            String id = context.getExternalContext().getRequestParameterMap().get("id");
-           
             return new DefaultStreamedContent(new ByteArrayInputStream(id.getBytes()));
         }
     }

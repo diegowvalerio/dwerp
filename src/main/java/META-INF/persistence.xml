@@ -22,6 +22,7 @@
 		<class>br.com.dwerp.entidade.Empresa</class>
 		<class>br.com.dwerp.entidade.Estrutura</class>
 		<class>br.com.dwerp.entidade.Cest</class>
+		<class>br.com.dwerp.entidade.Unidade</class>
 	
 		<properties>
 			

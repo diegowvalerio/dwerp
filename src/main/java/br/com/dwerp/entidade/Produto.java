@@ -38,6 +38,8 @@ public class Produto implements Serializable {
 	private Cest cest;
 	@ManyToOne
 	private Ncm ncm;
+	@ManyToOne
+	private Unidade unidade;
 	//acabado
 	//materia-prima
 	//componente
@@ -51,9 +53,6 @@ public class Produto implements Serializable {
 	
 	@Column(nullable=true, columnDefinition="bytea")
 	private byte[] imagem;
-	
-	//exemplo de como salvar e buscar imagem
-	//http://pgdocptbr.sourceforge.net/pg74/jdbc-binary-data.html
 	
 	@OneToMany(mappedBy="produto", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -96,6 +95,12 @@ public class Produto implements Serializable {
 		return this.situacao;
 	}
 
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
 	public void setSituacao(Boolean situacao) {
 		this.situacao = situacao;
 	}

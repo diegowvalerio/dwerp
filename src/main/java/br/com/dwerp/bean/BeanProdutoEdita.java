@@ -23,12 +23,14 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.dwerp.entidade.SubGrupo;
+import br.com.dwerp.entidade.Unidade;
 import br.com.dwerp.entidade.Cest;
 import br.com.dwerp.entidade.Estrutura;
 import br.com.dwerp.entidade.Ncm;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoSubGrupo;
+import br.com.dwerp.servico.ServicoUnidade;
 import br.com.dwerp.servico.ServicoCest;
 import br.com.dwerp.servico.ServicoNcm;
 import br.com.dwerp.servico.ServicoProduto;
@@ -57,6 +59,10 @@ public class BeanProdutoEdita implements Serializable{
 	private ServicoNcm servicoNcm;
 	private List<Ncm> listancm;
 	
+	@Inject
+	private ServicoUnidade servicoUnidade;
+	private List<Unidade> listaunidade;
+	
 	private List<Estrutura> estruturas;
 	
 	private String opcao;
@@ -73,6 +79,7 @@ public class BeanProdutoEdita implements Serializable{
 		listasubgrupo = servicoSubGrupo.consultar();
 		listacest = servicoCest.consultar();
 		listancm = servicoNcm.consultar();
+		listaunidade = servicoUnidade.consultar();
 		
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) request.getSession();
@@ -218,6 +225,14 @@ public class BeanProdutoEdita implements Serializable{
 
 	public List<Ncm> getListancm() {
 		return listancm;
+	}
+
+	public List<Unidade> getListaunidade() {
+		return listaunidade;
+	}
+
+	public void setListaunidade(List<Unidade> listaunidade) {
+		this.listaunidade = listaunidade;
 	}
 
 	public void setListancm(List<Ncm> listancm) {

@@ -20,6 +20,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.dwerp.entidade.SubGrupo;
+import br.com.dwerp.entidade.Unidade;
 import br.com.dwerp.entidade.Cest;
 import br.com.dwerp.entidade.Cidade;
 import br.com.dwerp.entidade.Estrutura;
@@ -27,6 +28,7 @@ import br.com.dwerp.entidade.Ncm;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoSubGrupo;
+import br.com.dwerp.servico.ServicoUnidade;
 import br.com.dwerp.servico.ServicoCest;
 import br.com.dwerp.servico.ServicoNcm;
 import br.com.dwerp.servico.ServicoProduto;
@@ -55,6 +57,10 @@ public class BeanProduto implements Serializable{
 	private ServicoNcm servicoNcm;
 	private List<Ncm> listancm;
 	
+	@Inject
+	private ServicoUnidade servicoUnidade;
+	private List<Unidade> listaunidade;
+	
 	private List<Estrutura> estruturas;
 	
 	private String opcao;
@@ -72,7 +78,7 @@ public class BeanProduto implements Serializable{
 		listasubgrupo = servicoSubGrupo.consultar_ativos();
 		listacest = servicoCest.consultar();
 		listancm = servicoNcm.consultar();
-		
+		listaunidade = servicoUnidade.consultar();		
 		
 		this.produto = this.getProduto();
 		this.estruturas = this.produto.getEstruturas();
@@ -172,7 +178,7 @@ public class BeanProduto implements Serializable{
 			byte[] bytes = new byte[(int) img_temp.toFile().length()];
 			fis.read(bytes);
 			fis.close();
-			
+		
 			produto.setImagem(bytes);
 			Files.deleteIfExists(img_temp);
 			
@@ -202,6 +208,14 @@ public class BeanProduto implements Serializable{
 		session.setAttribute("produtoAux", this.produto);
 
 		return "edita-produto";
+	}
+
+	public List<Unidade> getListaunidade() {
+		return listaunidade;
+	}
+
+	public void setListaunidade(List<Unidade> listaunidade) {
+		this.listaunidade = listaunidade;
 	}
 
 	public List<Ncm> getListancm() {
