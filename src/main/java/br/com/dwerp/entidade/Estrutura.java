@@ -74,7 +74,8 @@ public class Estrutura implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idestrutura == null) ? 0 : idestrutura.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		result = prime * result + ((produto_estrutura == null) ? 0 : produto_estrutura.hashCode());
 		return result;
 	}
 	@Override
@@ -86,13 +87,19 @@ public class Estrutura implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Estrutura other = (Estrutura) obj;
-		if (idestrutura == null) {
-			if (other.idestrutura != null)
+		if (produto == null) {
+			if (other.produto != null)
 				return false;
-		} else if (!idestrutura.equals(other.idestrutura))
+		} else if (!produto.equals(other.produto))
+			return false;
+		if (produto_estrutura == null) {
+			if (other.produto_estrutura != null)
+				return false;
+		} else if (!produto_estrutura.equals(other.produto_estrutura))
 			return false;
 		return true;
 	}
+	
 	
    
 }

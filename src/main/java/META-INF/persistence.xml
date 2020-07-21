@@ -23,6 +23,8 @@
 		<class>br.com.dwerp.entidade.Estrutura</class>
 		<class>br.com.dwerp.entidade.Cest</class>
 		<class>br.com.dwerp.entidade.Unidade</class>
+		<class>br.com.dwerp.entidade.Almoxarifado</class>
+		<class>br.com.dwerp.entidade.Estoque</class>
 	
 		<properties>
 			

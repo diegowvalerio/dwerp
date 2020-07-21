@@ -24,10 +24,10 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText id="descricao" value="#{beanProdutoEdita.produto.descricao}" style="text-transform:uppercase;" />
+						<p:inputText id="descricao" value="#{beanProdutoEdita.produto.descricao}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Descrição Abreviada:" for="descricao_ab" />
-						<p:inputText id="descricao_ab" value="#{beanProdutoEdita.produto.descabreviada}" style="text-transform:uppercase;" />
+						<p:inputText id="descricao_ab" value="#{beanProdutoEdita.produto.descabreviada}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Ean:" for="ean" />
 						<p:inputText id="ean" value="#{beanProdutoEdita.produto.ean}" />
@@ -107,6 +107,8 @@
 							target="#{beanProdutoEdita.estrutura.produto}"
 							value="#{beanProdutoEdita.produto}" />
 					</p:commandButton>
+					
+        
 					<p:dataTable id="tabela" value="#{beanProdutoEdita.estruturas}" var="items">
 						<f:facet name="header">Lista Estrutura</f:facet>
 						<p:column headerText="Cód. Produto" width="10%">
@@ -151,13 +153,21 @@
 						</p:columnGroup>
 							
 					</p:dataTable>
+					
+					<p:separator></p:separator>
+						
+						<p:outputLabel value="Custo Automatico :" />
+        				<p:selectBooleanCheckbox value="#{beanProdutoEdita.produto.atualiza_custo_automatico}" >
+        				<p:ajax update=":form:tabview:paineld" process="@this" listener="#{beanProdutoEdita.custo_automatico()}" />
+        				</p:selectBooleanCheckbox>
+        				
 					<!-- dados de estrutura -->					
 				</p:tab>
 				
 				<!-- dados de imagem  -->
 				<p:tab title="Imagem" id="tabimagem">
 				
-					<p:graphicImage value="#{beanProdutoImg.image}" id="imagem" >
+					<p:graphicImage value="#{beanProdutoImg.image}" id="imagem"  height="20%" width="20%">
 						<f:param name="id" value="#{beanProdutoEdita.produto.idproduto}"></f:param>
 					</p:graphicImage>
 					

@@ -27,7 +27,7 @@
 						
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{beanGrupo.grupo.nome}"
-							required="true">
+							required="true" onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Ativo : " for="situacao" />
@@ -92,7 +92,7 @@
 
 					<p:outputLabel value="Descrição:" for="nome" />
 					<p:inputText id="nome"
-						value="#{beanGrupo.subgrupo.nome}" />
+						value="#{beanGrupo.subgrupo.nome}" onkeyup="this.value=this.value.toUpperCase()"/>
 					
 					<p:outputLabel value="Situação:" for="situacao" />
 					<p:selectBooleanCheckbox id="situacao"

@@ -92,7 +92,7 @@
 					 responsive="true" modal="true">
 					<p:panelGrid id="painelDados" columns="2">
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCondicaoPagto.condicaopagto.nome}" />
+						<p:inputText id="nome" value="#{beanCondicaoPagto.condicaopagto.nome}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Nº Parcelas:" for="qtdeparcelas" />
 						<p:inputText id="qtdeparcelas" value="#{beanCondicaoPagto.condicaopagto.qtdeparcelas}" />

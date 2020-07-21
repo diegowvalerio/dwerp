@@ -18,7 +18,7 @@
 				<p:growl id="erros" showDetail="true" sticky="false" />
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCondicaoPagto.condicaopagto.nome}" required="true" />
+						<p:inputText id="nome" value="#{beanCondicaoPagto.condicaopagto.nome}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Nº Parcelas:" for="qtdeparcelas" />
 						<p:inputText id="qtdeparcelas" value="#{beanCondicaoPagto.condicaopagto.qtdeparcelas}" required="true"/>

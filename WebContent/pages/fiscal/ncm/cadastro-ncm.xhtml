@@ -21,7 +21,7 @@
 						<p:inputText id="ncm" value="#{beanNcm.ncm.ncm}" required="true" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanNcm.ncm.descricao}" required="true" />
+						<p:inputText size="100" id="descricao" value="#{beanNcm.ncm.descricao}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="% Ipi:" for="ipi" />
 						<p:inputNumber id="ipi" value="#{beanNcm.ncm.ipi}" emptyValue="true" />	

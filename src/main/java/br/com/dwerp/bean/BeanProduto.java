@@ -165,6 +165,7 @@ public class BeanProduto implements Serializable{
 			estrutura = new Estrutura();
 		}
 		}
+		custo_automatico();
 	}
 	
 	//carregar imagem
@@ -194,6 +195,17 @@ public class BeanProduto implements Serializable{
 			totalcusto = totalcusto + et.getTotal_custo_estrutura();
 		}
 		return totalcusto;		
+	}
+	
+	public void custo_automatico() {
+		boolean at = produto.getAtualiza_custo_automatico();
+		if (at == true) {
+			double totalcusto = 0;
+			for (Estrutura et : getEstruturas()) {
+				totalcusto = totalcusto + et.getTotal_custo_estrutura();
+			}
+			produto.setValor_custo(totalcusto);
+		}
 	}
 	
 	

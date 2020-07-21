@@ -91,7 +91,8 @@
 				<h:form id="fdlg">
 					<p:panelGrid id="painelDados" columns="2">
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCidade.cidade.nome}" />
+						<p:inputText id="nome" value="#{beanCidade.cidade.nome}" onkeyup="this.value=this.value.toUpperCase()"/>
+						
 						<p:outputLabel value="Sigla:" for="estado" />
 						<p:selectOneMenu id="estado"
 							value="#{beanCidade.cidade.estado}" converter="conversorUf">

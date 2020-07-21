@@ -24,10 +24,10 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText id="descricao" value="#{beanProduto.produto.descricao}" required="true" style="text-transform:uppercase;"/>
+						<p:inputText id="descricao" value="#{beanProduto.produto.descricao}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Descrição Abreviada:" for="descricao_ab" />
-						<p:inputText id="descricao_ab" value="#{beanProduto.produto.descabreviada}" required="true" style="text-transform:uppercase;"/>
+						<p:inputText id="descricao_ab" value="#{beanProduto.produto.descabreviada}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Ean:" for="ean" />
 						<p:inputText id="ean" value="#{beanProduto.produto.ean}" />
@@ -151,6 +151,13 @@
 						</p:columnGroup>
 						
 					</p:dataTable>
+					
+					<p:separator></p:separator>
+						
+						<p:outputLabel value="Custo Automatico :" />
+        				<p:selectBooleanCheckbox value="#{beanProduto.produto.atualiza_custo_automatico}" >
+        				<p:ajax update=":form:tabview:paineld" process="@this" listener="#{beanProduto.custo_automatico()}" />
+        				</p:selectBooleanCheckbox>
 					<!-- dados de estrutura -->
 				</p:tab>
 				

@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -170,6 +171,7 @@ public class BeanProdutoEdita implements Serializable{
 			estrutura = new Estrutura();
 		}
 		}
+		custo_automatico();
 	}
 	
 	//carregar imagem
@@ -199,6 +201,17 @@ public class BeanProdutoEdita implements Serializable{
 			totalcusto = totalcusto + et.getTotal_custo_estrutura();
 		}
 		return totalcusto;		
+	}
+	
+	public void custo_automatico() {
+		boolean at = produto.getAtualiza_custo_automatico();
+		if (at == true) {
+			double totalcusto = 0;
+			for (Estrutura et : getEstruturas()) {
+				totalcusto = totalcusto + et.getTotal_custo_estrutura();
+			}
+			produto.setValor_custo(totalcusto);
+		}
 	}
 	
 	public boolean habiliata_tipoproduto() {

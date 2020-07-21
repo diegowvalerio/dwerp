@@ -95,7 +95,7 @@
 						<p:inputText id="situacaotributaria" value="#{beanSituacaoTributariaEdita.situacaoTributaria.situacaotributaria}" />
 										
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="80" id="descricao" value="#{beanSituacaoTributariaEdita.situacaoTributaria.nomesituacaotributaria}" />
+						<p:inputText size="80" id="descricao" value="#{beanSituacaoTributariaEdita.situacaoTributaria.nomesituacaotributaria}" onkeyup="this.value=this.value.toUpperCase()"/>
 											
 						
 					</p:panelGrid>

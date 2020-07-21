@@ -21,7 +21,7 @@
 						<p:inputText id="cfop" value="#{beanCfop.cfop.cfop}" required="true" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanCfop.cfop.descricao}" required="true" />
+						<p:inputText size="100" id="descricao" value="#{beanCfop.cfop.descricao}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Tipo Cfop:" for="tipocfop" />
 						<p:selectOneMenu id="tipocfop"

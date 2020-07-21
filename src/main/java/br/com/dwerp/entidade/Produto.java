@@ -45,7 +45,8 @@ public class Produto implements Serializable {
 	//componente
 	@Column(nullable=true)
 	private String tipoproduto;
-	
+	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT TRUE")
+	private Boolean atualiza_custo_automatico;	
 	@Column(nullable=true, columnDefinition="numeric(6,2)")
 	private double valor_custo;
 	@Column(nullable=true, columnDefinition="numeric(6,2)")
@@ -58,6 +59,10 @@ public class Produto implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
     private List<Estrutura> estruturas = new ArrayList<>();
 	
+	@OneToMany(mappedBy="produto", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+    private List<Estoque> estoques = new ArrayList<>();
+	
 	private static final long serialVersionUID = 1L;
 
 	public Produto() {
@@ -67,6 +72,12 @@ public class Produto implements Serializable {
 		return this.idproduto;
 	}
 
+	public Boolean getAtualiza_custo_automatico() {
+		return atualiza_custo_automatico;
+	}
+	public void setAtualiza_custo_automatico(Boolean atualiza_custo_automatico) {
+		this.atualiza_custo_automatico = atualiza_custo_automatico;
+	}
 	public void setIdproduto(Integer idproduto) {
 		this.idproduto = idproduto;
 	}   
@@ -165,6 +176,13 @@ public class Produto implements Serializable {
 	public void setNcm(Ncm ncm) {
 		this.ncm = ncm;
 	}
+	public List<Estoque> getEstoques() {
+		return estoques;
+	}
+	public void setEstoques(List<Estoque> estoques) {
+		this.estoques = estoques;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

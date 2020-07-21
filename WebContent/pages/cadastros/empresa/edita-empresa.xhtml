@@ -27,13 +27,13 @@
 
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{beanEmpresaEdita.empresa.nome}"
-							required="true" style="text-transform:uppercase;">
+							required="true" onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Razão Social:" for="razao_social"/>
 						<p:inputText id="razao_social"
 							value="#{beanEmpresaEdita.empresa.razao_social}" required="true"
-							style="text-transform:uppercase;"/>
+							onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel value="Cnpj:" for="cnpj" />
 						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
@@ -43,7 +43,7 @@
 						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"/>
 						<p:inputText id="insc_estadual"
 							value="#{beanEmpresaEdita.empresa.insc_estadual}" required="true"
-							 style="text-transform:uppercase;"/>
+							 onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
 						<p:calendar autocomplete="#{beanEmpresaEdita.data}" locale="pt_BR"
@@ -80,10 +80,10 @@
 
 						<p:outputLabel value="Logradouro:" for="logradouro" />
 						<p:inputText id="logradouro"
-							value="#{beanEmpresaEdita.empresa.logadouro}" maxlength="100" style="text-transform:uppercase;"/>
+							value="#{beanEmpresaEdita.empresa.logadouro}" maxlength="100" onkeyup="this.value=this.value.toUpperCase()"/>
 						<p:outputLabel value="Bairro:" for="bairro" />
 						<p:inputText id="bairro" value="#{beanEmpresaEdita.empresa.bairro}"
-							maxlength="40" style="text-transform:uppercase;"/>
+							maxlength="40" onkeyup="this.value=this.value.toUpperCase()"/>
 						<p:outputLabel value="Numero:" for="numero" />
 						<p:inputText id="numero" value="#{beanEmpresaEdita.empresa.numero}"
 							maxlength="10" />
@@ -93,7 +93,7 @@
 							
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{beanEmpresaEdita.empresa.email}"
-							maxlength="100" style="text-transform:lowercase"/>
+							maxlength="100" onkeyup="this.value=this.value.toLowerCase()"/>
 							
 						<p:outputLabel value="Telefone:" for="numerocontato" />
 						<p:inputText id="numerocontato"
@@ -110,7 +110,7 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Suframa:" for="insc_suframa" />
-						<p:inputText id="insc_suframa" style="text-transform:uppercase;"
+						<p:inputText id="insc_suframa" onkeyup="this.value=this.value.toUpperCase()"
 							value="#{beanEmpresaEdita.empresa.insc_suframa}" maxlength="10" />	
 							
 					<p:outputLabel value="Regime Tributavél" for="regimetributavel" />

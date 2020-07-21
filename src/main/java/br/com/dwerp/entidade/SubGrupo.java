@@ -63,7 +63,9 @@ public class SubGrupo implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((grupo == null) ? 0 : grupo.hashCode());
 		result = prime * result + ((idsubgrupo == null) ? 0 : idsubgrupo.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -76,13 +78,24 @@ public class SubGrupo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SubGrupo other = (SubGrupo) obj;
+		if (grupo == null) {
+			if (other.grupo != null)
+				return false;
+		} else if (!grupo.equals(other.grupo))
+			return false;
 		if (idsubgrupo == null) {
 			if (other.idsubgrupo != null)
 				return false;
 		} else if (!idsubgrupo.equals(other.idsubgrupo))
 			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
 		return true;
 	}
 
+	
    
 }

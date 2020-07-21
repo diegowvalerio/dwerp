@@ -19,7 +19,7 @@
 					<p:panelGrid columns="2">
 					
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCidade.cidade.nome}" required="true" />
+						<p:inputText id="nome" value="#{beanCidade.cidade.nome}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Uf: " for="estado" />
 						<p:selectOneMenu  id="estado" value="#{beanCidade.cidade.estado}" converter="conversorUf"  >

@@ -13510,6 +13510,10 @@ table.text-center, table.text-center td, table.text-center th {
 	background-color: #3c8dbc
 }
 
+li.active {
+    background-color: #d3d6d5;
+}
+
 .skin-blue .main-header .navbar .nav>li>a {
 	color: #fff
 }

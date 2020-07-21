@@ -94,7 +94,7 @@
 				responsive="true" modal="true">
 				<p:panelGrid id="painelDados" columns="2">
 					<p:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" value="#{beanCentroConsumo.centroConsumo.nome}" />
+					<p:inputText id="nome" value="#{beanCentroConsumo.centroConsumo.nome}" onkeyup="this.value=this.value.toUpperCase()"/>
 					<p:outputLabel value="Situação:" for="situacao" />
 					<p:selectBooleanCheckbox id="situacao"
 						value="#{beanCentroConsumo.centroConsumo.situacao}" />

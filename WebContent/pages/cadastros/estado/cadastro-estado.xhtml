@@ -21,7 +21,7 @@
 						<p:inputText id="nome" value="#{beanEstado.estado.nome}" required="true" />
 						
 						<p:outputLabel value="Uf: " for="sigla" />
-						<p:inputText id="sigla" value="#{beanEstado.estado.sigla}" required="true" />
+						<p:inputText id="sigla" value="#{beanEstado.estado.sigla}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Código IBGE:" for="codigoibge" />
 						<p:inputText id="codigoibge" value="#{beanEstado.estado.codigoibge}" required="true" />

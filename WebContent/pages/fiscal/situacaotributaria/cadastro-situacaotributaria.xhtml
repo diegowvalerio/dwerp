@@ -21,7 +21,7 @@
 						<p:inputText id="situacaoTributaria" value="#{beanSituacaoTributaria.situacaoTributaria.situacaotributaria}" required="true" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanSituacaoTributaria.situacaoTributaria.nomesituacaotributaria}" required="true" />
+						<p:inputText size="100" id="descricao" value="#{beanSituacaoTributaria.situacaoTributaria.nomesituacaotributaria}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 					</p:panelGrid>
 					<p:commandButton action="#{beanSituacaoTributaria.salvar()}" value="Salvar"

@@ -5,4 +5,5 @@
 	<application>
 		<resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
 	</application>
+	
 </faces-config>

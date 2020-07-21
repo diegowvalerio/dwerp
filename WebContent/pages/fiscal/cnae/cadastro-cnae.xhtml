@@ -21,7 +21,7 @@
 						<p:inputText id="cnae" value="#{beanCnae.cnae.cnae}" required="true" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanCnae.cnae.descricao}" required="true" />
+						<p:inputText size="100" id="descricao" value="#{beanCnae.cnae.descricao}" required="true" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="% Cnae" for="perc_cnae" />
 						<p:inputText id="perc_cnae" value="#{beanCnae.cnae.perc_cnae}" required="false" />

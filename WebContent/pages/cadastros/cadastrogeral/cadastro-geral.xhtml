@@ -61,7 +61,7 @@
 							
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
-							required="true" style="text-transform:uppercase;">
+							required="true" onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Ativo : " for="situacao" />
@@ -73,6 +73,7 @@
 						<p:inputMask mask="999.999.999-99" id="cpf"
 							value="#{beanCadastroGeral.cadastroGeral.cpf}" required="true"
 							validator="cpfValidador" rendered="#{beanCadastroGeral.isRederiza2}" />
+							
 						<p:outputLabel value="Rg:" for="rg"
 							rendered="#{beanCadastroGeral.isRederiza2}" />
 						<p:inputMask id="rg" value="#{beanCadastroGeral.cadastroGeral.rg}"
@@ -82,17 +83,19 @@
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputText id="razao_social"
 							value="#{beanCadastroGeral.cadastroGeral.razao_social}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" style="text-transform:uppercase;"/>
+							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
+							
 						<p:outputLabel value="Cnpj:" for="cnpj"
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
 							value="#{beanCadastroGeral.cadastroGeral.cnpj}" required="true"
 							validator="cnpjValidador" rendered="#{beanCadastroGeral.isRederiza}" />
+							
 						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
 							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputText id="insc_estadual"
 							value="#{beanCadastroGeral.cadastroGeral.insc_estadual}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" style="text-transform:uppercase;"/>
+							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel for="observacao" value="Observacão"/>
                    		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
@@ -128,10 +131,12 @@
 
 						<p:outputLabel value="Logradouro:" for="logradouro" />
 						<p:inputText id="logradouro"
-							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" style="text-transform:uppercase;"/>
+							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" onkeyup="this.value=this.value.toUpperCase()"/>
+							
 						<p:outputLabel value="Bairro:" for="bairro" />
 						<p:inputText id="bairro" value="#{beanCadastroGeral.cadastroGeral.bairro}"
-							maxlength="40" style="text-transform:uppercase;"/>
+							maxlength="40" onkeyup="this.value=this.value.toUpperCase()"/>
+							
 						<p:outputLabel value="Numero:" for="numero" />
 						<p:inputText id="numero" value="#{beanCadastroGeral.cadastroGeral.numero}"
 							maxlength="10" />
@@ -151,12 +156,13 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Nome:" for="nomec" />
-						<p:inputText id="nomec" style="text-transform:uppercase;"
+						<p:inputText id="nomec" onkeyup="this.value=this.value.toUpperCase()"
 							value="#{beanCadastroGeral.cadastroGeral.nomecontato}" maxlength="150" />
 
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{beanCadastroGeral.cadastroGeral.email}"
-							maxlength="100" style="text-transform:lowercase"/>
+							maxlength="100" onkeyup="this.value=this.value.toLowerCase()"/>
+							
 						<p:outputLabel value="Telefone:" for="numeroc" />
 						<p:inputText id="numeroc"
 							value="#{beanCadastroGeral.cadastroGeral.numerocontato}" maxlength="15" />

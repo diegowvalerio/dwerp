@@ -98,7 +98,7 @@
 						<p:inputText id="ncm" value="#{beanCestEdita.cest.ncm}" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanCestEdita.cest.descricao}" />
+						<p:inputText size="100" id="descricao" value="#{beanCestEdita.cest.descricao}" onkeyup="this.value=this.value.toUpperCase()"/>
 											
 						
 					</p:panelGrid>

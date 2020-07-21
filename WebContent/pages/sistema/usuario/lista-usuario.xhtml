@@ -96,13 +96,13 @@
 					<p:panelGrid id="painelDados" columns="2">
         				
         				<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanListaUsuario.usuario.nome}"  />
+						<p:inputText id="nome" value="#{beanListaUsuario.usuario.nome}"  onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
 						<p:calendar disabled="true" locale="pt_BR" id="dtcadastro" value="#{beanListaUsuario.usuario.dtcadastro}" pattern="dd/MM/yyyy" mask="true"  effect="fold"/>
 						
 						<p:outputLabel value="Login:" for="login" />
-						<p:inputText id="login"  value="#{beanListaUsuario.usuario.login}" />
+						<p:inputText id="login"  value="#{beanListaUsuario.usuario.login}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="Senha: " for="senha" />
 						<p:password id="senha" value="#{beanListaUsuario.usuario.senha}" redisplay="true" />

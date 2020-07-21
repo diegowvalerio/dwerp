@@ -95,7 +95,7 @@
 						<p:inputText id="cnae" value="#{beanEditaCnae.cnae.cnae}" />
 						
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanEditaCnae.cnae.descricao}" />
+						<p:inputText size="100" id="descricao" value="#{beanEditaCnae.cnae.descricao}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
 						<p:outputLabel value="% Cnae" for="perc_cnae" />
 						<p:inputNumber id="perc_cnae" emptyValue="true"
