@@ -21,14 +21,17 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.dwerp.entidade.SubGrupo;
 import br.com.dwerp.entidade.Unidade;
+import br.com.dwerp.entidade.Almoxarifado;
 import br.com.dwerp.entidade.Cest;
 import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.entidade.Estoque;
 import br.com.dwerp.entidade.Estrutura;
 import br.com.dwerp.entidade.Ncm;
 import br.com.dwerp.entidade.Produto;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoSubGrupo;
 import br.com.dwerp.servico.ServicoUnidade;
+import br.com.dwerp.servico.ServicoAlmoxarifado;
 import br.com.dwerp.servico.ServicoCest;
 import br.com.dwerp.servico.ServicoNcm;
 import br.com.dwerp.servico.ServicoProduto;
@@ -40,6 +43,8 @@ public class BeanProduto implements Serializable{
 
 	private Produto produto = new Produto();
 	private Estrutura estrutura = new Estrutura();
+	private Estoque estoque = new Estoque();
+	
 	@Inject
 	private ServicoProduto servico;
 	private List<Produto> lista;
@@ -61,7 +66,12 @@ public class BeanProduto implements Serializable{
 	private ServicoUnidade servicoUnidade;
 	private List<Unidade> listaunidade;
 	
+	@Inject
+	private ServicoAlmoxarifado servicoAlmoxarifado;
+	private List<Almoxarifado> listaalmoxarifado;
+	
 	private List<Estrutura> estruturas;
+	private List<Estoque> estoques;
 	
 	private String opcao;
 	private Date data;
@@ -78,10 +88,12 @@ public class BeanProduto implements Serializable{
 		listasubgrupo = servicoSubGrupo.consultar_ativos();
 		listacest = servicoCest.consultar();
 		listancm = servicoNcm.consultar();
-		listaunidade = servicoUnidade.consultar();		
+		listaunidade = servicoUnidade.consultar();	
+		listaalmoxarifado = servicoAlmoxarifado.consultar_ativos();
 		
 		this.produto = this.getProduto();
 		this.estruturas = this.produto.getEstruturas();
+		this.estoques = this.produto.getEstoques();
 		this.produto.setDtcadastro(data);
 		
 	}
@@ -208,6 +220,58 @@ public class BeanProduto implements Serializable{
 		}
 	}
 	
+public void editarsalvarAlmoxarifado() {
+		
+		if (estoque.getAlmoxarifado() == null) {
+			FacesMessageUtil.addMensagemError("Preencha os dados corretamente");
+		} else {
+			try {
+				int index = estoques.indexOf(estoque);
+				if (index > -1) {
+					estoques.remove(index);
+					estoque.setProduto(produto);
+					estoques.add(index, estoque);
+				} else {
+					estoque.setProduto(produto);
+					estoques.add(estoque);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			estoque = new Estoque();
+		}
+	}
+	
+	public void addNovoAlmoxarifado() {
+		if (this.produto.getDescricao() == null) {
+			throw new RuntimeException("O Nome do Produto não pode ser nulo");
+		} else {
+			estoque = new Estoque();
+			estoque.setProduto(produto);
+		}
+	}
+	
+	public void removerAlmoxarifado() {
+		if (estoque.getSaldo() != 0) {
+			int index = estoques.indexOf(estoque);
+			if (index > -1) {
+				this.estoques.remove(index);
+			}
+		}else {
+			FacesMessageUtil.addMensagemWarn("Não é possivél excluir Almoxarifado que possui saldo diferente de ZERO");
+		}
+		
+	}
+	
+	public double TotalEstoque() {
+		double totalestoque = 0;
+		if (getEstoques().size() > 0) {
+		for (Estoque et : getEstoques()) {
+			totalestoque = totalestoque + et.getSaldo();
+		}
+		}
+		return totalestoque;		
+	}
 	
 	public List<Produto> completaproduto(String nome) {
 		return servico.buscaproduto(nome);
@@ -325,6 +389,30 @@ public class BeanProduto implements Serializable{
 
 	public void setLista(List<Produto> lista) {
 		this.lista = lista;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
+
+	public List<Almoxarifado> getListaalmoxarifado() {
+		return listaalmoxarifado;
+	}
+
+	public void setListaalmoxarifado(List<Almoxarifado> listaalmoxarifado) {
+		this.listaalmoxarifado = listaalmoxarifado;
+	}
+
+	public List<Estoque> getEstoques() {
+		return estoques;
+	}
+
+	public void setEstoques(List<Estoque> estoques) {
+		this.estoques = estoques;
 	}
 	
 

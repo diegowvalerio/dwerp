@@ -164,6 +164,67 @@
 					<!-- dados de estrutura -->					
 				</p:tab>
 				
+				<!-- dados de estoque  -->
+				<p:tab title="Estoque" id="estoque">
+				
+					<p:commandButton id="nve2" value="Almoxarifado" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanProdutoEdita.addNovoAlmoxarifado}"
+						oncomplete="PF('dialogp2').show()">
+						<f:setPropertyActionListener
+							target="#{beanProdutoEdita.estoque.produto}"
+							value="#{beanProdutoEdita.produto}" />
+					</p:commandButton>
+					
+        
+					<p:dataTable id="tabela2" value="#{beanProdutoEdita.estoques}" var="items">
+						<f:facet name="header">Lista Estoque</f:facet>
+						<p:column headerText="Cód.Almoxarifado" width="10%">
+								#{items.almoxarifado.idalmoxarifado}
+								</p:column>
+						<p:column headerText="Almoxarifado">
+								#{items.almoxarifado.descricao}
+								</p:column>
+						<p:column headerText="Estoque">
+								#{items.saldo}
+								</p:column>
+						<p:column headerText="Saldo Minimo">
+								#{items.saldo_minimo}
+								</p:column>
+						<p:column headerText="Localização">
+								#{items.localizacao}
+								</p:column>
+
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							<p:commandButton action="#{beanProdutoEdita.removerAlmoxarifado}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanProdutoEdita.estoques}" icon="ui-icon-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanProdutoEdita.estoque}" />
+							</p:commandButton>
+							<p:commandButton oncomplete="PF('dialogp2').show();"
+								icon="ui-icon-pencil" update=":form:dlg2">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanProdutoEdita.estoque}" />
+							</p:commandButton>
+
+						</p:column>
+						
+						<p:columnGroup type="footer">
+								<p:row>
+									<p:column colspan="2" style="text-align:right"
+										footerText="Total Estoque:" />
+									<p:column footerText="R$ #{beanProdutoEdita.TotalEstoque()}" />
+								</p:row>
+						</p:columnGroup>
+							
+					</p:dataTable>        				
+					<!-- dados de estoque -->					
+				</p:tab>
+				
 				<!-- dados de imagem  -->
 				<p:tab title="Imagem" id="tabimagem">
 				
@@ -207,6 +268,34 @@
 				<p:commandButton id="sle" icon="fa fa-check"
 					styleClass="btn-primary"
 					action="#{beanProdutoEdita.editarsalvarEstrutura()}" value="Salvar"
+					ajax="false">
+				</p:commandButton>
+			</p:dialog>
+			
+			<p:dialog id="dlg2" header="Almoxarifado" widgetVar="dialogp2"
+				responsive="true" resizable="true" modal="false" position="center">
+				<p:panelGrid id="painelDados2" columns="2">	
+				
+					<p:outputLabel value="Almoxarifado" for="almoxarifado" />
+						<p:selectOneMenu id="almoxarifado"	value="#{beanProdutoEdita.estoque.almoxarifado}" 
+						filter="true" filterMatchMode="contains" converter="conversorAlmoxarifado">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanProdutoEdita.listaalmoxarifado}" var="almoxarifados"
+								itemLabel="#{almoxarifados.descricao}" itemValue="#{almoxarifados}" />
+                   		</p:selectOneMenu>	
+                   		
+                   	<p:outputLabel value="Localização:" for="localizacao" />
+					<p:inputText id="localizacao" value="#{beanProdutoEdita.estoque.localizacao}" />
+					
+					<p:outputLabel value="Saldo Minimo" for="saldo_minimo" />
+					<p:inputNumber id="saldo_minimo" emptyValue="true"
+					value="#{beanProdutoEdita.estoque.saldo_minimo}"  />
+					
+				</p:panelGrid>
+
+				<p:commandButton id="sle2" icon="fa fa-check"
+					styleClass="btn-primary"
+					action="#{beanProdutoEdita.editarsalvarAlmoxarifado()}" value="Salvar"
 					ajax="false">
 				</p:commandButton>
 			</p:dialog>
