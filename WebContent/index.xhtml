@@ -38,6 +38,57 @@
 		<h:form id="form">
 			<div class="box box-primary">
 				<div class="box-header with-border">
+				
+				<p:panelGrid columns="5" id="filtros" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+					layout="grid" styleClass="ui-fluid card">
+					
+					<p:outputLabel value=" Data:  " for="data_grafico" />
+					<p:calendar locale="pt_BR" id="data_grafico"
+						value="#{beanIndex.data_grafico}" pattern="dd/MM/yyyy"
+						mask="true" required="true" >
+					</p:calendar>
+
+					<p:outputLabel value=" Até:  " for="data_grafico2" />
+					<p:calendar locale="pt_BR" id="data_grafico2"
+						value="#{beanIndex.data_grafico2}" pattern="dd/MM/yyyy"
+						mask="true" required="true" >
+					</p:calendar>
+					
+					<p:commandButton action="#{beanIndex.filtrar()}" value="Filtrar"
+						icon="fa fa-check" update=":form" styleClass="btn-primary" />
+				</p:panelGrid>
+				
+				<p:separator />
+				
+				<p:panelGrid id="resumo" >
+				
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="info-box ">
+							<span class="info-box-icon bg-yellow"><i
+								class="ion ion-person-add"></i></span>
+
+							<div class="info-box-content">
+								<span class="info-box-text">Clientes Novos</span> <span
+									class="info-box-number"><h:outputText
+										value="#{beanIndex.totalClientes}" />
+								</span>
+								
+								<div class="progress">
+									<div class="progress-bar" style="width: 100%"></div>
+								</div>
+								
+								<span class="progress-description"> <h:commandLink
+										action="#"
+										styleClass="fa fa-arrow-circle-right small-box-footer"
+										value=" Detalhes" />
+								</span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+						<!-- /.info-box -->
+					</div>
+					
+				</p:panelGrid>
 
 				</div>
 			</div>

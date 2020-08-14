@@ -1,6 +1,7 @@
 package br.com.dwerp.servico;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -41,5 +42,11 @@ public class ServicoCadastroGeral implements Serializable{
 		return dao.consultar();
 	}
 	
+	
+	//painel de resumo
+	
+	public List<CadastroGeral> clientesnovos(Date data, Date data2){
+		return dao.clientesnovos(data,data2);
+	}	
 	
 }

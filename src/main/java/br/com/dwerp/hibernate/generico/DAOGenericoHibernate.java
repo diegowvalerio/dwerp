@@ -1,6 +1,7 @@
 package br.com.dwerp.hibernate.generico;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -88,6 +89,21 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		criteria.add(Restrictions.eq("situacao", Boolean.TRUE));
 		
 		return criteria.list();
+	}
+	
+	//painel de resumo
+	
+	public List<E> clientesnovos(Date data, Date data2){
+		
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(classeEntidade);
+		
+		criteria.add(Restrictions.eq("situacao", Boolean.TRUE));
+		criteria.add(Restrictions.eq("op_cliente", Boolean.TRUE));
+		criteria.add(Restrictions.between("dtcadastro", data, data2));
+		
+		return criteria.list();
+		
 	}
 	
 }
