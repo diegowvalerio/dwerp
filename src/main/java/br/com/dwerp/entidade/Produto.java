@@ -63,6 +63,10 @@ public class Produto implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
     private List<Estoque> estoques = new ArrayList<>();
 	
+	
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	public Produto() {
