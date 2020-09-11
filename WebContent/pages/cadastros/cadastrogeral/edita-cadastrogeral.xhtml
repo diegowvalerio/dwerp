@@ -21,8 +21,8 @@
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
 				
-					<p:panelGrid columns="6" id="painelA"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+					<p:panelGrid columns="8" id="painelA"
+						columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
 						layout="grid" styleClass="ui-fluid card">
 					
 					<p:outputLabel value="Cliente: " for="op_cliente" />
@@ -36,6 +36,10 @@
 					<p:outputLabel value="Transportadora: " for="op_transportadora" />
 						<p:selectBooleanCheckbox id="op_transportadora"
 							value="#{beanCadastroGeralEdita.cadastroGeral.op_transportadora}"  />
+							
+					<p:outputLabel value="Funcionário " for="op_funcionario" />
+						<p:selectBooleanCheckbox id="op_funcionario"
+							value="#{beanCadastroGeralEdita.cadastroGeral.op_funcionario}"  />
 								
 					</p:panelGrid>
 					<p:separator></p:separator>

@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.dwerp.entidade.Usuario;
 import br.com.dwerp.msn.FacesMessageUtil;
@@ -54,6 +56,14 @@ public class BeanListaUsuario implements Serializable{
 		}
 	}
 		lista = servico.consultar();
+	}
+	
+	public String encaminha() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("usuario", this.usuario);
+
+		return "usuariomodulo";
 	}
 
 	public Date getData() {

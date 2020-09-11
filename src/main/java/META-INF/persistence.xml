@@ -25,6 +25,8 @@
 		<class>br.com.dwerp.entidade.Unidade</class>
 		<class>br.com.dwerp.entidade.Almoxarifado</class>
 		<class>br.com.dwerp.entidade.Estoque</class>
+		<class>br.com.dwerp.entidade.Modulo</class>
+		<class>br.com.dwerp.entidade.UsuarioModulo</class>
 	
 		<properties>
 			

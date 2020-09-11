@@ -78,6 +78,13 @@
 							<h:outputLabel value="#{cadastrogeral.cidade.nome}" />
 						</p:column>
 						
+						<p:column headerText="Data Cadastro" filterBy="#{cadastrogeral.dtcadastro}" 
+							sortBy="#{cadastrogeral.dtcadastro}" filterMatchMode="contains">
+							<h:outputLabel value="#{cadastrogeral.dtcadastro}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputLabel>
+						</p:column>
+						
 						
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">

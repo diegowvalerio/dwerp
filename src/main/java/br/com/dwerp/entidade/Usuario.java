@@ -2,9 +2,14 @@ package br.com.dwerp.entidade;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="tbusuario")
@@ -26,6 +31,10 @@ public class Usuario implements Serializable {
 	private String login;
 	@Column(nullable=false, columnDefinition="varchar(100)")
 	private String senha;
+	
+	@OneToMany(mappedBy="usuario", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+    private List<UsuarioModulo> usuariomodulos = new ArrayList<>();
 		
 
 	public Usuario() {
@@ -71,6 +80,14 @@ public class Usuario implements Serializable {
 	}
 	public void setSituacao(Boolean situacao) {
 		this.situacao = situacao;
+	}
+
+	public List<UsuarioModulo> getUsuariomodulos() {
+		return usuariomodulos;
+	}
+
+	public void setUsuariomodulos(List<UsuarioModulo> usuariomodulos) {
+		this.usuariomodulos = usuariomodulos;
 	}
 
 	@Override

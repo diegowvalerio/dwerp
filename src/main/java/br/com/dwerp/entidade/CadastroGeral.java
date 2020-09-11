@@ -33,6 +33,8 @@ public class CadastroGeral implements Serializable {
 	private Boolean op_fornecedor;
 	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
 	private Boolean op_transportadora;
+	@Column(nullable=false, columnDefinition= "BOOLEAN DEFAULT FALSE")
+	private Boolean op_funcionario;
 	
 	//fiscal
 	@Column(nullable=true, columnDefinition="varchar(10)")
@@ -287,6 +289,14 @@ public class CadastroGeral implements Serializable {
 
 	public void setOp_transportadora(Boolean op_transportadora) {
 		this.op_transportadora = op_transportadora;
+	}
+
+	public Boolean getOp_funcionario() {
+		return op_funcionario;
+	}
+
+	public void setOp_funcionario(Boolean op_funcionario) {
+		this.op_funcionario = op_funcionario;
 	}
 
 	public String getInsc_suframa() {
