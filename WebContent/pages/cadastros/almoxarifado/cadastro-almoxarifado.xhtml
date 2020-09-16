@@ -14,7 +14,8 @@
 
         <adm:breadcrumb title="Cadastro Almoxarifado" link="cadastro-almoxarifado.xhtml"/>
 			<p:panel>
-				<h:form id="form">
+				<h:form id="form" rendered="#{beanControleAcesso.acesso('cadastro_almoxarifado')}" >
+				
 					<p:growl id="erros" showDetail="true" sticky="true" />
 					<p:panelGrid columns="2">
 						

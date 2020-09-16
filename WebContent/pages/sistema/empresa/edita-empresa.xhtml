@@ -16,7 +16,7 @@
 		</f:metadata>
 
 		<adm:breadcrumb title="Cadastro Empresa" link="cadastro-empresa.xhtml" />
-		<h:form id="form">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('sistema_empresa')}" >
 			<p:growl id="erros" showDetail="true" sticky="false" />
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">

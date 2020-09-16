@@ -14,7 +14,7 @@
 
         <adm:breadcrumb title="Cadastro Cfop" link="cadastro-cfop.xhtml"/>
 			<p:panel>
-				<h:form id="form">
+				<h:form id="form" rendered="#{beanControleAcesso.acesso('fiscal_cfop')}">
 					<p:growl id="erros" showDetail="true" sticky="true" />
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Cfop" for="cfop" />

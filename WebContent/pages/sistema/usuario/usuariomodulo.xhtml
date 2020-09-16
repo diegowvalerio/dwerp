@@ -36,7 +36,7 @@
 	<ui:define name="body">
 		<adm:breadcrumb title="Usuário x  Módulo" />
 
-		<h:form id="form">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('sistema_usuario')}" >
 			<div class="box box-primary">
 				<div class="box-header with-border">
 

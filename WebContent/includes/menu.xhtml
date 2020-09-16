@@ -10,125 +10,125 @@
 				<span>Inicio</span>
 			</p:link></li>
 
-		<li class="treeview"><a href="#"> <i class="fa fa-th-list"></i>
+		<li class="treeview"><p:link href="#" rendered="#{beanControleAcesso.acesso('cadastro')}" > <i class="fa fa-th-list"></i>
 				<span>Cadastro</span> <span class="pull-right-container"> <i
 					class="fa fa-angle-left pull-right"></i>
 			</span>
-		</a>
+		</p:link>
 			<ul class="treeview-menu">
-			<li><p:link href="/pages/cadastros/almoxarifado/lista-almoxarifado.xhtml">
+			<li><p:link href="/pages/cadastros/almoxarifado/lista-almoxarifado.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_almoxarifado')}">
 						<i class="fa fa-bars"></i>
 						<span>Almoxarifado</span>
 					</p:link></li>
-			<li><p:link href="/pages/cadastros/cadastrogeral/lista-cadastrogeral.xhtml">
+			<li><p:link href="/pages/cadastros/cadastrogeral/lista-cadastrogeral.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_cadastro')}">
 						<i class="fa fa-bars"></i>
 						<span>Cadastro</span>
 					</p:link></li>
-			<li><p:link href="/pages/cadastros/centroconsumo/lista-centroconsumo.xhtml">
+			<li><p:link href="/pages/cadastros/centroconsumo/lista-centroconsumo.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_centrodeconsumo')}">
 						<i class="fa fa-bars"></i>
 						<span>Centro de Consumo</span>
 					</p:link></li>
-				<li><p:link href="/pages/cadastros/cidade/lista-cidade.xhtml">
+				<li><p:link href="/pages/cadastros/cidade/lista-cidade.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_cidade')}">
 						<i class="fa fa-bars"></i>
 						<span>Cidade</span>
 					</p:link></li>
 				<li><p:link
-						href="/pages/cadastros/condicaopagto/lista-condicaopagto.xhtml">
+						href="/pages/cadastros/condicaopagto/lista-condicaopagto.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_condicaopagamento')}">
 						<i class="fa fa-bars"></i>
 						<span>Condição de Pagamento</span>
 					</p:link></li>
-				<li><p:link href="/pages/cadastros/estado/lista-estado.xhtml">
+				<li><p:link href="/pages/cadastros/estado/lista-estado.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_estado')}">
 						<i class="fa fa-bars"></i>
 						<span>Estado</span>
 					</p:link></li>
 				<li><p:link
-						href="/pages/cadastros/formapag/lista-formapag.xhtml">
+						href="/pages/cadastros/formapag/lista-formapag.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_formapagamento')}">
 						<i class="fa fa-bars"></i>
 						<span>Forma Pagamento</span>
 					</p:link></li>
-				<li><p:link href="/pages/cadastros/grupo/lista-grupo.xhtml">
+				<li><p:link href="/pages/cadastros/grupo/lista-grupo.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_grupo')}">
 						<i class="fa fa-bars"></i>
 						<span>Grupo</span>
 					</p:link></li>	
-				<li><p:link href="/pages/cadastros/produto/lista-produto.xhtml">
+				<li><p:link href="/pages/cadastros/produto/lista-produto.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_produto')}">
 						<i class="fa fa-bars"></i>
 						<span>Produto</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/cadastros/unidade/lista-unidade.xhtml">
+				<li><p:link href="/pages/cadastros/unidade/lista-unidade.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_unidade')}">
 						<i class="fa fa-bars"></i>
 						<span>Unidade</span>
 					</p:link></li>
 
 			</ul></li>
 			
-		<li class="treeview"><a href="#"> <i class="fa fa-th-list"></i>
+		<li class="treeview"><p:link href="#" rendered="#{beanControleAcesso.acesso('fiscal')}" > <i class="fa fa-th-list"></i>
 				<span>Fiscal</span> <span class="pull-right-container"> <i
 					class="fa fa-angle-left pull-right"></i>
 			</span>
-		</a>
+		</p:link>
 
 			<ul class="treeview-menu">
-				<li><p:link href="/pages/fiscal/cest/lista-cest.xhtml">
+				<li><p:link href="/pages/fiscal/cest/lista-cest.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_cest')}">
 						<i class="fa fa-bars"></i>
 						<span>Cest</span>
 					</p:link></li>
 
-				<li><p:link href="/pages/fiscal/cfop/lista-cfop.xhtml">
+				<li><p:link href="/pages/fiscal/cfop/lista-cfop.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_cfop')}">
 						<i class="fa fa-bars"></i>
 						<span>Cfop</span>
 					</p:link></li>
 				
-				<li><p:link href="/pages/fiscal/cnae/lista-cnae.xhtml">
+				<li><p:link href="/pages/fiscal/cnae/lista-cnae.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_cnae')}">
 						<i class="fa fa-bars"></i>
 						<span>Cnae</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/fiscal/ncm/lista-ncm.xhtml">
+				<li><p:link href="/pages/fiscal/ncm/lista-ncm.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_ncm')}">
 						<i class="fa fa-bars"></i>
 						<span>Ncm</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/fiscal/situacaotributaria/lista-situacaotributaria.xhtml">
+				<li><p:link href="/pages/fiscal/situacaotributaria/lista-situacaotributaria.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_st')}">
 						<i class="fa fa-bars"></i>
 						<span>Situação Tributária</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/fiscal/situacaotributariaipi/lista-situacaotributariaipi.xhtml">
+				<li><p:link href="/pages/fiscal/situacaotributariaipi/lista-situacaotributariaipi.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_stipi')}">
 						<i class="fa fa-bars"></i>
 						<span>Situação Tributária IPI</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/fiscal/situacaotributariapiscofins/lista-situacaotributariapiscofins.xhtml">
+				<li><p:link href="/pages/fiscal/situacaotributariapiscofins/lista-situacaotributariapiscofins.xhtml" rendered="#{beanControleAcesso.acesso('fiscal_stpiscofins')}">
 						<i class="fa fa-bars"></i>
 						<span>Situação Tributária PIS COFINS</span>
 					</p:link></li>
 
 			</ul></li>
 
-		<li class="treeview"><a href="#"> <i class="fa fa-gears"></i>
+		<li class="treeview"><p:link href="#" rendered="#{beanControleAcesso.acesso('sistema')}" > <i class="fa fa-gears"></i>
 				<span>Sistema</span> <span class="pull-right-container"> <i
 					class="fa fa-angle-left pull-right"></i>
 			</span>
-		</a>
+		</p:link>
 
 			<ul class="treeview-menu">
-				<li><p:link href="/pages/sistema/backup/backup.xhtml">
+				<li><p:link href="/pages/sistema/backup/backup.xhtml" rendered="#{beanControleAcesso.acesso('sistema_backup')}" >
 						<i class="fa fa-database"></i>
 						<span>Backup</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/cadastros/empresa/lista-empresa.xhtml">
+				<li><p:link href="/pages/sistema/empresa/lista-empresa.xhtml" rendered="#{beanControleAcesso.acesso('sistema_empresa')}" >
 						<i class="fa fa-bars"></i>
 						<span>Empresa</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/sistema/usuario/lista-usuario.xhtml">
+				<li><p:link href="/pages/sistema/usuario/lista-usuario.xhtml" rendered="#{beanControleAcesso.acesso('sistema_usuario')}" >
 						<i class="fa fa-user"></i>
 						<span>Usuario</span>
 					</p:link></li>
 					
-				<li><p:link href="/pages/sistema/modulo/lista-modulo.xhtml">
+				<li><p:link href="/pages/sistema/modulo/lista-modulo.xhtml" rendered="#{beanControleAcesso.acesso('sistema_modulo')}" >
 						<i class="fa fa-bars"></i>
 						<span>Módulo</span>
 					</p:link></li>

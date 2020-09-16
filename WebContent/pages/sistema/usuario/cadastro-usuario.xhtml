@@ -17,7 +17,7 @@
 
 		<adm:breadcrumb title="Cadastro Usuário"
 			link="cadastro-usuario.xhtml" />
-		<h:form id="form">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('sistema_usuario')}" >
 				<p:growl id="erros" showDetail="true" sticky="false" />
 				
 						<p:panelGrid columns="2">

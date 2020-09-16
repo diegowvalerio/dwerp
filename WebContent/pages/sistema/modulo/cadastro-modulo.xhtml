@@ -14,7 +14,7 @@
 
         <adm:breadcrumb title="Cadastro Módulo" link="cadastro-modulo.xhtml"/>
 			<p:panel>
-				<h:form id="form">
+				<h:form id="form" rendered="#{beanControleAcesso.acesso('sistema_modulo')}" >
 				<p:growl id="erros" showDetail="true" sticky="false" />
 					<p:panelGrid columns="2">
 					

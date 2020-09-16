@@ -14,7 +14,7 @@
 
         <adm:breadcrumb title="Cadastro Situação Tributária" link="cadastro-situacaotributaria.xhtml"/>
 			<p:panel>
-				<h:form id="form">
+				<h:form id="form" rendered="#{beanControleAcesso.acesso('fiscal_st')}">
 					<p:growl id="erros" showDetail="true" sticky="true" />
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Situação Tributária" for="situacaoTributaria" />

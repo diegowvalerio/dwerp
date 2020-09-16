@@ -35,7 +35,7 @@
 	<ui:define name="body">
 		<adm:breadcrumb title="Pesquisa Cnae" />
 
-		<h:form id="form">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('fiscal_cnae')}">
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<p:commandButton action="cadastro-cnae?faces-redirect=true"

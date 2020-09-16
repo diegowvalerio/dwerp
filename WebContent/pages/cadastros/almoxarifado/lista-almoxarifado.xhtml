@@ -32,10 +32,11 @@
         Pesquise ... 
     </ui:define>
 
-	<ui:define name="body">
+	<ui:define name="body" >
 		<adm:breadcrumb title="Pesquisa Almoxarifado" />
 
-		<h:form id="form">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('cadastro_almoxarifado')}" >
+		
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<p:commandButton action="cadastro-almoxarifado?faces-redirect=true"
