@@ -27,6 +27,9 @@
 		<class>br.com.dwerp.entidade.Estoque</class>
 		<class>br.com.dwerp.entidade.Modulo</class>
 		<class>br.com.dwerp.entidade.UsuarioModulo</class>
+		<class>br.com.dwerp.entidade.Setor</class>
+		<class>br.com.dwerp.entidade.Funcao</class>
+		<class>br.com.dwerp.entidade.Fechamento</class>
 	
 		<properties>
 			

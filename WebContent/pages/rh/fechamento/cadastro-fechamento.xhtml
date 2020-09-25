@@ -15,7 +15,7 @@
 		<f:metadata>
 		</f:metadata>
 
-		<adm:breadcrumb title="Cadastro CadastroGeral" link="cadastro-geral.xhtml" />
+		<adm:breadcrumb title="Cadastro Cadastro" link="cadastro-geral.xhtml" />
 		<h:form id="form" rendered="#{beanControleAcesso.acesso('cadastro_cadastro')}">
 			<p:growl id="erros" showDetail="true" sticky="false" />
 			<p:tabView dynamic="false" cache="false" id="tabview">
@@ -27,93 +27,90 @@
 					
 					<p:outputLabel value="Cliente: " for="op_cliente" />
 						<p:selectBooleanCheckbox id="op_cliente"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_cliente}"  />
+							value="#{beanCadastroGeral.cadastroGeral.op_cliente}"  />
 							
 					<p:outputLabel value="Forncedor: " for="op_fornecedor" />
 						<p:selectBooleanCheckbox id="op_fornecedor"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_fornecedor}"  />
+							value="#{beanCadastroGeral.cadastroGeral.op_fornecedor}"  />
 							
 					<p:outputLabel value="Transportadora: " for="op_transportadora" />
 						<p:selectBooleanCheckbox id="op_transportadora"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_transportadora}"  />
+							value="#{beanCadastroGeral.cadastroGeral.op_transportadora}"  />
 							
 					<p:outputLabel value="Funcionário " for="op_funcionario" />
 						<p:selectBooleanCheckbox id="op_funcionario"
-							value="#{beanCadastroGeralEdita.cadastroGeral.op_funcionario}" >
-							<p:ajax listener="#{beanCadastroGeralEdita.bo_funcionario}"
+							value="#{beanCadastroGeral.cadastroGeral.op_funcionario}" >
+						<p:ajax listener="#{beanCadastroGeral.bo_funcionario}"
 								update=":form:tabview" />
 						</p:selectBooleanCheckbox>
 								
 					</p:panelGrid>
 					<p:separator></p:separator>
-					
 					<p:panelGrid columns="4" id="paineld"
 						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 						layout="grid" styleClass="ui-fluid card">
-
+						
 						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf"
-							value="#{beanCadastroGeralEdita.cadastroGeral.tipojf}" lazy="true"
-							style="width:125px" required="true">
+						<p:selectOneMenu id="tipojf" value="#{beanCadastroGeral.cadastroGeral.tipojf}"
+							lazy="true" style="width:125px" required="true">
 							<f:selectItem itemLabel="" itemValue=" " />
 							<f:selectItem itemLabel="Física" itemValue="F" />
 							<f:selectItem itemLabel="Jurídica" itemValue="J" />
-							<p:ajax listener="#{beanCadastroGeralEdita.renderizar}"
+							<p:ajax listener="#{beanCadastroGeral.renderizar}"
 								update=":form:tabview:paineld" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar autocomplete="#{beanCadastroGeralEdita.data}" locale="pt_BR"
-							disabled="true" id="dtcadastro"
-							value="#{beanCadastroGeralEdita.cadastroGeral.dtcadastro}"
-							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
+						<p:calendar autocomplete="#{beanCadastroGeral.data}" locale="pt_BR"
+							id="dtcadastro" disabled="true"
+							value="#{beanCadastroGeral.cadastroGeral.dtcadastro}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
 							
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCadastroGeralEdita.cadastroGeral.nome}"
+						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
 							required="true" onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
-
+						
 						<p:outputLabel value="Ativo : " for="situacao" />
 						<p:selectBooleanCheckbox id="situacao"
-							value="#{beanCadastroGeralEdita.cadastroGeral.situacao}" required="true" />
+							value="#{beanCadastroGeral.cadastroGeral.situacao}" required="true" />
 
 						<p:outputLabel value="Cpf:" for="cpf"
-							rendered="#{beanCadastroGeralEdita.isRederiza2}" />
+							rendered="#{beanCadastroGeral.isRederiza2}" />
 						<p:inputMask mask="999.999.999-99" id="cpf"
-							value="#{beanCadastroGeralEdita.cadastroGeral.cpf}" required="true"
-							validator="cpfValidador"
-							rendered="#{beanCadastroGeralEdita.isRederiza2}" />
+							value="#{beanCadastroGeral.cadastroGeral.cpf}" required="true"
+							validator="cpfValidador" rendered="#{beanCadastroGeral.isRederiza2}" />
+							
 						<p:outputLabel value="Rg:" for="rg"
-							rendered="#{beanCadastroGeralEdita.isRederiza2}" />
-						<p:inputMask id="rg" value="#{beanCadastroGeralEdita.cadastroGeral.rg}"
-							required="true" rendered="#{beanCadastroGeralEdita.isRederiza2}" />
+							rendered="#{beanCadastroGeral.isRederiza2}" />
+						<p:inputMask id="rg" value="#{beanCadastroGeral.cadastroGeral.rg}"
+							required="true" rendered="#{beanCadastroGeral.isRederiza2}" />
 
 						<p:outputLabel value="Razão Social:" for="razao_social"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
-						<p:inputText id="razao_social" onkeyup="this.value=this.value.toUpperCase()"
-							value="#{beanCadastroGeralEdita.cadastroGeral.razao_social}" required="true"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:inputText id="razao_social"
+							value="#{beanCadastroGeral.cadastroGeral.razao_social}" required="true"
+							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel value="Cnpj:" for="cnpj"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
+							rendered="#{beanCadastroGeral.isRederiza}" />
 						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
-							value="#{beanCadastroGeralEdita.cadastroGeral.cnpj}" required="true"
-							validator="cnpjValidador"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
+							value="#{beanCadastroGeral.cadastroGeral.cnpj}" required="true"
+							validator="cnpjValidador" rendered="#{beanCadastroGeral.isRederiza}" />
 							
 						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
-						<p:inputText id="insc_estadual" onkeyup="this.value=this.value.toUpperCase()"
-							value="#{beanCadastroGeralEdita.cadastroGeral.insc_estadual}" required="true"
-							rendered="#{beanCadastroGeralEdita.isRederiza}" />
+							rendered="#{beanCadastroGeral.isRederiza}" />
+						<p:inputText id="insc_estadual"
+							value="#{beanCadastroGeral.cadastroGeral.insc_estadual}" required="true"
+							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel for="observacao" value="Observacão"/>
                    		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
-                   		value="#{beanCadastroGeralEdita.cadastroGeral.observacao}"/>
-                   		
+                   		value="#{beanCadastroGeral.cadastroGeral.observacao}"/>
+
 					</p:panelGrid>
-				<p:separator></p:separator>
-				
+					<p:separator></p:separator>
+					
 				<p:tabView dynamic="false" cache="false" id="tabendereco">
 				<!-- dados de endereco  -->
 				<p:tab title="Endereço" id="endereco">
@@ -124,32 +121,32 @@
 
 						<p:outputLabel value="Cep:" for="cep" />
 						<p:inputMask mask="99.999-999" id="cep"
-							value="#{beanCadastroGeralEdita.cadastroGeral.cep}" />
+							value="#{beanCadastroGeral.cadastroGeral.cep}" />
 
 						<p:outputLabel value="Cidade:" for="cidade" />
 						<h:panelGroup>
 							<p:autoComplete id="cidade"
-								value="#{beanCadastroGeralEdita.cadastroGeral.cidade}" size="30"
-								completeMethod="#{beanCadastroGeralEdita.completaCidade}" var="c"
+								value="#{beanCadastroGeral.cadastroGeral.cidade}" size="30"
+								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
 								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
 								forceSelection="true" converter="conversorCidade" />
 							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
 						</h:panelGroup>
 
 						<p:outputLabel value="Logradouro:" for="logradouro" />
-						<p:inputText id="logradouro" onkeyup="this.value=this.value.toUpperCase()"
-							value="#{beanCadastroGeralEdita.cadastroGeral.logadouro}" maxlength="100" />
+						<p:inputText id="logradouro"
+							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel value="Bairro:" for="bairro" />
-						<p:inputText id="bairro" value="#{beanCadastroGeralEdita.cadastroGeral.bairro}"
+						<p:inputText id="bairro" value="#{beanCadastroGeral.cadastroGeral.bairro}"
 							maxlength="40" onkeyup="this.value=this.value.toUpperCase()"/>
 							
 						<p:outputLabel value="Numero:" for="numero" />
-						<p:inputText id="numero" value="#{beanCadastroGeralEdita.cadastroGeral.numero}"
+						<p:inputText id="numero" value="#{beanCadastroGeral.cadastroGeral.numero}"
 							maxlength="10" />
 						<p:outputLabel value="Complemento:" for="complemento" />
 						<p:inputText id="complemento"
-							value="#{beanCadastroGeralEdita.cadastroGeral.complemento}" maxlength="150" />
+							value="#{beanCadastroGeral.cadastroGeral.complemento}" maxlength="150" />
 					</p:panelGrid>
 					<!-- dados de endereco -->
 				</p:tab>
@@ -164,17 +161,18 @@
 						
 						<p:outputLabel value="Nome:" for="nomec" />
 						<p:inputText id="nomec" onkeyup="this.value=this.value.toUpperCase()"
-							value="#{beanCadastroGeralEdita.cadastroGeral.nomecontato}" maxlength="150" />
+							value="#{beanCadastroGeral.cadastroGeral.nomecontato}" maxlength="150" />
 
 						<p:outputLabel value="Email" for="email" />
-						<p:inputText id="email" value="#{beanCadastroGeralEdita.cadastroGeral.email}"
+						<p:inputText id="email" value="#{beanCadastroGeral.cadastroGeral.email}"
 							maxlength="100" onkeyup="this.value=this.value.toLowerCase()"/>
+							
 						<p:outputLabel value="Telefone:" for="numeroc" />
 						<p:inputText id="numeroc"
-							value="#{beanCadastroGeralEdita.cadastroGeral.numerocontato}" maxlength="15" />
+							value="#{beanCadastroGeral.cadastroGeral.numerocontato}" maxlength="15" />
 							
 						<p:outputLabel value="Observação:" for="observacaocontato" />
-						<p:inputText id="observacaocontato" value="#{beanCadastroGeralEdita.cadastroGeral.observacaocontato}"
+						<p:inputText id="observacaocontato" value="#{beanCadastroGeral.cadastroGeral.observacaocontato}"
 							maxlength="150" />
 
 					</p:panelGrid>
@@ -190,10 +188,10 @@
 						
 						<p:outputLabel value="Suframa:" for="insc_suframa" />
 						<p:inputText id="insc_suframa" style="text-transform:uppercase;"
-							value="#{beanCadastroGeralEdita.cadastroGeral.insc_suframa}" maxlength="10" />	
+							value="#{beanCadastroGeral.cadastroGeral.insc_suframa}" maxlength="10" />	
 							
 					<p:outputLabel value="Tipo Tributação:" for="tipo_tributacao" />
-						<p:selectOneMenu id="tipo_tributacao" value="#{beanCadastroGeralEdita.cadastroGeral.tipo_tributacao}"
+						<p:selectOneMenu id="tipo_tributacao" value="#{beanCadastroGeral.cadastroGeral.tipo_tributacao}"
 							lazy="true" style="width:125px" required="true">
 							<f:selectItem itemLabel="" itemValue=" " />
 							<f:selectItem itemLabel="Consumidor Final" itemValue="1" />
@@ -207,88 +205,92 @@
 								
 					<p:outputLabel value="Desc. ICMS Suframa" for="desc_icms_suframa" />
 						<p:selectBooleanCheckbox id="desc_icms_suframa"
-							value="#{beanCadastroGeralEdita.cadastroGeral.desc_icms_suframa}"  />
+							value="#{beanCadastroGeral.cadastroGeral.desc_icms_suframa}"  />
 					
 					<p:outputLabel value="Desc. COFINS Suframa" for="desc_cofins_suframa" />
 						<p:selectBooleanCheckbox id="desc_cofins_suframa"
-							value="#{beanCadastroGeralEdita.cadastroGeral.desc_cofins_suframa}"  />
+							value="#{beanCadastroGeral.cadastroGeral.desc_cofins_suframa}"  />
 					
 					<p:outputLabel value="Desc. PIS Suframa" for="desc_pis_suframa" />
 						<p:selectBooleanCheckbox id="desc_pis_suframa"
-							value="#{beanCadastroGeralEdita.cadastroGeral.desc_pis_suframa}"  />
+							value="#{beanCadastroGeral.cadastroGeral.desc_pis_suframa}"  />
 					
 					<p:outputLabel value="Desc. IPI Suframa" for="desc_ipi_suframa" />
 						<p:selectBooleanCheckbox id="desc_ipi_suframa"
-							value="#{beanCadastroGeralEdita.cadastroGeral.desc_ipi_suframa}"  />	
+							value="#{beanCadastroGeral.cadastroGeral.desc_ipi_suframa}"  />	
 									
 					</p:panelGrid>
 					<!-- dados de fiscal -->
-				</p:tab> 
-			</p:tabView>  
-			
+				</p:tab>
+			</p:tabView>
+					
 			</p:tab>
 			
-				<!-- dados do funcinario , caso esteja marcado a opção funcionario  -->
-			<p:tab title="Funcionário" id="funcionario" rendered="#{beanCadastroGeralEdita.isFuncionario}">
+			<!-- dados do funcinario , caso esteja marcado a opção funcionario  -->
+			<p:tab title="Funcionário" id="funcionario" rendered="#{beanCadastroGeral.isFuncionario}">
 				<p:panelGrid id="painelf" columns="04"	 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 				layout="grid" styleClass="ui-fluid card">
 				
 						<p:outputLabel value="Empresa :" for="empresa" />
-						<p:selectOneMenu id="empresa"	value="#{beanCadastroGeralEdita.cadastroGeral.empresa}" 
+						<p:selectOneMenu id="empresa"	value="#{beanCadastroGeral.cadastroGeral.empresa}" 
 						filter="true" filterMatchMode="contains" converter="conversorEmpresa">
 						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeralEdita.listaempresa}" var="empresas"
+						<f:selectItems value="#{beanCadastroGeral.listaempresa}" var="empresas"
 								itemLabel="#{empresas.nome}" itemValue="#{empresas}" />
                    		</p:selectOneMenu>
                    		
                    		<p:outputLabel value="Data Admissão :" for="dtadmissao" />
 						<p:calendar locale="pt_BR" id="dtadmissao"
-							value="#{beanCadastroGeralEdita.cadastroGeral.dtadmissao}"
+							value="#{beanCadastroGeral.cadastroGeral.dtadmissao}"
 							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
 							
 						<p:outputLabel value="Salário :" for="salario" />
 						<p:inputNumber id="salario" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeralEdita.cadastroGeral.salario}" />
+							value="#{beanCadastroGeral.cadastroGeral.salario}" />
 							
 						<p:outputLabel value="Insalubridade :" for="insalubridade" />
 						<p:inputNumber id="insalubridade" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeralEdita.cadastroGeral.insalubridade}" />
+							value="#{beanCadastroGeral.cadastroGeral.insalubridade}" />
 							
 						<p:outputLabel value="Adicional Noturno :" for="adicionalnoturno" />
 						<p:inputNumber id="adicionalnoturno" emptyValue="true" symbol=" %" symbolPosition="s"  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeralEdita.cadastroGeral.adicionalnoturno}" />
+							value="#{beanCadastroGeral.cadastroGeral.adicionalnoturno}" />
 							
 						<p:outputLabel value="Carga Horária Mensal :" for="cargahoraria_mensal" />
 						<p:inputNumber id="cargahoraria_mensal" emptyValue="true"   
-							value="#{beanCadastroGeralEdita.cadastroGeral.cargahoraria_mensal}" />
+							value="#{beanCadastroGeral.cadastroGeral.cargahoraria_mensal}" />
 							
 						<p:outputLabel value="CBO/Função :" for="funcao" />
-						<p:selectOneMenu id="funcao"	value="#{beanCadastroGeralEdita.cadastroGeral.funcao}" 
+						<p:selectOneMenu id="funcao"	value="#{beanCadastroGeral.cadastroGeral.funcao}" 
 						filter="true" filterMatchMode="contains" converter="conversorFuncao">
 						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeralEdita.listafuncao}" var="funcoes"
+						<f:selectItems value="#{beanCadastroGeral.listafuncao}" var="funcoes"
 								itemLabel="#{funcoes.cbo} - #{funcoes.descricao}" itemValue="#{funcoes}" />
                    		</p:selectOneMenu>
                    		
                    		<p:outputLabel value="Setor :" for="setor" />
-						<p:selectOneMenu id="setor"	value="#{beanCadastroGeralEdita.cadastroGeral.setor}" 
+						<p:selectOneMenu id="setor"	value="#{beanCadastroGeral.cadastroGeral.setor}" 
 						filter="true" filterMatchMode="contains" converter="conversorSetor">
 						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeralEdita.listasetor}" var="setores"
+						<f:selectItems value="#{beanCadastroGeral.listasetor}" var="setores"
 								itemLabel="#{setores.nome}" itemValue="#{setores}" />
                    		</p:selectOneMenu>
                    		
                    		<p:outputLabel value="PIS/PASEP :" for="pispasep" />
 						<p:inputMask mask="999.99999.99-9" id="pispasep" 
-							value="#{beanCadastroGeralEdita.cadastroGeral.pispasep}" maxlength="14" />
-
+							value="#{beanCadastroGeral.cadastroGeral.pispasep}" maxlength="14" />
+							
+						<p:separator></p:separator>
+						<p:separator></p:separator>
+						<p:separator></p:separator>
+						<p:separator></p:separator>
 						
 						<p:outputLabel value="Sexo :" for="sexo" />
 						<p:selectOneMenu id="sexo"
-							value="#{beanCadastroGeralEdita.cadastroGeral.sexo}">
+							value="#{beanCadastroGeral.cadastroGeral.sexo}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
 							<f:selectItem itemLabel="FEMININO" itemValue="FEMININO" />
@@ -296,14 +298,14 @@
 						
 						<p:outputLabel value="Data Nascimento :" for="dtnascimento" />
 						<p:calendar locale="pt_BR" id="dtnascimento"
-							value="#{beanCadastroGeralEdita.cadastroGeral.dtnascimento}"
+							value="#{beanCadastroGeral.cadastroGeral.dtnascimento}"
 							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
 							
 						<p:outputLabel value="Naturalidade :" for="naturalidade" />
 						<h:panelGroup>
 							<p:autoComplete id="naturalidade"
-								value="#{beanCadastroGeralEdita.cadastroGeral.naturalidade}" size="30"
-								completeMethod="#{beanCadastroGeralEdita.completaCidade}" var="c"
+								value="#{beanCadastroGeral.cadastroGeral.naturalidade}" size="30"
+								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
 								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
 								forceSelection="true" converter="conversorCidade" />
 							<p:watermark value="Pesquise pelo Nome" for="naturalidade"></p:watermark>
@@ -311,7 +313,7 @@
 						
 						<p:outputLabel value="Escolaridade :" for="escolaridade" />
 						<p:selectOneMenu id="escolaridade"
-							value="#{beanCadastroGeralEdita.cadastroGeral.escolaridade}">
+							value="#{beanCadastroGeral.cadastroGeral.escolaridade}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="ENSINO FUNDAMENTAL INCOMPLETO" itemValue="ENSINO FUNDAMENTAL INCOMPLETO" />
 							<f:selectItem itemLabel="ENSINO FUNDAMENTAL COMPLETO" itemValue="ENSINO FUNDAMENTAL COMPLETO" />
@@ -328,51 +330,49 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Orgão Emissor RG: " for="rg_orgaoemissor" />
-						<p:inputText id="rg_orgaoemissor" value="#{beanCadastroGeralEdita.cadastroGeral.rg_orgaoemissor}"
+						<p:inputText id="rg_orgaoemissor" value="#{beanCadastroGeral.cadastroGeral.rg_orgaoemissor}"
 							onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Data Emissão RG :" for="rg_dtemissao" />
 						<p:calendar locale="pt_BR" id="rg_dtemissao"
-							value="#{beanCadastroGeralEdita.cadastroGeral.rg_dtemissao}"
+							value="#{beanCadastroGeral.cadastroGeral.rg_dtemissao}"
 							pattern="dd/MM/yyyy" mask="true" effect="fold" />
 							
 						<p:outputLabel value="N° CTPS: " for="carteiratrabalho_numero" />
-						<p:inputText id="carteiratrabalho_numero" value="#{beanCadastroGeralEdita.cadastroGeral.carteiratrabalho_numero}"
+						<p:inputText id="carteiratrabalho_numero" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_numero}"
 							onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Série CTPS: " for="carteiratrabalho_serie" />
-						<p:inputText id="carteiratrabalho_serie" value="#{beanCadastroGeralEdita.cadastroGeral.carteiratrabalho_serie}"
+						<p:inputText id="carteiratrabalho_serie" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_serie}"
 							onkeyup="this.value=this.value.toUpperCase()">
 						</p:inputText>
 						
 						<p:outputLabel value="Data Emissão CTPS :" for="carteiratrabalho_dtemissao" />
 						<p:calendar locale="pt_BR" id="carteiratrabalho_dtemissao"
-							value="#{beanCadastroGeralEdita.cadastroGeral.carteiratrabalho_dtemissao}"
+							value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_dtemissao}"
 							pattern="dd/MM/yyyy" mask="true" effect="fold" />
 							
 						<p:outputLabel value="Uf CTPS : " for="estado" />
-						<p:selectOneMenu  id="estado" value="#{beanCadastroGeralEdita.cadastroGeral.carteiratrabalho_uf}" converter="conversorUf"  >
+						<p:selectOneMenu  id="estado" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_uf}" converter="conversorUf"  >
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems  value="#{beanCadastroGeralEdita.listaestado}" var="estado" itemLabel="#{estado.sigla}" itemValue="#{estado}" />
+							<f:selectItems  value="#{beanCadastroGeral.listaestado}" var="estado" itemLabel="#{estado.sigla}" itemValue="#{estado}" />
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Tipo Regime :" for="tiporemige" />
 						<p:selectOneMenu id="tiporemige"
-							value="#{beanCadastroGeralEdita.cadastroGeral.tiporemige}">
+							value="#{beanCadastroGeral.cadastroGeral.tiporemige}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="MENSAL" itemValue="MENSAL" />
 							<f:selectItem itemLabel="DIÁRIA" itemValue="DIÁRIA" />
 						</p:selectOneMenu>
 						
-						
-						
 				</p:panelGrid>				
-			</p:tab>
+			</p:tab>	
 			</p:tabView>
-
-			<p:commandButton action="#{beanCadastroGeralEdita.salvar()}" value="Salvar"
+			
+			<p:commandButton action="#{beanCadastroGeral.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
 

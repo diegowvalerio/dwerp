@@ -88,6 +88,76 @@ public class CadastroGeral implements Serializable {
 	private String observacaocontato;
 	@Column(nullable=false,columnDefinition="varchar(15)")
 	private String numerocontato;
+	
+	//dados do funcionario
+	
+	@ManyToOne
+	private Empresa empresa;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date dtadmissao;
+	
+	@Column(nullable=true, columnDefinition="numeric(6,2)")
+	private double salario;
+	
+	@Column(nullable=true, columnDefinition="numeric(6,2)")
+	private double insalubridade;
+	
+	@Column(nullable=true, columnDefinition="numeric(6,2)")
+	private double adicionalnoturno;
+	
+	@Column(nullable=true)
+	private int cargahoraria_mensal;
+	
+	@ManyToOne
+	private Funcao funcao;	
+	
+	@ManyToOne
+	private Setor setor;
+	
+	@Column(nullable=true,columnDefinition="varchar(14)")
+	private String pispasep;
+	
+	@Column(nullable=true,columnDefinition="varchar(14)") // MASCULINO - FEMININO
+	private String sexo;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date dtnascimento;
+	
+	@ManyToOne
+	private Cidade naturalidade;
+	
+	@Column(nullable=true,columnDefinition="varchar(150)")
+	private String escolaridade;
+	
+	@Column(nullable=true,columnDefinition="varchar(10)")
+	private String rg_orgaoemissor;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date rg_dtemissao;
+	
+	@Column(nullable=true,columnDefinition="varchar(12)")
+	private String carteiratrabalho_numero;
+	
+	@Column(nullable=true,columnDefinition="varchar(12)")
+	private String carteiratrabalho_serie;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=true)
+	private Date carteiratrabalho_dtemissao;
+	
+	@ManyToOne
+	private Estado carteiratrabalho_uf;
+	
+	@Column(nullable=true,columnDefinition="varchar(10)")
+	private String tiporemige;
+	
+	//gratificações fixas -valor total
+	@Column(nullable=true, columnDefinition="numeric(6,2)")
+	private double adicionalfixo;
 
 	
 	public CadastroGeral() {
@@ -344,6 +414,167 @@ public class CadastroGeral implements Serializable {
 
 	public void setDesc_pis_suframa(Boolean desc_pis_suframa) {
 		this.desc_pis_suframa = desc_pis_suframa;
+	}
+	
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Date getDtadmissao() {
+		return dtadmissao;
+	}
+
+	public void setDtadmissao(Date dtadmissao) {
+		this.dtadmissao = dtadmissao;
+	}
+
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
+
+	public String getPispasep() {
+		return pispasep;
+	}
+
+	public void setPispasep(String pispasep) {
+		this.pispasep = pispasep;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public Date getDtnascimento() {
+		return dtnascimento;
+	}
+
+	public void setDtnascimento(Date dtnascimento) {
+		this.dtnascimento = dtnascimento;
+	}
+
+	public Cidade getNaturalidade() {
+		return naturalidade;
+	}
+
+	public void setNaturalidade(Cidade naturalidade) {
+		this.naturalidade = naturalidade;
+	}
+
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+	public String getRg_orgaoemissor() {
+		return rg_orgaoemissor;
+	}
+
+	public void setRg_orgaoemissor(String rg_orgaoemissor) {
+		this.rg_orgaoemissor = rg_orgaoemissor;
+	}
+
+	public Date getRg_dtemissao() {
+		return rg_dtemissao;
+	}
+
+	public void setRg_dtemissao(Date rg_dtemissao) {
+		this.rg_dtemissao = rg_dtemissao;
+	}
+
+	public double getInsalubridade() {
+		return insalubridade;
+	}
+
+	public void setInsalubridade(double insalubridade) {
+		this.insalubridade = insalubridade;
+	}
+
+	public double getAdicionalnoturno() {
+		return adicionalnoturno;
+	}
+
+	public void setAdicionalnoturno(double adicionalnoturno) {
+		this.adicionalnoturno = adicionalnoturno;
+	}
+
+	public int getCargahoraria_mensal() {
+		return cargahoraria_mensal;
+	}
+
+	public void setCargahoraria_mensal(int cargahoraria_mensal) {
+		this.cargahoraria_mensal = cargahoraria_mensal;
+	}
+
+	public String getCarteiratrabalho_numero() {
+		return carteiratrabalho_numero;
+	}
+
+	public void setCarteiratrabalho_numero(String carteiratrabalho_numero) {
+		this.carteiratrabalho_numero = carteiratrabalho_numero;
+	}
+
+	public String getCarteiratrabalho_serie() {
+		return carteiratrabalho_serie;
+	}
+
+	public void setCarteiratrabalho_serie(String carteiratrabalho_serie) {
+		this.carteiratrabalho_serie = carteiratrabalho_serie;
+	}
+
+	public Date getCarteiratrabalho_dtemissao() {
+		return carteiratrabalho_dtemissao;
+	}
+
+	public void setCarteiratrabalho_dtemissao(Date carteiratrabalho_dtemissao) {
+		this.carteiratrabalho_dtemissao = carteiratrabalho_dtemissao;
+	}
+
+	public Estado getCarteiratrabalho_uf() {
+		return carteiratrabalho_uf;
+	}
+
+	public void setCarteiratrabalho_uf(Estado carteiratrabalho_uf) {
+		this.carteiratrabalho_uf = carteiratrabalho_uf;
+	}
+
+	public String getTiporemige() {
+		return tiporemige;
+	}
+
+	public void setTiporemige(String tiporemige) {
+		this.tiporemige = tiporemige;
 	}
 
 	@Override

@@ -213,5 +213,30 @@ public class Empresa implements Serializable {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idempresa == null) ? 0 : idempresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empresa other = (Empresa) obj;
+		if (idempresa == null) {
+			if (other.idempresa != null)
+				return false;
+		} else if (!idempresa.equals(other.idempresa))
+			return false;
+		return true;
+	}
    
 }

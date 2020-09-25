@@ -13,9 +13,17 @@ import javax.servlet.http.HttpSession;
 
 
 import br.com.dwerp.entidade.Cidade;
+import br.com.dwerp.entidade.Empresa;
+import br.com.dwerp.entidade.Estado;
+import br.com.dwerp.entidade.Funcao;
+import br.com.dwerp.entidade.Setor;
 import br.com.dwerp.entidade.CadastroGeral;
 import br.com.dwerp.msn.FacesMessageUtil;
 import br.com.dwerp.servico.ServicoCidade;
+import br.com.dwerp.servico.ServicoEmpresa;
+import br.com.dwerp.servico.ServicoEstado;
+import br.com.dwerp.servico.ServicoFuncao;
+import br.com.dwerp.servico.ServicoSetor;
 import br.com.dwerp.servico.ServicoCadastroGeral;
 
 @Named
@@ -27,9 +35,28 @@ public class BeanCadastroGeral implements Serializable{
 	@Inject
 	private ServicoCadastroGeral servico;
 	private List<CadastroGeral> lista;
+	private List<CadastroGeral> listafuncionario;
 	
 	@Inject
 	private ServicoCidade servicoCidade;
+	
+	@Inject
+	private ServicoEmpresa servicoEmpresa;
+	private List<Empresa> listaempresa;
+	
+	@Inject
+	private ServicoFuncao servicoFuncao;
+	private List<Funcao> listafuncao;
+	
+	@Inject
+	private ServicoSetor servicoSetor;
+	private List<Setor> listasetor;
+	
+	@Inject
+	private ServicoEstado servicoEstado;
+	private List<Estado> listaestado;
+	
+	private Boolean isFuncionario = false;
 	
 	private String opcao;
 	private Date data;
@@ -43,6 +70,12 @@ public class BeanCadastroGeral implements Serializable{
 	@PostConstruct
 	public void carregar(){
 		lista = servico.consultar();
+		listafuncionario = servico.consultar_funcionarios();
+		
+		listaempresa = servicoEmpresa.consultar();
+		listafuncao = servicoFuncao.consultar();
+		listasetor = servicoSetor.consultar_ativos();
+		listaestado = servicoEstado.consultar();
 		
 		this.cadastrogeral = this.getCadastroGeral();
 		this.cadastrogeral.setDtcadastro(data);
@@ -64,6 +97,14 @@ public class BeanCadastroGeral implements Serializable{
 		}
 		lista = servico.consultar();
 		return "lista-cadastrogeral";
+	}
+	
+	public void bo_funcionario() {
+		if(this.cadastrogeral.getOp_funcionario().equals(true)) {
+			isFuncionario = true;
+		}else {
+			isFuncionario = false;
+		}
 	}
 
 	public String excluir() {
@@ -158,6 +199,62 @@ public class BeanCadastroGeral implements Serializable{
 
 	public void setLista(List<CadastroGeral> lista) {
 		this.lista = lista;
+	}
+
+	public CadastroGeral getCadastrogeral() {
+		return cadastrogeral;
+	}
+
+	public void setCadastrogeral(CadastroGeral cadastrogeral) {
+		this.cadastrogeral = cadastrogeral;
+	}
+
+	public List<Empresa> getListaempresa() {
+		return listaempresa;
+	}
+
+	public void setListaempresa(List<Empresa> listaempresa) {
+		this.listaempresa = listaempresa;
+	}
+
+	public List<Funcao> getListafuncao() {
+		return listafuncao;
+	}
+
+	public void setListafuncao(List<Funcao> listafuncao) {
+		this.listafuncao = listafuncao;
+	}
+
+	public List<Setor> getListasetor() {
+		return listasetor;
+	}
+
+	public void setListasetor(List<Setor> listasetor) {
+		this.listasetor = listasetor;
+	}
+
+	public List<Estado> getListaestado() {
+		return listaestado;
+	}
+
+	public void setListaestado(List<Estado> listaestado) {
+		this.listaestado = listaestado;
+	}
+
+	public Boolean getIsFuncionario() {
+		return isFuncionario;
+	}
+
+	public void setIsFuncionario(Boolean isFuncionario) {
+		this.isFuncionario = isFuncionario;
+	}
+
+	public List<CadastroGeral> getListafuncionario() {
+		return listafuncionario;
+	}
+
+	public void setListafuncionario(List<CadastroGeral> listafuncionario) {
+		this.listafuncionario = listafuncionario;
 	}
 
 }

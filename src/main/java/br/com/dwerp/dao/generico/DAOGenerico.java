@@ -11,6 +11,7 @@ public interface DAOGenerico<E> {
 	public E consultar(Integer id);
 	public List<E> consultar();	
 	public List<E> consultar_ativos();	
+	public List<E> consultar_funcionarios();	
 	
 	
 	public List<E> buscacidadenome(String e);

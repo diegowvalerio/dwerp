@@ -42,6 +42,10 @@ public class ServicoCadastroGeral implements Serializable{
 		return dao.consultar();
 	}
 	
+	public List<CadastroGeral> consultar_funcionarios(){
+		return dao.consultar_funcionarios();
+	}
+	
 	
 	//painel de resumo
 	

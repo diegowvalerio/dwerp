@@ -46,6 +46,11 @@
 						<i class="fa fa-bars"></i>
 						<span>Forma Pagamento</span>
 					</p:link></li>
+				<li><p:link
+						href="/pages/cadastros/funcao/lista-funcao.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_funcao')}">
+						<i class="fa fa-bars"></i>
+						<span>Função</span>
+					</p:link></li>
 				<li><p:link href="/pages/cadastros/grupo/lista-grupo.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_grupo')}">
 						<i class="fa fa-bars"></i>
 						<span>Grupo</span>
@@ -53,6 +58,11 @@
 				<li><p:link href="/pages/cadastros/produto/lista-produto.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_produto')}">
 						<i class="fa fa-bars"></i>
 						<span>Produto</span>
+					</p:link></li>
+					
+				<li><p:link href="/pages/cadastros/setor/lista-setor.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_setor')}">
+						<i class="fa fa-bars"></i>
+						<span>Setor</span>
 					</p:link></li>
 					
 				<li><p:link href="/pages/cadastros/unidade/lista-unidade.xhtml" rendered="#{beanControleAcesso.acesso('cadastro_unidade')}">
@@ -105,6 +115,21 @@
 					</p:link></li>
 
 			</ul></li>
+			
+		<li class="treeview"><p:link href="#" rendered="#{beanControleAcesso.acesso('rh')}" > <i class="fa fa-user"></i>
+				<span>RH</span> <span class="pull-right-container"> <i
+					class="fa fa-angle-left pull-right"></i>
+			</span>
+		</p:link>
+
+			<ul class="treeview-menu">
+				<li><p:link href="/pages/rh/fechamento/lista-fechamento.xhtml" rendered="#{beanControleAcesso.acesso('rh_fechamento')}" >
+						<i class="fa fa-database"></i>
+						<span>Fechamento</span>
+					</p:link></li>
+
+
+			</ul></li>
 
 		<li class="treeview"><p:link href="#" rendered="#{beanControleAcesso.acesso('sistema')}" > <i class="fa fa-gears"></i>
 				<span>Sistema</span> <span class="pull-right-container"> <i
@@ -135,6 +160,8 @@
 
 
 			</ul></li>
+			
+
 
 	</ul>
 </ui:composition>

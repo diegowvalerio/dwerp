@@ -39,7 +39,10 @@
 							
 					<p:outputLabel value="Funcionário " for="op_funcionario" />
 						<p:selectBooleanCheckbox id="op_funcionario"
-							value="#{beanCadastroGeral.cadastroGeral.op_funcionario}"  />
+							value="#{beanCadastroGeral.cadastroGeral.op_funcionario}" >
+						<p:ajax listener="#{beanCadastroGeral.bo_funcionario}"
+								update=":form:tabview" />
+						</p:selectBooleanCheckbox>
 								
 					</p:panelGrid>
 					<p:separator></p:separator>
@@ -106,12 +109,9 @@
                    		value="#{beanCadastroGeral.cadastroGeral.observacao}"/>
 
 					</p:panelGrid>
-
-				</p:tab>
-			</p:tabView>
-			
-			
-			<p:tabView dynamic="false" cache="false" id="tabendereco">
+					<p:separator></p:separator>
+					
+				<p:tabView dynamic="false" cache="false" id="tabendereco">
 				<!-- dados de endereco  -->
 				<p:tab title="Endereço" id="endereco">
 
@@ -223,7 +223,150 @@
 					<!-- dados de fiscal -->
 				</p:tab>
 			</p:tabView>
-
+					
+			</p:tab>
+			
+			<!-- dados do funcinario , caso esteja marcado a opção funcionario  -->
+			<p:tab title="Funcionário" id="funcionario" rendered="#{beanCadastroGeral.isFuncionario}">
+				<p:panelGrid id="painelf" columns="04"	 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+				layout="grid" styleClass="ui-fluid card">
+				
+						<p:outputLabel value="Empresa :" for="empresa" />
+						<p:selectOneMenu id="empresa"	value="#{beanCadastroGeral.cadastroGeral.empresa}" 
+						filter="true" filterMatchMode="contains" converter="conversorEmpresa">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanCadastroGeral.listaempresa}" var="empresas"
+								itemLabel="#{empresas.nome}" itemValue="#{empresas}" />
+                   		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="Data Admissão :" for="dtadmissao" />
+						<p:calendar locale="pt_BR" id="dtadmissao"
+							value="#{beanCadastroGeral.cadastroGeral.dtadmissao}"
+							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Salário :" for="salario" />
+						<p:inputNumber id="salario" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." 
+							value="#{beanCadastroGeral.cadastroGeral.salario}" />
+							
+						<p:outputLabel value="Insalubridade :" for="insalubridade" />
+						<p:inputNumber id="insalubridade" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." 
+							value="#{beanCadastroGeral.cadastroGeral.insalubridade}" />
+							
+						<p:outputLabel value="Adicional Noturno :" for="adicionalnoturno" />
+						<p:inputNumber id="adicionalnoturno" emptyValue="true" symbol=" %" symbolPosition="s"  
+                			decimalSeparator="," thousandSeparator="." 
+							value="#{beanCadastroGeral.cadastroGeral.adicionalnoturno}" />
+							
+						<p:outputLabel value="Carga Horária Mensal :" for="cargahoraria_mensal" />
+						<p:inputNumber id="cargahoraria_mensal" emptyValue="true"   
+							value="#{beanCadastroGeral.cadastroGeral.cargahoraria_mensal}" />
+							
+						<p:outputLabel value="CBO/Função :" for="funcao" />
+						<p:selectOneMenu id="funcao"	value="#{beanCadastroGeral.cadastroGeral.funcao}" 
+						filter="true" filterMatchMode="contains" converter="conversorFuncao">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanCadastroGeral.listafuncao}" var="funcoes"
+								itemLabel="#{funcoes.cbo} - #{funcoes.descricao}" itemValue="#{funcoes}" />
+                   		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="Setor :" for="setor" />
+						<p:selectOneMenu id="setor"	value="#{beanCadastroGeral.cadastroGeral.setor}" 
+						filter="true" filterMatchMode="contains" converter="conversorSetor">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanCadastroGeral.listasetor}" var="setores"
+								itemLabel="#{setores.nome}" itemValue="#{setores}" />
+                   		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="PIS/PASEP :" for="pispasep" />
+						<p:inputMask mask="999.99999.99-9" id="pispasep" 
+							value="#{beanCadastroGeral.cadastroGeral.pispasep}" maxlength="14" />
+													
+						<p:outputLabel value="Sexo :" for="sexo" />
+						<p:selectOneMenu id="sexo"
+							value="#{beanCadastroGeral.cadastroGeral.sexo}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
+							<f:selectItem itemLabel="FEMININO" itemValue="FEMININO" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Data Nascimento :" for="dtnascimento" />
+						<p:calendar locale="pt_BR" id="dtnascimento"
+							value="#{beanCadastroGeral.cadastroGeral.dtnascimento}"
+							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Naturalidade :" for="naturalidade" />
+						<h:panelGroup>
+							<p:autoComplete id="naturalidade"
+								value="#{beanCadastroGeral.cadastroGeral.naturalidade}" size="30"
+								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
+								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
+								forceSelection="true" converter="conversorCidade" />
+							<p:watermark value="Pesquise pelo Nome" for="naturalidade"></p:watermark>
+						</h:panelGroup>
+						
+						<p:outputLabel value="Escolaridade :" for="escolaridade" />
+						<p:selectOneMenu id="escolaridade"
+							value="#{beanCadastroGeral.cadastroGeral.escolaridade}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="ENSINO FUNDAMENTAL INCOMPLETO" itemValue="ENSINO FUNDAMENTAL INCOMPLETO" />
+							<f:selectItem itemLabel="ENSINO FUNDAMENTAL COMPLETO" itemValue="ENSINO FUNDAMENTAL COMPLETO" />
+							<f:selectItem itemLabel="ENSINO MÉDIO COMPLETO" itemValue="ENSINO MÉDIO COMPLETO" />
+							<f:selectItem itemLabel="ENSINO MÉDIO INCOMPLETO" itemValue="ENSINO MÉDIO INCOMPLETO" />
+							<f:selectItem itemLabel="EDUCAÇÃO SUPERIOR INCOMPLETA" itemValue="EDUCAÇÃO SUPERIOR INCOMPLETA" />
+							<f:selectItem itemLabel="EDUCAÇÃO SUPERIOR COMPLETA" itemValue="EDUCAÇÃO SUPERIOR COMPLETA" />
+							<f:selectItem itemLabel="PÓS-GRADUAÇÃO INCOMPLETA" itemValue="PÓS-GRADUAÇÃO INCOMPLETA" />
+							<f:selectItem itemLabel="PÓS-GRADUAÇÃO COMPLETA" itemValue="PÓS-GRADUAÇÃO COMPLETA" />
+							<f:selectItem itemLabel="MESTRADO INCOMPLETO" itemValue="MESTRADO INCOMPLETO" />
+							<f:selectItem itemLabel="MESTRADO COMPLETO" itemValue="MESTRADO COMPLETO" />
+							<f:selectItem itemLabel="DOUTORADO INCOMPLETO" itemValue="DOUTORADO INCOMPLETO" />
+							<f:selectItem itemLabel="DOUTORADO COMPLETO" itemValue="DOUTORADO COMPLETO" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Orgão Emissor RG: " for="rg_orgaoemissor" />
+						<p:inputText id="rg_orgaoemissor" value="#{beanCadastroGeral.cadastroGeral.rg_orgaoemissor}"
+							onkeyup="this.value=this.value.toUpperCase()">
+						</p:inputText>
+						
+						<p:outputLabel value="Data Emissão RG :" for="rg_dtemissao" />
+						<p:calendar locale="pt_BR" id="rg_dtemissao"
+							value="#{beanCadastroGeral.cadastroGeral.rg_dtemissao}"
+							pattern="dd/MM/yyyy" mask="true" effect="fold" />
+							
+						<p:outputLabel value="N° CTPS: " for="carteiratrabalho_numero" />
+						<p:inputText id="carteiratrabalho_numero" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_numero}"
+							onkeyup="this.value=this.value.toUpperCase()">
+						</p:inputText>
+						
+						<p:outputLabel value="Série CTPS: " for="carteiratrabalho_serie" />
+						<p:inputText id="carteiratrabalho_serie" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_serie}"
+							onkeyup="this.value=this.value.toUpperCase()">
+						</p:inputText>
+						
+						<p:outputLabel value="Data Emissão CTPS :" for="carteiratrabalho_dtemissao" />
+						<p:calendar locale="pt_BR" id="carteiratrabalho_dtemissao"
+							value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_dtemissao}"
+							pattern="dd/MM/yyyy" mask="true" effect="fold" />
+							
+						<p:outputLabel value="Uf CTPS : " for="estado" />
+						<p:selectOneMenu  id="estado" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_uf}" converter="conversorUf"  >
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItems  value="#{beanCadastroGeral.listaestado}" var="estado" itemLabel="#{estado.sigla}" itemValue="#{estado}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Tipo Regime :" for="tiporemige" />
+						<p:selectOneMenu id="tiporemige"
+							value="#{beanCadastroGeral.cadastroGeral.tiporemige}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="MENSAL" itemValue="MENSAL" />
+							<f:selectItem itemLabel="DIÁRIA" itemValue="DIÁRIA" />
+						</p:selectOneMenu>
+						
+				</p:panelGrid>				
+			</p:tab>	
+			</p:tabView>
+			
 			<p:commandButton action="#{beanCadastroGeral.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>

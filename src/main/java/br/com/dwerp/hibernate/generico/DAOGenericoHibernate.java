@@ -65,6 +65,12 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		return manager.createQuery("from "+classeEntidade.getSimpleName()+" where situacao = true").getResultList();
 	}
 	
+	//consulta cadastro geral apenas funcionarios
+	@Override
+	public List<E> consultar_funcionarios() {		
+		return manager.createQuery("from "+classeEntidade.getSimpleName()+" where op_funcionario = true").getResultList();
+	}
+	
 	
 	@SuppressWarnings({ "unchecked" })
 	@Override
