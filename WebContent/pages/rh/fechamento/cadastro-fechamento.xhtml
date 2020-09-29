@@ -1,378 +1,413 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>	
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
-
+	
+	<ui:define name="head">
+	<script type="text/javascript">
+	
+	</script>
+	
+	<style type="text/css">  
+            .color_50 {  
+                background-color: #CEF6E3;  
+            }  
+            
+            .color_60 {  
+                background-color: #A9E2F3;  
+            }
+            
+            .color_100 {  
+                background-color: #F5A9D0;  
+            }
+     </style>
+	
+	</ui:define>
+	
 	<ui:define name="title">
         Cadastro
     </ui:define>
 
 	<ui:define name="body">
+	
 		<f:metadata>
 		</f:metadata>
 
 		<adm:breadcrumb title="Cadastro Cadastro" link="cadastro-geral.xhtml" />
 		<h:form id="form" rendered="#{beanControleAcesso.acesso('cadastro_cadastro')}">
 			<p:growl id="erros" showDetail="true" sticky="false" />
+			
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
 				
-					<p:panelGrid columns="8" id="painelA"
-						columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
-						layout="grid" styleClass="ui-fluid card">
-					
-					<p:outputLabel value="Cliente: " for="op_cliente" />
-						<p:selectBooleanCheckbox id="op_cliente"
-							value="#{beanCadastroGeral.cadastroGeral.op_cliente}"  />
-							
-					<p:outputLabel value="Forncedor: " for="op_fornecedor" />
-						<p:selectBooleanCheckbox id="op_fornecedor"
-							value="#{beanCadastroGeral.cadastroGeral.op_fornecedor}"  />
-							
-					<p:outputLabel value="Transportadora: " for="op_transportadora" />
-						<p:selectBooleanCheckbox id="op_transportadora"
-							value="#{beanCadastroGeral.cadastroGeral.op_transportadora}"  />
-							
-					<p:outputLabel value="Funcionário " for="op_funcionario" />
-						<p:selectBooleanCheckbox id="op_funcionario"
-							value="#{beanCadastroGeral.cadastroGeral.op_funcionario}" >
-						<p:ajax listener="#{beanCadastroGeral.bo_funcionario}"
-								update=":form:tabview" />
-						</p:selectBooleanCheckbox>
-								
-					</p:panelGrid>
-					<p:separator></p:separator>
-					<p:panelGrid columns="4" id="paineld"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-						layout="grid" styleClass="ui-fluid card">
-						
-						<p:outputLabel value="Tipo Pessoa:" for="tipojf" />
-						<p:selectOneMenu id="tipojf" value="#{beanCadastroGeral.cadastroGeral.tipojf}"
-							lazy="true" style="width:125px" required="true">
-							<f:selectItem itemLabel="" itemValue=" " />
-							<f:selectItem itemLabel="Física" itemValue="F" />
-							<f:selectItem itemLabel="Jurídica" itemValue="J" />
-							<p:ajax listener="#{beanCadastroGeral.renderizar}"
-								update=":form:tabview:paineld" />
-						</p:selectOneMenu>
-
-						<p:outputLabel value="Data Cadastro:" for="dtcadastro" />
-						<p:calendar autocomplete="#{beanCadastroGeral.data}" locale="pt_BR"
-							id="dtcadastro" disabled="true"
-							value="#{beanCadastroGeral.cadastroGeral.dtcadastro}" pattern="dd/MM/yyyy"
-							mask="true" required="true" effect="fold" />
-							
-						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{beanCadastroGeral.cadastroGeral.nome}"
-							required="true" onkeyup="this.value=this.value.toUpperCase()">
-						</p:inputText>
-						
-						<p:outputLabel value="Ativo : " for="situacao" />
-						<p:selectBooleanCheckbox id="situacao"
-							value="#{beanCadastroGeral.cadastroGeral.situacao}" required="true" />
-
-						<p:outputLabel value="Cpf:" for="cpf"
-							rendered="#{beanCadastroGeral.isRederiza2}" />
-						<p:inputMask mask="999.999.999-99" id="cpf"
-							value="#{beanCadastroGeral.cadastroGeral.cpf}" required="true"
-							validator="cpfValidador" rendered="#{beanCadastroGeral.isRederiza2}" />
-							
-						<p:outputLabel value="Rg:" for="rg"
-							rendered="#{beanCadastroGeral.isRederiza2}" />
-						<p:inputMask id="rg" value="#{beanCadastroGeral.cadastroGeral.rg}"
-							required="true" rendered="#{beanCadastroGeral.isRederiza2}" />
-
-						<p:outputLabel value="Razão Social:" for="razao_social"
-							rendered="#{beanCadastroGeral.isRederiza}" />
-						<p:inputText id="razao_social"
-							value="#{beanCadastroGeral.cadastroGeral.razao_social}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
-							
-						<p:outputLabel value="Cnpj:" for="cnpj"
-							rendered="#{beanCadastroGeral.isRederiza}" />
-						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
-							value="#{beanCadastroGeral.cadastroGeral.cnpj}" required="true"
-							validator="cnpjValidador" rendered="#{beanCadastroGeral.isRederiza}" />
-							
-						<p:outputLabel value="Inscrição Estadual:" for="insc_estadual"
-							rendered="#{beanCadastroGeral.isRederiza}" />
-						<p:inputText id="insc_estadual"
-							value="#{beanCadastroGeral.cadastroGeral.insc_estadual}" required="true"
-							rendered="#{beanCadastroGeral.isRederiza}" onkeyup="this.value=this.value.toUpperCase()"/>
-							
-						<p:outputLabel for="observacao" value="Observacão"/>
-                   		<p:inputTextarea id="observacao" maxlength="250" autoResize="false"
-                   		value="#{beanCadastroGeral.cadastroGeral.observacao}"/>
-
-					</p:panelGrid>
-					<p:separator></p:separator>
-					
-				<p:tabView dynamic="false" cache="false" id="tabendereco">
-				<!-- dados de endereco  -->
-				<p:tab title="Endereço" id="endereco">
-
-					<p:panelGrid id="painelDados2" columns="4"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-						layout="grid" styleClass="ui-fluid card">
-
-						<p:outputLabel value="Cep:" for="cep" />
-						<p:inputMask mask="99.999-999" id="cep"
-							value="#{beanCadastroGeral.cadastroGeral.cep}" />
-
-						<p:outputLabel value="Cidade:" for="cidade" />
-						<h:panelGroup>
-							<p:autoComplete id="cidade"
-								value="#{beanCadastroGeral.cadastroGeral.cidade}" size="30"
-								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
-								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
-								forceSelection="true" converter="conversorCidade" />
-							<p:watermark value="Pesquise pelo Nome" for="cidade"></p:watermark>
-						</h:panelGroup>
-
-						<p:outputLabel value="Logradouro:" for="logradouro" />
-						<p:inputText id="logradouro"
-							value="#{beanCadastroGeral.cadastroGeral.logadouro}" maxlength="100" onkeyup="this.value=this.value.toUpperCase()"/>
-							
-						<p:outputLabel value="Bairro:" for="bairro" />
-						<p:inputText id="bairro" value="#{beanCadastroGeral.cadastroGeral.bairro}"
-							maxlength="40" onkeyup="this.value=this.value.toUpperCase()"/>
-							
-						<p:outputLabel value="Numero:" for="numero" />
-						<p:inputText id="numero" value="#{beanCadastroGeral.cadastroGeral.numero}"
-							maxlength="10" />
-						<p:outputLabel value="Complemento:" for="complemento" />
-						<p:inputText id="complemento"
-							value="#{beanCadastroGeral.cadastroGeral.complemento}" maxlength="150" />
-					</p:panelGrid>
-					<!-- dados de endereco -->
-				</p:tab>
-
-
-				<!-- dados de contatos  -->
-				<p:tab title="Contato" id="contato">
-
-					<p:panelGrid id="painelDados3" columns="4"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-						layout="grid" styleClass="ui-fluid card">
-						
-						<p:outputLabel value="Nome:" for="nomec" />
-						<p:inputText id="nomec" onkeyup="this.value=this.value.toUpperCase()"
-							value="#{beanCadastroGeral.cadastroGeral.nomecontato}" maxlength="150" />
-
-						<p:outputLabel value="Email" for="email" />
-						<p:inputText id="email" value="#{beanCadastroGeral.cadastroGeral.email}"
-							maxlength="100" onkeyup="this.value=this.value.toLowerCase()"/>
-							
-						<p:outputLabel value="Telefone:" for="numeroc" />
-						<p:inputText id="numeroc"
-							value="#{beanCadastroGeral.cadastroGeral.numerocontato}" maxlength="15" />
-							
-						<p:outputLabel value="Observação:" for="observacaocontato" />
-						<p:inputText id="observacaocontato" value="#{beanCadastroGeral.cadastroGeral.observacaocontato}"
-							maxlength="150" />
-
-					</p:panelGrid>
-					<!-- dados de contatos -->
-				</p:tab>
-				
-				<!-- dados de fiscal  -->
-				<p:tab title="Fiscal" id="fiscal">
-
-					<p:panelGrid id="painelDados4" columns="04"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-						layout="grid" styleClass="ui-fluid card">
-						
-						<p:outputLabel value="Suframa:" for="insc_suframa" />
-						<p:inputText id="insc_suframa" style="text-transform:uppercase;"
-							value="#{beanCadastroGeral.cadastroGeral.insc_suframa}" maxlength="10" />	
-							
-					<p:outputLabel value="Tipo Tributação:" for="tipo_tributacao" />
-						<p:selectOneMenu id="tipo_tributacao" value="#{beanCadastroGeral.cadastroGeral.tipo_tributacao}"
-							lazy="true" style="width:125px" required="true">
-							<f:selectItem itemLabel="" itemValue=" " />
-							<f:selectItem itemLabel="Consumidor Final" itemValue="1" />
-							<f:selectItem itemLabel="Normal" itemValue="0" />
-						</p:selectOneMenu>	
-					</p:panelGrid>	
-					<br />	
-					<p:panelGrid id="painelDados5" columns="08" 
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-						layout="grid" styleClass="ui-fluid card">
-								
-					<p:outputLabel value="Desc. ICMS Suframa" for="desc_icms_suframa" />
-						<p:selectBooleanCheckbox id="desc_icms_suframa"
-							value="#{beanCadastroGeral.cadastroGeral.desc_icms_suframa}"  />
-					
-					<p:outputLabel value="Desc. COFINS Suframa" for="desc_cofins_suframa" />
-						<p:selectBooleanCheckbox id="desc_cofins_suframa"
-							value="#{beanCadastroGeral.cadastroGeral.desc_cofins_suframa}"  />
-					
-					<p:outputLabel value="Desc. PIS Suframa" for="desc_pis_suframa" />
-						<p:selectBooleanCheckbox id="desc_pis_suframa"
-							value="#{beanCadastroGeral.cadastroGeral.desc_pis_suframa}"  />
-					
-					<p:outputLabel value="Desc. IPI Suframa" for="desc_ipi_suframa" />
-						<p:selectBooleanCheckbox id="desc_ipi_suframa"
-							value="#{beanCadastroGeral.cadastroGeral.desc_ipi_suframa}"  />	
-									
-					</p:panelGrid>
-					<!-- dados de fiscal -->
-				</p:tab>
-			</p:tabView>
-					
-			</p:tab>
-			
-			<!-- dados do funcinario , caso esteja marcado a opção funcionario  -->
-			<p:tab title="Funcionário" id="funcionario" rendered="#{beanCadastroGeral.isFuncionario}">
 				<p:panelGrid id="painelf" columns="04"	 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 				layout="grid" styleClass="ui-fluid card">
-				
-						<p:outputLabel value="Empresa :" for="empresa" />
-						<p:selectOneMenu id="empresa"	value="#{beanCadastroGeral.cadastroGeral.empresa}" 
-						filter="true" filterMatchMode="contains" converter="conversorEmpresa">
-						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeral.listaempresa}" var="empresas"
-								itemLabel="#{empresas.nome}" itemValue="#{empresas}" />
-                   		</p:selectOneMenu>
-                   		
-                   		<p:outputLabel value="Data Admissão :" for="dtadmissao" />
-						<p:calendar locale="pt_BR" id="dtadmissao"
-							value="#{beanCadastroGeral.cadastroGeral.dtadmissao}"
-							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
-							
+						
+						<p:outputLabel value="Funcionário :" for="funcionario" />
+						<p:inputText id="funcionario"	value="#{beanFechamento.fechamento.funcionario.nome}" disabled="true"/>
+						
+										
 						<p:outputLabel value="Salário :" for="salario" />
-						<p:inputNumber id="salario" emptyValue="true" symbol="R$ "  
+						<p:inputNumber id="salario" disabled="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeral.cadastroGeral.salario}" />
+							value="#{beanFechamento.fechamento.salario}" />
 							
 						<p:outputLabel value="Insalubridade :" for="insalubridade" />
-						<p:inputNumber id="insalubridade" emptyValue="true" symbol="R$ "  
+						<p:inputNumber id="insalubridade" disabled="false" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeral.cadastroGeral.insalubridade}" />
+							value="#{beanFechamento.fechamento.insalubridade}" />
 							
 						<p:outputLabel value="Adicional Noturno :" for="adicionalnoturno" />
-						<p:inputNumber id="adicionalnoturno" emptyValue="true" symbol=" %" symbolPosition="s"  
+						<p:inputNumber id="adicionalnoturno" disabled="true" symbol=" %" symbolPosition="s"  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanCadastroGeral.cadastroGeral.adicionalnoturno}" />
+							value="#{beanFechamento.fechamento.adicionalnoturno}" />
 							
-						<p:outputLabel value="Carga Horária Mensal :" for="cargahoraria_mensal" />
-						<p:inputNumber id="cargahoraria_mensal" emptyValue="true"   
-							value="#{beanCadastroGeral.cadastroGeral.cargahoraria_mensal}" />
+						<p:outputLabel value="Adicional Fixo :" for="adicionalfixo" />
+						<p:inputNumber id="adicionalfixo" disabled="true" symbol="R$ "   
+                			decimalSeparator="," thousandSeparator="." 
+							value="#{beanFechamento.fechamento.adicionalfixo}" />
 							
-						<p:outputLabel value="CBO/Função :" for="funcao" />
-						<p:selectOneMenu id="funcao"	value="#{beanCadastroGeral.cadastroGeral.funcao}" 
-						filter="true" filterMatchMode="contains" converter="conversorFuncao">
-						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeral.listafuncao}" var="funcoes"
-								itemLabel="#{funcoes.cbo} - #{funcoes.descricao}" itemValue="#{funcoes}" />
-                   		</p:selectOneMenu>
+						<p:outputLabel value="Função :" for="funcao" />
+						<p:inputText id="funcao"	value="#{beanFechamento.fechamento.funcao}" disabled="true"/>
                    		
                    		<p:outputLabel value="Setor :" for="setor" />
-						<p:selectOneMenu id="setor"	value="#{beanCadastroGeral.cadastroGeral.setor}" 
-						filter="true" filterMatchMode="contains" converter="conversorSetor">
-						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-						<f:selectItems value="#{beanCadastroGeral.listasetor}" var="setores"
-								itemLabel="#{setores.nome}" itemValue="#{setores}" />
-                   		</p:selectOneMenu>
+						<p:inputText id="setor"	value="#{beanFechamento.fechamento.setor}" disabled="true"/>
+																								
+				</p:panelGrid>
+				
+				<p:separator></p:separator>
+				
+				<p:panelGrid id="paineld" columns="06"	 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+				layout="grid" styleClass="ui-fluid card" >
+						
+						<p:outputLabel value="Mês :" for="mes" />
+						<p:selectOneMenu id="mes"
+							value="#{beanFechamento.fechamento.mes}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+							<f:selectItem itemLabel="8" itemValue="8" />
+							<f:selectItem itemLabel="9" itemValue="9" />
+							<f:selectItem itemLabel="10" itemValue="10" />
+							<f:selectItem itemLabel="11" itemValue="11" />
+							<f:selectItem itemLabel="12" itemValue="12" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Ano :" for="ano" />
+						<p:selectOneMenu id="ano"
+							value="#{beanFechamento.fechamento.ano}">
+							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+							<f:selectItem itemLabel="2020" itemValue="2020" />
+							<f:selectItem itemLabel="2021" itemValue="2021" />
+							<f:selectItem itemLabel="2022" itemValue="2022" />
+							<f:selectItem itemLabel="2023" itemValue="2023" />
+							<f:selectItem itemLabel="2024" itemValue="2024" />
+							<f:selectItem itemLabel="2025" itemValue="2025" />
+							<f:selectItem itemLabel="2026" itemValue="2026" />
+							<f:selectItem itemLabel="2027" itemValue="2027" />
+							<f:selectItem itemLabel="2028" itemValue="2028" />
+							<f:selectItem itemLabel="2029" itemValue="2029" />
+							<f:selectItem itemLabel="2030" itemValue="2030" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="observacao" value="Observacão"/>
+                   		<p:inputText id="observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.observacao}"/>
                    		
-                   		<p:outputLabel value="PIS/PASEP :" for="pispasep" />
-						<p:inputMask mask="999.99999.99-9" id="pispasep" 
-							value="#{beanCadastroGeral.cadastroGeral.pispasep}" maxlength="14" />
+				</p:panelGrid>
+				<p:tabView dynamic="false" cache="false" id="tabview2">
+				
+					<p:tab title="Horas Extras" id="horasextras">
+					
+					<p:panelGrid id="painel_horaextra_total">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="6" style="border: 1px solid">Resumo Horas Extras</p:column>																		
+						</p:row>
+						<p:row>
+							<p:column colspan="3" style="border: 1px solid">Normais</p:column>	
+							<p:column colspan="3" style="border: 1px solid">Insalubres</p:column>																		
+						</p:row>
+						<p:row>
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Tipo</p:column>	
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Horas</p:column>		
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Valor Total</p:column>
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Horas</p:column>		
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Valor Total</p:column>
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Observação</p:column>									
+						</p:row>
+					</f:facet>
+					<p:row>
+					
+					<p:column style="border: 1px solid; text-align: Left; background-color: #CEF6E3">
+						<p:outputLabel value="50 %"></p:outputLabel>
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_50_qtde_hora"
+							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>								
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_50_valor_total" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_50_valor_total}" />
+					</p:column>	
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_50_qtde_hora_insalubre"
+							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora_insalubre}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>								
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_50_valor_total_insalubre" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_50_valor_total_insalubre}" />
+					</p:column>	
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputText id="horaextra_50_observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.horaextra_50_observacao}"/>
+					</p:column>	
+					</p:row>
+					<p:row>			
+					<p:column style="border: 1px solid; text-align: Left; background-color: #A9E2F3">
+						<p:outputLabel value="60 %"></p:outputLabel>
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_60_qtde_hora"
+							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>													
+											
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_60_valor_total" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_60_valor_total}" />
+					</p:column>	
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_60_qtde_hora_insalubre"
+							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora_insalubre}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>													
+											
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_60_valor_total_insalubre" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_60_valor_total_insalubre}" />
+					</p:column>	
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputText id="horaextra_60_observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.horaextra_60_observacao}"/>
+					</p:column>	
+					</p:row>
+					
+					<p:row>			
+					<p:column style="border: 1px solid; text-align: Left; background-color: #F5A9D0">
+						<p:outputLabel value="100 %"></p:outputLabel>
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_100_qtde_hora"
+							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_100_valor_total" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_100_valor_total}" />
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:calendar locale="pt_BR" id="horaextra_100_qtde_hora_insalubre"
+							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora_insalubre}"
+							pattern="HH:mm" mask="true" showOn="" disabled="true">
+						</p:calendar>
+					</p:column>
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputNumber id="horaextra_100_valor_total_insalubre" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.horaextra_100_valor_total_insalubre}" />
+					</p:column>	
+					
+					<p:column style="border: 1px solid; text-align: Left">
+						<p:inputText id="horaextra_100_observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.horaextra_100_observacao}"/>
+					</p:column>	
+					</p:row>
+					</p:panelGrid>
+					
+					<p:separator></p:separator>
+					
+					<p:commandButton id="nve" value="Gerar" icon="fa fa-plus"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanFechamento.addNovo}"
+						update=":form:tabview:tabview2:tabela_horaextra">
+						<f:setPropertyActionListener
+							target="#{beanFechamento.horaExtra.fechamento}"
+							value="#{beanFechamento.fechamento}" />
+					</p:commandButton>
+					
+					<p:commandButton id="atualizar" value="Atualizar" icon="fa fa-plus"
+						styleClass="btn-success"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanFechamento.calcula_totalhoras()}"
+						update=":form:erros :form:tabview:tabview2:painel_horaextra_total :form:tabview:tabview2:tabela_horaextra">
+					</p:commandButton>
+					
+					<p:dataTable id="tabela_horaextra" value="#{beanFechamento.horasextras}" var="items"
+						editable="true" editMode="cell" style="width:60%" rowStyleClass="#{items.tipo_50 eq true ? 'color_50' : null or items.tipo_60 eq true ? 'color_60' : null or items.tipo_100 eq true ? 'color_100' : null}">
+						
+						<f:facet name="header">Lista Horas Extras</f:facet>
+						
+						<p:column headerText="Data" width="11%" style="border: 1px solid; text-align: Left">
+						<h:outputLabel value="#{items.data}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputLabel>
+						</p:column>
+						
+						
+						<p:column headerText="Hora" width="8%" style="border: 1px solid; text-align: Left">
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.qtdehora}">
+										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" />
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:calendar locale="pt_BR"
+										value="#{items.qtdehora}"
+										pattern="HH:mm" mask="true" showOn="">
+									</p:calendar>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="50%" width="6%" style="border: 1px solid; text-align: Left">							
+						<h:selectBooleanCheckbox   value="#{items.tipo_50}" />
+						
+						</p:column>
+						
+						<p:column headerText="60%" width="6%" style="border: 1px solid; text-align: Left">							
+						<h:selectBooleanCheckbox  
+								value="#{items.tipo_60}" />
+						</p:column>
+						
+						<p:column headerText="100%" width="6%" style="border: 1px solid; text-align: Left">								
+						<h:selectBooleanCheckbox  
+								value="#{items.tipo_100}" />
+						</p:column>
+						
+						<p:column headerText="Insalubre" width="8%" style="border: 1px solid; text-align: Left">								
+						<h:selectBooleanCheckbox  
+								value="#{items.insalubre}" />
+						</p:column>
+						
+						<p:column headerText="Valor Unitário" width="10%" style="border: 1px solid; text-align: Left">
+						<h:outputLabel value="#{items.valor_unitario}" >
+							<f:convertNumber type="currency" currencySymbol="R$" />
+						</h:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Valor Total" width="10%" style="border: 1px solid; text-align: Left">
+						<h:outputLabel value="#{items.valor_total}" >
+							<f:convertNumber type="currency" currencySymbol="R$" />
+						</h:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Observação" style="border: 1px solid; text-align: Left">
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.observacao}"></p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:inputText value="#{items.observacao}"></p:inputText> 
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+
+					</p:dataTable>	
+										
+					</p:tab>
+					
+					<p:tab title="Faltas" id="faltas">
+					
+						<p:panelGrid id="painel_falta" columns="06"	columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+							<p:outputLabel value="Qtde Dia Falta :" for="falta_qtde_dia" />
+							<p:inputNumber id="falta_qtde_dia" 
+							value="#{beanFechamento.fechamento.falta_qtde_dia}" />
 							
-						<p:separator></p:separator>
-						<p:separator></p:separator>
-						<p:separator></p:separator>
-						<p:separator></p:separator>
-						
-						<p:outputLabel value="Sexo :" for="sexo" />
-						<p:selectOneMenu id="sexo"
-							value="#{beanCadastroGeral.cadastroGeral.sexo}">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
-							<f:selectItem itemLabel="FEMININO" itemValue="FEMININO" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Data Nascimento :" for="dtnascimento" />
-						<p:calendar locale="pt_BR" id="dtnascimento"
-							value="#{beanCadastroGeral.cadastroGeral.dtnascimento}"
-							pattern="dd/MM/yyyy" mask="true" required="true" effect="fold" />
+							<p:outputLabel value="Qtde Hora Falta :" for="falta_qtde_hora" />
+							<p:calendar locale="pt_BR" id="falta_qtde_hora"
+							value="#{beanFechamento.fechamento.falta_qtde_hora}"
+							pattern="HH:mm" mask="true" showOn="">
+							</p:calendar>
 							
-						<p:outputLabel value="Naturalidade :" for="naturalidade" />
-						<h:panelGroup>
-							<p:autoComplete id="naturalidade"
-								value="#{beanCadastroGeral.cadastroGeral.naturalidade}" size="30"
-								completeMethod="#{beanCadastroGeral.completaCidade}" var="c"
-								itemLabel="#{c.nome}/#{c.estado.sigla}" itemValue="#{c}"
-								forceSelection="true" converter="conversorCidade" />
-							<p:watermark value="Pesquise pelo Nome" for="naturalidade"></p:watermark>
-						</h:panelGroup>
+							<p:outputLabel for="falta_observacao" value="Observacão"/>
+                   			<p:inputText id="falta_observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.falta_observacao}"/>
+				
+						</p:panelGrid>
+					</p:tab>
+					
+					<p:tab title="Diárias" id="diarias">
+					
+						<p:panelGrid id="painel_diaria" columns="08"	columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
 						
-						<p:outputLabel value="Escolaridade :" for="escolaridade" />
-						<p:selectOneMenu id="escolaridade"
-							value="#{beanCadastroGeral.cadastroGeral.escolaridade}">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItem itemLabel="ENSINO FUNDAMENTAL INCOMPLETO" itemValue="ENSINO FUNDAMENTAL INCOMPLETO" />
-							<f:selectItem itemLabel="ENSINO FUNDAMENTAL COMPLETO" itemValue="ENSINO FUNDAMENTAL COMPLETO" />
-							<f:selectItem itemLabel="ENSINO MÉDIO COMPLETO" itemValue="ENSINO MÉDIO COMPLETO" />
-							<f:selectItem itemLabel="ENSINO MÉDIO INCOMPLETO" itemValue="ENSINO MÉDIO INCOMPLETO" />
-							<f:selectItem itemLabel="EDUCAÇÃO SUPERIOR INCOMPLETA" itemValue="EDUCAÇÃO SUPERIOR INCOMPLETA" />
-							<f:selectItem itemLabel="EDUCAÇÃO SUPERIOR COMPLETA" itemValue="EDUCAÇÃO SUPERIOR COMPLETA" />
-							<f:selectItem itemLabel="PÓS-GRADUAÇÃO INCOMPLETA" itemValue="PÓS-GRADUAÇÃO INCOMPLETA" />
-							<f:selectItem itemLabel="PÓS-GRADUAÇÃO COMPLETA" itemValue="PÓS-GRADUAÇÃO COMPLETA" />
-							<f:selectItem itemLabel="MESTRADO INCOMPLETO" itemValue="MESTRADO INCOMPLETO" />
-							<f:selectItem itemLabel="MESTRADO COMPLETO" itemValue="MESTRADO COMPLETO" />
-							<f:selectItem itemLabel="DOUTORADO INCOMPLETO" itemValue="DOUTORADO INCOMPLETO" />
-							<f:selectItem itemLabel="DOUTORADO COMPLETO" itemValue="DOUTORADO COMPLETO" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Orgão Emissor RG: " for="rg_orgaoemissor" />
-						<p:inputText id="rg_orgaoemissor" value="#{beanCadastroGeral.cadastroGeral.rg_orgaoemissor}"
-							onkeyup="this.value=this.value.toUpperCase()">
-						</p:inputText>
-						
-						<p:outputLabel value="Data Emissão RG :" for="rg_dtemissao" />
-						<p:calendar locale="pt_BR" id="rg_dtemissao"
-							value="#{beanCadastroGeral.cadastroGeral.rg_dtemissao}"
-							pattern="dd/MM/yyyy" mask="true" effect="fold" />
+							<p:outputLabel value="Qtde Diária :" for="diaria_qtde_dia" />
+							<p:inputNumber id="diaria_qtde_dia" value="#{beanFechamento.fechamento.diaria_qtde_dia}" >
+								<p:ajax event="blur" listener="#{beanFechamento.calcula_diaria()}" update=":form:tabview:tabview2:painel_diaria"/>
+							</p:inputNumber>
 							
-						<p:outputLabel value="N° CTPS: " for="carteiratrabalho_numero" />
-						<p:inputText id="carteiratrabalho_numero" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_numero}"
-							onkeyup="this.value=this.value.toUpperCase()">
-						</p:inputText>
-						
-						<p:outputLabel value="Série CTPS: " for="carteiratrabalho_serie" />
-						<p:inputText id="carteiratrabalho_serie" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_serie}"
-							onkeyup="this.value=this.value.toUpperCase()">
-						</p:inputText>
-						
-						<p:outputLabel value="Data Emissão CTPS :" for="carteiratrabalho_dtemissao" />
-						<p:calendar locale="pt_BR" id="carteiratrabalho_dtemissao"
-							value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_dtemissao}"
-							pattern="dd/MM/yyyy" mask="true" effect="fold" />
+							<p:outputLabel value="Valor Unitário :" for="diaria_valor_unitario" />
+							<p:inputNumber id="diaria_valor_unitario" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.diaria_valor_unitario}" />
 							
-						<p:outputLabel value="Uf CTPS : " for="estado" />
-						<p:selectOneMenu  id="estado" value="#{beanCadastroGeral.cadastroGeral.carteiratrabalho_uf}" converter="conversorUf"  >
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItems  value="#{beanCadastroGeral.listaestado}" var="estado" itemLabel="#{estado.sigla}" itemValue="#{estado}" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Tipo Regime :" for="tiporemige" />
-						<p:selectOneMenu id="tiporemige"
-							value="#{beanCadastroGeral.cadastroGeral.tiporemige}">
-							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
-							<f:selectItem itemLabel="MENSAL" itemValue="MENSAL" />
-							<f:selectItem itemLabel="DIÁRIA" itemValue="DIÁRIA" />
-						</p:selectOneMenu>
-						
-				</p:panelGrid>				
-			</p:tab>	
-			</p:tabView>
-			
-			<p:commandButton action="#{beanCadastroGeral.salvar()}" value="Salvar"
+							<p:outputLabel value="Total :" for="diaria_valor_total" />
+							<p:inputNumber id="diaria_valor_total" emptyValue="true" symbol="R$ "  
+                			decimalSeparator="," thousandSeparator="." disabled="true"
+							value="#{beanFechamento.fechamento.diaria_valor_total}" />
+							
+							<p:outputLabel for="diaria_observacao" value="Observacão"/>
+                   			<p:inputText id="diaria_observacao" maxlength="250" 
+                   			value="#{beanFechamento.fechamento.diaria_observacao}"/>
+				
+						</p:panelGrid>
+					</p:tab>
+					
+				</p:tabView>
+				</p:tab>				
+				
+			</p:tabView>				
+			<p:separator></p:separator>
+			<p:commandButton action="#{beanFechamento.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
 

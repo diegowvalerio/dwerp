@@ -30,6 +30,7 @@
 		<class>br.com.dwerp.entidade.Setor</class>
 		<class>br.com.dwerp.entidade.Funcao</class>
 		<class>br.com.dwerp.entidade.Fechamento</class>
+		<class>br.com.dwerp.entidade.HoraExtra</class>
 	
 		<properties>
 			

@@ -577,6 +577,14 @@ public class CadastroGeral implements Serializable {
 		this.tiporemige = tiporemige;
 	}
 
+	public double getAdicionalfixo() {
+		return adicionalfixo;
+	}
+
+	public void setAdicionalfixo(double adicionalfixo) {
+		this.adicionalfixo = adicionalfixo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

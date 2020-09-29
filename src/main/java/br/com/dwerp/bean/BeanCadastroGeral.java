@@ -131,6 +131,16 @@ public class BeanCadastroGeral implements Serializable{
 		return "edita-cadastrogeral";
 	}
 	
+	
+	/* inserir fechametno RH */
+	public String encaminha2() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("cadastrogeralAux", this.cadastrogeral);
+
+		return "cadastro-fechamento";
+	}
+	
 	public void renderizar() {
 		if (this.cadastrogeral.getTipojf().equals("J")) {
 			isRederiza = true;
