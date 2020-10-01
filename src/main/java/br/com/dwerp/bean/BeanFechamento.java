@@ -2,11 +2,16 @@ package br.com.dwerp.bean;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.Temporal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -28,6 +33,7 @@ import br.com.dwerp.servico.ServicoFechamento;
 @ViewScoped
 public class BeanFechamento implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private static final Locale LOCAL = new Locale("pt","BR");
 
 	private Fechamento fechamento = new Fechamento();
 	@Inject
@@ -86,6 +92,7 @@ public class BeanFechamento implements Serializable{
 	}
 	
 	public void calcula_totalhoras() {
+		DateFormat simple = new SimpleDateFormat ("HH:mm");
 		//zerar antes de calcular
 		fechamento.setHoraextra_50_valor_total(0.0);
 		fechamento.setHoraextra_60_valor_total(0.0);
@@ -93,6 +100,13 @@ public class BeanFechamento implements Serializable{
 		fechamento.setHoraextra_50_valor_total_insalubre(0.0);
 		fechamento.setHoraextra_60_valor_total_insalubre(0.0);
 		fechamento.setHoraextra_100_valor_total_insalubre(0.0);
+		
+		Duration d50 = Duration.ZERO;
+		Duration d50i = Duration.ZERO;
+		Duration d60 = Duration.ZERO;
+		Duration d60i = Duration.ZERO;
+		Duration d100 = Duration.ZERO;
+		Duration d100i = Duration.ZERO;
 		
 		Calendar cal_50 = Calendar.getInstance();
 		cal_50.set(0000, 0, cal_50.get(Calendar.DATE),00,00);
@@ -126,13 +140,13 @@ public class BeanFechamento implements Serializable{
 			}
 			
 			if(h.getTipo_50().equals(true)) {
-				
+				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_50.get(Calendar.DATE),00,00);
 				
 				cal.add(Calendar.HOUR, h.getQtdehora().getHours());
 				cal.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
-			
+						
 				if(h.getInsalubre().equals(true) && fechamento.getInsalubridade()>0) {
 					
 					vlunt = (fechamento.getSalario()/fechamento.getFuncionario().getCargahoraria_mensal())+
@@ -151,18 +165,21 @@ public class BeanFechamento implements Serializable{
 				//resumo valor
 				if(h.getInsalubre().equals(true)) {
 					fechamento.setHoraextra_50_valor_total_insalubre(fechamento.getHoraextra_50_valor_total_insalubre()+h.getValor_total());
-					cal_50_insalubre.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_50_insalubre.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d50i = d50i.plus(d);
+					
 				}else {
 					fechamento.setHoraextra_50_valor_total(fechamento.getHoraextra_50_valor_total()+h.getValor_total());
-					cal_50.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_50.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d50 = d50.plus(d);
 				}
 				
 			}
 			
 			if(h.getTipo_60().equals(true)) {
-				
+				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_60.get(Calendar.DATE),00,00);
 				
@@ -187,17 +204,19 @@ public class BeanFechamento implements Serializable{
 				//resumo valor
 				if(h.getInsalubre().equals(true)) {
 					fechamento.setHoraextra_60_valor_total_insalubre(fechamento.getHoraextra_60_valor_total_insalubre()+h.getValor_total());
-					cal_60_insalubre.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_60_insalubre.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d60i = d60i.plus(d);
+					
 				}else {
 					fechamento.setHoraextra_60_valor_total(fechamento.getHoraextra_60_valor_total()+h.getValor_total());
-					cal_60.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_60.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d60 = d60.plus(d);
 				}
 			}
 			
 			if(h.getTipo_100().equals(true)) {
-				
+				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_100.get(Calendar.DATE),00,00);
 				
@@ -222,46 +241,82 @@ public class BeanFechamento implements Serializable{
 				//resumo valor
 				if(h.getInsalubre().equals(true)) {
 					fechamento.setHoraextra_100_valor_total_insalubre(fechamento.getHoraextra_100_valor_total_insalubre()+h.getValor_total());
-					cal_100_insalubre.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_100_insalubre.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d100i = d100i.plus(d);
 				}else {
-					fechamento.setHoraextra_100_valor_total(fechamento.getHoraextra_100_valor_total()+h.getValor_total());
-					cal_100.add(Calendar.HOUR, h.getQtdehora().getHours());
-					cal_100.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					fechamento.setHoraextra_100_valor_total(fechamento.getHoraextra_100_valor_total()+h.getValor_total());					
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d100 = d100.plus(d);
 				}
 				
 				}
 			}
 		}
-		//cal_50f.setTime(cal_50.getTime());
-		//cal_50.set(0000, 00, cal_50.get(Calendar.DATE),cal_50f.get(Calendar.HOUR),00);
-		//fechamento.setHoraextra_50_qtde_hora(cal_50.getTime());
-		//cal_50.set(0000, 00, cal_50.get(Calendar.DATE),00,cal_50f.get(Calendar.MINUTE));
-		//fechamento.setHoraextra_50_qtde_minuto(cal_50.getTime());
+				
+		fechamento.setHoraextra_50_qtde_hora(calcula_duracao(d50));
+		fechamento.setHoraextra_50_qtde_hora_insalubre(calcula_duracao(d50i));
 		
-		fechamento.setHoraextra_50_qtde_hora(cal_50.getTime());
-		fechamento.setHoraextra_50_qtde_hora_insalubre(cal_50_insalubre.getTime());
+		fechamento.setHoraextra_60_qtde_hora(calcula_duracao(d60));
+		fechamento.setHoraextra_60_qtde_hora_insalubre(calcula_duracao(d60i));
 		
-		//cal_60f.setTime(cal_60.getTime());
-		//cal_60.set(0000, 00, cal_60.get(Calendar.DATE),cal_60f.get(Calendar.HOUR),00);
-		//fechamento.setHoraextra_60_qtde_hora(cal_60.getTime());
-		//cal_60.set(0000, 00, cal_60.get(Calendar.DATE),00,cal_60f.get(Calendar.MINUTE));
-		//fechamento.setHoraextra_60_qtde_minuto(cal_60.getTime());
+				
+		fechamento.setHoraextra_100_qtde_hora(calcula_duracao(d100));
+		fechamento.setHoraextra_100_qtde_hora_insalubre(calcula_duracao(d100i));
 		
-		fechamento.setHoraextra_60_qtde_hora(cal_60.getTime());
-		fechamento.setHoraextra_60_qtde_hora_insalubre(cal_60_insalubre.getTime());
-		
-		//cal_100f.setTime(cal_100.getTime());
-		//cal_100.set(0000, 00, cal_100.get(Calendar.DATE),cal_100f.get(Calendar.HOUR),00);
-		//fechamento.setHoraextra_100_qtde_hora(cal_100.getTime());
-		//cal_100.set(0000, 00, cal_100.get(Calendar.DATE),00,cal_100f.get(Calendar.MINUTE));
-		//fechamento.setHoraextra_100_qtde_minuto(cal_100.getTime());
-		
-		fechamento.setHoraextra_100_qtde_hora(cal_100.getTime());
-		fechamento.setHoraextra_100_qtde_hora_insalubre(cal_100_insalubre.getTime());
+		gerarobservacao();
 		
 		if(verifica_insalubre_marcado > 0) {
 		 FacesMessageUtil.addMensagemWarn("Existem "+ verifica_insalubre_marcado +" Datas marcadas como Insalubre, Verifique valor da Insalubridade !! ");
+		}
+		
+	}
+	
+	public String calcula_duracao(Duration duracao) {
+		long totalSegundos = duracao.getSeconds();
+		long totalHoras = totalSegundos / 3600;
+		totalSegundos -= (totalHoras * 3600);
+		long totalMinutos = totalSegundos / 60;
+		totalSegundos -= (totalMinutos * 60);
+		
+		return String.format("%02d:%02d:%02d", totalHoras, totalMinutos, totalSegundos);
+	}
+	
+	public void gerarobservacao() {
+		DateFormat simple = new SimpleDateFormat ("HH:mm");
+		DecimalFormat f = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(LOCAL));
+		
+		fechamento.setHoraextra_50_observacao("");
+		fechamento.setHoraextra_60_observacao("");
+		fechamento.setHoraextra_100_observacao("");
+		//50%
+		if(fechamento.getHoraextra_50_valor_total() > 0) {
+			fechamento.setHoraextra_50_observacao("R$ "+f.format(fechamento.getHoraextra_50_valor_total()) +" REFERENTE HÁ "+fechamento.getHoraextra_50_qtde_hora()+" HORAS EXTRAS 50%.");
+		}
+		if(fechamento.getHoraextra_50_valor_total_insalubre()>0 && fechamento.getHoraextra_50_valor_total() > 0) {
+			fechamento.setHoraextra_50_observacao(""+fechamento.getHoraextra_50_observacao()+" E R$ "+f.format(fechamento.getHoraextra_50_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_50_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 50%.");
+		}
+		if(fechamento.getHoraextra_50_valor_total_insalubre()>0 && fechamento.getHoraextra_50_valor_total() == 0) {
+			fechamento.setHoraextra_50_observacao("R$ "+f.format(fechamento.getHoraextra_50_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_50_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 50%.");
+		}
+		//60%
+		if(fechamento.getHoraextra_60_valor_total() > 0) {
+			fechamento.setHoraextra_60_observacao("R$ "+f.format(fechamento.getHoraextra_60_valor_total()) +" REFERENTE HÁ "+fechamento.getHoraextra_60_qtde_hora()+" HORAS EXTRAS 60%.");
+		}
+		if(fechamento.getHoraextra_60_valor_total_insalubre()>0 && fechamento.getHoraextra_60_valor_total() > 0) {
+			fechamento.setHoraextra_60_observacao(""+fechamento.getHoraextra_60_observacao()+" E R$ "+f.format(fechamento.getHoraextra_60_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_60_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 60%.");
+		}
+		if(fechamento.getHoraextra_60_valor_total_insalubre()>0 && fechamento.getHoraextra_60_valor_total() == 0) {
+			fechamento.setHoraextra_60_observacao("R$ "+f.format(fechamento.getHoraextra_60_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_60_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 60%.");
+		}
+		//100%
+		if(fechamento.getHoraextra_100_valor_total() > 0) {
+			fechamento.setHoraextra_100_observacao("R$ "+f.format(fechamento.getHoraextra_100_valor_total()) +" REFERENTE HÁ "+fechamento.getHoraextra_100_qtde_hora()+" HORAS EXTRAS 100%.");
+		}
+		if(fechamento.getHoraextra_100_valor_total_insalubre()>0 && fechamento.getHoraextra_100_valor_total() > 0) {
+			fechamento.setHoraextra_100_observacao(""+fechamento.getHoraextra_100_observacao()+" E R$ "+f.format(fechamento.getHoraextra_100_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_100_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 100%.");
+		}
+		if(fechamento.getHoraextra_100_valor_total_insalubre()>0 && fechamento.getHoraextra_100_valor_total() == 0) {
+			fechamento.setHoraextra_100_observacao("R$ "+f.format(fechamento.getHoraextra_100_valor_total_insalubre()) +" REFERENTE HÁ "+fechamento.getHoraextra_100_qtde_hora_insalubre()+" HORAS EXTRAS INSALUBRE 100%.");
 		}
 		
 	}

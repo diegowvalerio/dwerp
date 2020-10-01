@@ -129,35 +129,35 @@
 				
 					<p:tab title="Horas Extras" id="horasextras">
 					
-					<p:panelGrid id="painel_horaextra_total">
+					<p:panelGrid id="painel_horaextra_total" style="width: 100%">
 					<f:facet name="header">
 						<p:row>
 							<p:column colspan="6" style="border: 1px solid">Resumo Horas Extras</p:column>																		
 						</p:row>
 						<p:row>
 							<p:column colspan="3" style="border: 1px solid">Normais</p:column>	
-							<p:column colspan="3" style="border: 1px solid">Insalubres</p:column>																		
+							<p:column colspan="2" style="border: 1px solid">Insalubres</p:column>	
+							<p:column rowspan="2" colspan="1" style="border: 1px solid; width: 50%">Observação</p:column>																		
 						</p:row>
 						<p:row>
 							<p:column colspan="1" style="border: 1px solid; text-align: Left">Tipo</p:column>	
 							<p:column colspan="1" style="border: 1px solid; text-align: Left">Horas</p:column>		
 							<p:column colspan="1" style="border: 1px solid; text-align: Left">Valor Total</p:column>
 							<p:column colspan="1" style="border: 1px solid; text-align: Left">Horas</p:column>		
-							<p:column colspan="1" style="border: 1px solid; text-align: Left">Valor Total</p:column>
-							<p:column colspan="1" style="border: 1px solid; text-align: Left">Observação</p:column>									
+							<p:column colspan="1" style="border: 1px solid; text-align: Left">Valor Total</p:column>								
 						</p:row>
 					</f:facet>
 					<p:row>
 					
 					<p:column style="border: 1px solid; text-align: Left; background-color: #CEF6E3">
-						<p:outputLabel value="50 %"></p:outputLabel>
+						<p:outputLabel value="50%"></p:outputLabel>
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_50_qtde_hora"
+						<p:inputText  id="horaextra_50_qtde_hora"
 							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>								
 					
 					<p:column style="border: 1px solid; text-align: Left">
@@ -167,10 +167,10 @@
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_50_qtde_hora_insalubre"
+						<p:inputText  id="horaextra_50_qtde_hora_insalubre"
 							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora_insalubre}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>								
 					
 					<p:column style="border: 1px solid; text-align: Left">
@@ -180,20 +180,20 @@
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:inputText id="horaextra_50_observacao" maxlength="250" 
+						<p:inputText id="horaextra_50_observacao" maxlength="250" style="width: 100%"
                    			value="#{beanFechamento.fechamento.horaextra_50_observacao}"/>
 					</p:column>	
 					</p:row>
 					<p:row>			
 					<p:column style="border: 1px solid; text-align: Left; background-color: #A9E2F3">
-						<p:outputLabel value="60 %"></p:outputLabel>
+						<p:outputLabel value="60%"></p:outputLabel>
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_60_qtde_hora"
+						<p:inputText  id="horaextra_60_qtde_hora"
 							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>													
 											
 					<p:column style="border: 1px solid; text-align: Left">
@@ -203,10 +203,10 @@
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_60_qtde_hora_insalubre"
+						<p:inputText  id="horaextra_60_qtde_hora_insalubre"
 							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora_insalubre}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>													
 											
 					<p:column style="border: 1px solid; text-align: Left">
@@ -216,21 +216,21 @@
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:inputText id="horaextra_60_observacao" maxlength="250" 
+						<p:inputText id="horaextra_60_observacao" maxlength="250" style="width: 100%"
                    			value="#{beanFechamento.fechamento.horaextra_60_observacao}"/>
 					</p:column>	
 					</p:row>
 					
 					<p:row>			
 					<p:column style="border: 1px solid; text-align: Left; background-color: #F5A9D0">
-						<p:outputLabel value="100 %"></p:outputLabel>
+						<p:outputLabel value="100%"></p:outputLabel>
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_100_qtde_hora"
+						<p:inputText  id="horaextra_100_qtde_hora"
 							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
@@ -240,10 +240,10 @@
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:calendar locale="pt_BR" id="horaextra_100_qtde_hora_insalubre"
+						<p:inputText  id="horaextra_100_qtde_hora_insalubre"
 							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora_insalubre}"
-							pattern="HH:mm" mask="true" showOn="" disabled="true">
-						</p:calendar>
+						 disabled="true">
+						</p:inputText>
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
@@ -253,7 +253,7 @@
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
-						<p:inputText id="horaextra_100_observacao" maxlength="250" 
+						<p:inputText id="horaextra_100_observacao" maxlength="250" style="width: 100%"
                    			value="#{beanFechamento.fechamento.horaextra_100_observacao}"/>
 					</p:column>	
 					</p:row>
@@ -279,11 +279,11 @@
 					</p:commandButton>
 					
 					<p:dataTable id="tabela_horaextra" value="#{beanFechamento.horasextras}" var="items"
-						editable="true" editMode="cell" style="width:60%" rowStyleClass="#{items.tipo_50 eq true ? 'color_50' : null or items.tipo_60 eq true ? 'color_60' : null or items.tipo_100 eq true ? 'color_100' : null}">
+						editable="true" editMode="cell" style="width:100%" rowStyleClass="#{items.tipo_50 eq true ? 'color_50' : null or items.tipo_60 eq true ? 'color_60' : null or items.tipo_100 eq true ? 'color_100' : null}">
 						
 						<f:facet name="header">Lista Horas Extras</f:facet>
 						
-						<p:column headerText="Data" width="11%" style="border: 1px solid; text-align: Left">
+						<p:column headerText="Data" width="8%" style="border: 1px solid; text-align: Left">
 						<h:outputLabel value="#{items.data}" >
 							<f:convertDateTime pattern="dd/MM/yyyy"/>
 						</h:outputLabel>
@@ -306,33 +306,33 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="50%" width="6%" style="border: 1px solid; text-align: Left">							
+						<p:column headerText="50%" width="4%" style="border: 1px solid; text-align: Left">							
 						<h:selectBooleanCheckbox   value="#{items.tipo_50}" />
 						
 						</p:column>
 						
-						<p:column headerText="60%" width="6%" style="border: 1px solid; text-align: Left">							
+						<p:column headerText="60%" width="4%" style="border: 1px solid; text-align: Left">							
 						<h:selectBooleanCheckbox  
 								value="#{items.tipo_60}" />
 						</p:column>
 						
-						<p:column headerText="100%" width="6%" style="border: 1px solid; text-align: Left">								
+						<p:column headerText="100%" width="4%" style="border: 1px solid; text-align: Left">								
 						<h:selectBooleanCheckbox  
 								value="#{items.tipo_100}" />
 						</p:column>
 						
-						<p:column headerText="Insalubre" width="8%" style="border: 1px solid; text-align: Left">								
+						<p:column headerText="Insalubre" width="6%" style="border: 1px solid; text-align: Left">								
 						<h:selectBooleanCheckbox  
 								value="#{items.insalubre}" />
 						</p:column>
 						
-						<p:column headerText="Valor Unitário" width="10%" style="border: 1px solid; text-align: Left">
+						<p:column headerText="Valor Unitário" width="8%" style="border: 1px solid; text-align: Left">
 						<h:outputLabel value="#{items.valor_unitario}" >
 							<f:convertNumber type="currency" currencySymbol="R$" />
 						</h:outputLabel>
 						</p:column>
 						
-						<p:column headerText="Valor Total" width="10%" style="border: 1px solid; text-align: Left">
+						<p:column headerText="Valor Total" width="8%" style="border: 1px solid; text-align: Left">
 						<h:outputLabel value="#{items.valor_total}" >
 							<f:convertNumber type="currency" currencySymbol="R$" />
 						</h:outputLabel>

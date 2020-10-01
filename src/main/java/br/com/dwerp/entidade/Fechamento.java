@@ -2,6 +2,7 @@ package br.com.dwerp.entidade;
 
 import java.io.Serializable;
 import java.lang.Integer;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,11 +83,9 @@ public class Fechamento implements Serializable {
 	//
 
 	// horas extras 50%
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_50_qtde_hora;
+	private String horaextra_50_qtde_hora;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_50_qtde_hora_insalubre;
+	private String horaextra_50_qtde_hora_insalubre;
 	
 	@Column(columnDefinition="numeric(6,2)")
 	private double horaextra_50_valor_total_insalubre;
@@ -99,13 +98,10 @@ public class Fechamento implements Serializable {
 	//
 
 	// horas extras 60%
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_60_qtde_hora;
+	private String horaextra_60_qtde_hora;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_60_qtde_hora_insalubre;
+	private String horaextra_60_qtde_hora_insalubre;
 	
-	@Column(columnDefinition="numeric(6,2)")
 	private double horaextra_60_valor_total_insalubre;
 	
 	@Column(columnDefinition="numeric(6,2)")
@@ -116,11 +112,9 @@ public class Fechamento implements Serializable {
 	//
 
 	// horas extras 100%
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_100_qtde_hora;
+	private String horaextra_100_qtde_hora;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaextra_100_qtde_hora_insalubre;
+	private String horaextra_100_qtde_hora_insalubre;
 	
 	@Column(columnDefinition="numeric(6,2)")
 	private double horaextra_100_valor_total_insalubre;
@@ -174,7 +168,6 @@ public class Fechamento implements Serializable {
 	@OneToMany(mappedBy="fechamento", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
     private List<HoraExtra> horasextras = new ArrayList<>();
-	
 	
 
 	private static final long serialVersionUID = 1L;
@@ -288,14 +281,6 @@ public class Fechamento implements Serializable {
 		this.diaria_observacao = diaria_observacao;
 	}
 
-	public Date getHoraextra_50_qtde_hora() {
-		return horaextra_50_qtde_hora;
-	}
-
-	public void setHoraextra_50_qtde_hora(Date horaextra_50_qtde_hora) {
-		this.horaextra_50_qtde_hora = horaextra_50_qtde_hora;
-	}
-
 	public String getHoraextra_50_observacao() {
 		return horaextra_50_observacao;
 	}
@@ -304,28 +289,12 @@ public class Fechamento implements Serializable {
 		this.horaextra_50_observacao = horaextra_50_observacao;
 	}
 
-	public Date getHoraextra_60_qtde_hora() {
-		return horaextra_60_qtde_hora;
-	}
-
-	public void setHoraextra_60_qtde_hora(Date horaextra_60_qtde_hora) {
-		this.horaextra_60_qtde_hora = horaextra_60_qtde_hora;
-	}
-
 	public String getHoraextra_60_observacao() {
 		return horaextra_60_observacao;
 	}
 
 	public void setHoraextra_60_observacao(String horaextra_60_observacao) {
 		this.horaextra_60_observacao = horaextra_60_observacao;
-	}
-
-	public Date getHoraextra_100_qtde_hora() {
-		return horaextra_100_qtde_hora;
-	}
-
-	public void setHoraextra_100_qtde_hora(Date horaextra_100_qtde_hora) {
-		this.horaextra_100_qtde_hora = horaextra_100_qtde_hora;
 	}
 
 	public String getHoraextra_100_observacao() {
@@ -479,28 +448,12 @@ public class Fechamento implements Serializable {
 		this.horaextra_100_valor_total = horaextra_100_valor_total;
 	}
 
-	public Date getHoraextra_50_qtde_hora_insalubre() {
-		return horaextra_50_qtde_hora_insalubre;
-	}
-
-	public void setHoraextra_50_qtde_hora_insalubre(Date horaextra_50_qtde_hora_insalubre) {
-		this.horaextra_50_qtde_hora_insalubre = horaextra_50_qtde_hora_insalubre;
-	}
-
 	public double getHoraextra_50_valor_total_insalubre() {
 		return horaextra_50_valor_total_insalubre;
 	}
 
 	public void setHoraextra_50_valor_total_insalubre(double horaextra_50_valor_total_insalubre) {
 		this.horaextra_50_valor_total_insalubre = horaextra_50_valor_total_insalubre;
-	}
-
-	public Date getHoraextra_60_qtde_hora_insalubre() {
-		return horaextra_60_qtde_hora_insalubre;
-	}
-
-	public void setHoraextra_60_qtde_hora_insalubre(Date horaextra_60_qtde_hora_insalubre) {
-		this.horaextra_60_qtde_hora_insalubre = horaextra_60_qtde_hora_insalubre;
 	}
 
 	public double getHoraextra_60_valor_total_insalubre() {
@@ -511,20 +464,61 @@ public class Fechamento implements Serializable {
 		this.horaextra_60_valor_total_insalubre = horaextra_60_valor_total_insalubre;
 	}
 
-	public Date getHoraextra_100_qtde_hora_insalubre() {
-		return horaextra_100_qtde_hora_insalubre;
-	}
-
-	public void setHoraextra_100_qtde_hora_insalubre(Date horaextra_100_qtde_hora_insalubre) {
-		this.horaextra_100_qtde_hora_insalubre = horaextra_100_qtde_hora_insalubre;
-	}
-
 	public double getHoraextra_100_valor_total_insalubre() {
 		return horaextra_100_valor_total_insalubre;
 	}
 
 	public void setHoraextra_100_valor_total_insalubre(double horaextra_100_valor_total_insalubre) {
 		this.horaextra_100_valor_total_insalubre = horaextra_100_valor_total_insalubre;
+	}
+
+
+	public String getHoraextra_50_qtde_hora() {
+		return horaextra_50_qtde_hora;
+	}
+
+	public void setHoraextra_50_qtde_hora(String horaextra_50_qtde_hora) {
+		this.horaextra_50_qtde_hora = horaextra_50_qtde_hora;
+	}
+
+	public String getHoraextra_50_qtde_hora_insalubre() {
+		return horaextra_50_qtde_hora_insalubre;
+	}
+
+	public void setHoraextra_50_qtde_hora_insalubre(String horaextra_50_qtde_hora_insalubre) {
+		this.horaextra_50_qtde_hora_insalubre = horaextra_50_qtde_hora_insalubre;
+	}
+
+	public String getHoraextra_60_qtde_hora() {
+		return horaextra_60_qtde_hora;
+	}
+
+	public void setHoraextra_60_qtde_hora(String horaextra_60_qtde_hora) {
+		this.horaextra_60_qtde_hora = horaextra_60_qtde_hora;
+	}
+
+	public String getHoraextra_60_qtde_hora_insalubre() {
+		return horaextra_60_qtde_hora_insalubre;
+	}
+
+	public void setHoraextra_60_qtde_hora_insalubre(String horaextra_60_qtde_hora_insalubre) {
+		this.horaextra_60_qtde_hora_insalubre = horaextra_60_qtde_hora_insalubre;
+	}
+
+	public String getHoraextra_100_qtde_hora() {
+		return horaextra_100_qtde_hora;
+	}
+
+	public void setHoraextra_100_qtde_hora(String horaextra_100_qtde_hora) {
+		this.horaextra_100_qtde_hora = horaextra_100_qtde_hora;
+	}
+
+	public String getHoraextra_100_qtde_hora_insalubre() {
+		return horaextra_100_qtde_hora_insalubre;
+	}
+
+	public void setHoraextra_100_qtde_hora_insalubre(String horaextra_100_qtde_hora_insalubre) {
+		this.horaextra_100_qtde_hora_insalubre = horaextra_100_qtde_hora_insalubre;
 	}
 
 	@Override
