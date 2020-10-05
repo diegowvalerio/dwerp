@@ -2,6 +2,7 @@ package br.com.dwerp.bean;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -92,6 +93,9 @@ public class BeanFechamento implements Serializable{
 	}
 	
 	public void calcula_totalhoras() {
+		
+		
+		/*
 		DateFormat simple = new SimpleDateFormat ("HH:mm");
 		//zerar antes de calcular
 		fechamento.setHoraextra_50_valor_total(0.0);
@@ -268,7 +272,7 @@ public class BeanFechamento implements Serializable{
 		if(verifica_insalubre_marcado > 0) {
 		 FacesMessageUtil.addMensagemWarn("Existem "+ verifica_insalubre_marcado +" Datas marcadas como Insalubre, Verifique valor da Insalubridade !! ");
 		}
-		
+		*/
 	}
 	
 	public String calcula_duracao(Duration duracao) {
@@ -346,9 +350,12 @@ public class BeanFechamento implements Serializable{
 				horaExtra = new HoraExtra();
 				horaExtra.setFechamento(fechamento);
 				horaExtra.setData(dt);
+				horaExtra.setDiadasemana(weekDay(calendarfor));
 				
 				if(fechamento.getInsalubridade()>0) {
 					horaExtra.setInsalubre(true);
+				}else {
+					horaExtra.setInsalubre(false);
 				}
 				
 				horasextras.add(horaExtra);
@@ -362,6 +369,212 @@ public class BeanFechamento implements Serializable{
 			horaExtra.setFechamento(fechamento);
 		}
 	}
+	
+	public String weekDay(Calendar cal) {
+		
+		return new DateFormatSymbols().getShortWeekdays()[cal.get(Calendar.DAY_OF_WEEK)];
+		
+	}
+	
+	public void atualiza() {
+
+		for (HoraExtra h : horasextras) {
+			if ((h.getDiadasemana().equals("Sáb") || h.getDiadasemana().equals("Dom")) && h.getQtdehora() != null) {
+				
+			} else {
+				Calendar cal = Calendar.getInstance();
+				Calendar cal2 = Calendar.getInstance();
+				cal.setTime(h.getData());
+				cal2.setTime(h.getData());
+				cal.setFirstDayOfWeek (Calendar.MONDAY);
+				cal2.setFirstDayOfWeek (Calendar.MONDAY);
+				int diasemana = cal.get(Calendar.DAY_OF_WEEK);
+				cal.add (Calendar.DAY_OF_MONTH, Calendar.MONDAY - diasemana);
+				cal2.add (Calendar.DAY_OF_MONTH, Calendar.FRIDAY - diasemana);
+				
+				Duration totalhoras = Duration.ZERO;
+				Duration totalhoras50 = Duration.ZERO;
+				Duration totalhoras60 = Duration.ZERO;
+				
+				for(Date dt = cal.getTime(); dt.compareTo(cal2.getTime()) <= 0; ) {
+					for (HoraExtra h2 : horasextras) {
+						if(h2.getData().equals(dt) && h2.getQtdehora() != null) {
+							Duration d = Duration.ZERO;
+							Duration d2 = Duration.ZERO;
+							Duration d3 = Duration.ZERO;
+							
+							d = Duration.parse("PT" + h2.getQtdehora().getHours() + "H" + h2.getQtdehora().getMinutes() + "M");
+							totalhoras = totalhoras.plus(d);
+																					
+							// se totalhoras for maior que 10 hrs (600 minutos)
+							if (totalhoras.toMinutes() > 600) {
+								if(totalhoras50.toMinutes() < 600) {
+								Long min = totalhoras.toMinutes() - 600;
+								Long min2 = totalhoras50.toMinutes() - min;
+								
+										
+								Long sec = min * 60;
+								Long hr = sec / 3600;
+								sec -= hr * 3600;
+								min = sec /60;
+								sec -= min *60;	    				
+				    			
+								Calendar x = Calendar.getInstance();
+								x.set(0000, 0, Calendar.DATE,Integer.parseInt(hr.toString()),Integer.parseInt(min.toString()));
+								h2.setTipo_60(x.getTime());
+								
+								
+								Long sec2 = min2 * 60;
+								Long hr2 = sec2 / 3600;
+								sec2 -= hr2 * 3600;
+								min2 = sec2 /60;
+								sec2 -= min2 *60;	
+								
+								Calendar x2 = Calendar.getInstance();
+								x2.set(0000, 0, Calendar.DATE,Integer.parseInt(hr2.toString()),Integer.parseInt(min2.toString()));
+								h2.setTipo_50(x2.getTime());
+								
+								}
+								
+								if(totalhoras50.toMinutes() == 600) {
+									Long min = (totalhoras.toMinutes() - 600) - totalhoras60.toMinutes();
+									Long min2 = d2.toMinutes() - min;
+											
+									Long sec = min * 60;
+									Long hr = sec / 3600;
+									sec -= hr * 3600;
+									min = sec /60;
+									sec -= min *60;	    				
+					    			
+									Calendar x = Calendar.getInstance();
+									x.set(0000, 0, Calendar.DATE,Integer.parseInt(hr.toString()),Integer.parseInt(min.toString()));
+									h2.setTipo_60(x.getTime());
+									
+									x.set(0000, 0, Calendar.DATE,00,00);
+									h2.setTipo_50(x.getTime());
+
+								}
+								
+							}else {
+								h2.setTipo_50(h2.getQtdehora());
+							}
+							
+							if(h2.getTipo_60() != null) {
+								d3 = Duration.parse("PT" + h2.getTipo_60().getHours() + "H" + h2.getTipo_60().getMinutes() + "M");
+								totalhoras60 = totalhoras60.plus(d3);
+							}
+							
+							if(h2.getTipo_50() != null) {
+								d2 = Duration.parse("PT" + h2.getTipo_50().getHours() + "H" + h2.getTipo_50().getMinutes() + "M");
+								totalhoras50 = totalhoras50.plus(d2);
+							}
+							
+						}
+						
+					}
+					Calendar c = Calendar.getInstance();
+			    	c.setTime(dt);
+			    	c.add(Calendar.DATE, +1);
+			    	dt = c.getTime();
+				}
+				
+			}
+		}
+	}
+	
+	public void verifica_total_semana(Date data) {/*
+		DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
+		Duration ht = Duration.ZERO;
+		
+		Calendar cal = Calendar.getInstance();
+		Calendar cx = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal.setTime(data);
+		cal2.setTime(data);
+		cx.setTime(data);
+					
+		cal.setFirstDayOfWeek (Calendar.MONDAY);
+		cal2.setFirstDayOfWeek (Calendar.MONDAY);
+		int diasemana = cal.get(Calendar.DAY_OF_WEEK);
+		cal.add (Calendar.DAY_OF_MONTH, Calendar.MONDAY - diasemana);
+		cal2.add (Calendar.DAY_OF_MONTH, Calendar.FRIDAY - diasemana);
+			
+	    //System.out.println (df.format (cal.getTime()));
+	    //System.out.println (df.format (cal2.getTime()));
+	    
+	    for(HoraExtra h : horasextras) {
+	    	
+	    	 if((h.getDiadasemana().equals("Sáb") || h.getDiadasemana().equals("Dom")) && h.getQtdehora() != null ) {
+	    		 Calendar c1 = Calendar.getInstance();
+	 	   		c1.set(0000, 0, cx.get(Calendar.DATE),00,00);
+	 				
+	 	   		c1.add(Calendar.HOUR, h.getQtdehora().getHours());
+	 	   		c1.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+	 			h.setTipo_100(c1.getTime());
+	 		}else {
+	    	
+	    	for(Date dt = cal.getTime(); dt.compareTo(cal2.getTime()) <= 0; ) {
+	    			    			
+	    		Duration d = Duration.ZERO;
+	    		if(h.getData().equals(dt) && h.getTipo_50() != null) {
+	    			    			
+						
+					d = Duration.parse("PT"+h.getTipo_50().getHours()+"H"+h.getTipo_50().getMinutes()+"M");
+					ht = ht.plus(d);
+	    		}
+	    		if(h.getData().equals(data) && h.getQtdehora() != null) {
+	    			
+				if(ht.toMinutes() > 600 ) {	
+					
+					Duration d2 = Duration.ZERO;
+					d2 = Duration.parse("PT"+h.getQtdehora().getHours()+"H"+h.getQtdehora().getMinutes()+"M");	
+					
+					Long min = ht.toMinutes() - 600;
+					Long min2 = d2.toMinutes() - min;
+							
+					Long sec = min * 60;
+					Long hr = sec / 3600;
+					sec -= hr * 3600;
+					min = sec /60;
+					sec -= min *60;	    				
+	    			
+					Calendar x = Calendar.getInstance();
+					x.set(0000, 0, Calendar.DATE,Integer.parseInt(hr.toString()),Integer.parseInt(min.toString()));
+					h.setTipo_60(x.getTime());
+								
+					//Long min2 = d.toMinutes() - 600;
+					Long sec2 = min2 * 60;
+					Long hr2 = sec2 / 3600;
+					sec2 -= hr2 * 3600;
+					min2 = sec2 /60;
+					sec2 -= min2 *60;	
+								
+					x.set(0000, 0, Calendar.DATE,Integer.parseInt(hr2.toString()),Integer.parseInt(min2.toString()));
+					h.setTipo_50(x.getTime());
+								
+				}else {
+					
+					Calendar c1 = Calendar.getInstance();
+				 	c1.set(0000, 0, cx.get(Calendar.DATE),00,00);
+								
+					c1.add(Calendar.HOUR, h.getQtdehora().getHours());
+					c1.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+					h.setTipo_50(c1.getTime());
+				}
+	    			
+	    	}
+	    	Calendar c = Calendar.getInstance();
+	    	c.setTime(dt);
+	    	c.add(Calendar.DATE, +1);
+	    	dt = c.getTime();
+	    	}	
+	 	}
+	 }
+	    
+	System.out.println(calcula_duracao(ht));
+	*/
+}
+	
 	
 	public void remover() {
 		int index = horasextras.indexOf(horaExtra);

@@ -274,14 +274,19 @@
 					<p:commandButton id="atualizar" value="Atualizar" icon="fa fa-plus"
 						styleClass="btn-success"
 						style="margin-top: 10px; horizontal-align:left;"
-						action="#{beanFechamento.calcula_totalhoras()}"
+						action="#{beanFechamento.atualiza()}"
 						update=":form:erros :form:tabview:tabview2:painel_horaextra_total :form:tabview:tabview2:tabela_horaextra">
 					</p:commandButton>
 					
 					<p:dataTable id="tabela_horaextra" value="#{beanFechamento.horasextras}" var="items"
-						editable="true" editMode="cell" style="width:100%" rowStyleClass="#{items.tipo_50 eq true ? 'color_50' : null or items.tipo_60 eq true ? 'color_60' : null or items.tipo_100 eq true ? 'color_100' : null}">
+						editable="true" editMode="cell" style="width:100%" rowStyleClass="#{items.tipo_60 != null ? 'color_60' : null or items.tipo_50 != null ? 'color_50' : null or items.tipo_100 != null  ? 'color_100' : null}">
 						
 						<f:facet name="header">Lista Horas Extras</f:facet>
+						
+						<p:column headerText="Dia" width="4%" style="border: 1px solid; text-align: Left" styleClass="#{items.diadasemana eq 'Sáb' or items.diadasemana eq 'Dom' ? 'color_100' : null}" >
+							<h:outputLabel value="#{items.diadasemana}" >
+							</h:outputLabel>
+						</p:column>
 						
 						<p:column headerText="Data" width="8%" style="border: 1px solid; text-align: Left">
 						<h:outputLabel value="#{items.data}" >
@@ -290,35 +295,69 @@
 						</p:column>
 						
 						
-						<p:column headerText="Hora" width="8%" style="border: 1px solid; text-align: Left">
+						<p:column headerText="Hora" width="8%" style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.qtdehora}">
-										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" />
+										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" type="time"/>
 									</p:outputLabel>
 								</f:facet>
                 				<f:facet name="input">
-                					<p:calendar locale="pt_BR"
+                					<p:calendar locale="pt_BR" 
 										value="#{items.qtdehora}"
+										pattern="HH:mm" mask="true" showOn="">
+										<p:ajax event="change" listener="#{beanFechamento.verifica_total_semana(items.data)}" update=":form:tabview:tabview2:tabela_horaextra"/>
+									</p:calendar>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="50%" width="6%" style="border: 1px solid; text-align: Left">
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.tipo_50}">
+										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" type="time"/>
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:calendar locale="pt_BR" 
+										value="#{items.tipo_50}"
 										pattern="HH:mm" mask="true" showOn="">
 									</p:calendar>
                 				</f:facet>							
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="50%" width="4%" style="border: 1px solid; text-align: Left">							
-						<h:selectBooleanCheckbox   value="#{items.tipo_50}" />
-						
+						<p:column headerText="60%" width="6%" style="border: 1px solid; text-align: Left">
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.tipo_60}">
+										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" type="time"/>
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:calendar locale="pt_BR" 
+										value="#{items.tipo_60}"
+										pattern="HH:mm" mask="true" showOn="">
+									</p:calendar>
+                				</f:facet>							
+							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="60%" width="4%" style="border: 1px solid; text-align: Left">							
-						<h:selectBooleanCheckbox  
-								value="#{items.tipo_60}" />
-						</p:column>
-						
-						<p:column headerText="100%" width="4%" style="border: 1px solid; text-align: Left">								
-						<h:selectBooleanCheckbox  
-								value="#{items.tipo_100}" />
+						<p:column headerText="100%" width="6%" style="border: 1px solid; text-align: Left">
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.tipo_100}">
+										<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo" type="time"/>
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:calendar locale="pt_BR" 
+										value="#{items.tipo_100}"
+										pattern="HH:mm" mask="true" showOn="">
+									</p:calendar>
+                				</f:facet>							
+							</p:cellEditor>
 						</p:column>
 						
 						<p:column headerText="Insalubre" width="6%" style="border: 1px solid; text-align: Left">								

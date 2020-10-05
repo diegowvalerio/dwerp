@@ -20,17 +20,19 @@ public class HoraExtra implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
+	private String diadasemana;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date qtdehora;
 	
-	@Column(columnDefinition= "BOOLEAN DEFAULT FALSE")
-	private Boolean tipo_50;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tipo_50;
 	
-	@Column(columnDefinition= "BOOLEAN DEFAULT FALSE")
-	private Boolean tipo_60;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tipo_60;
 	
-	@Column(columnDefinition= "BOOLEAN DEFAULT FALSE")
-	private Boolean tipo_100;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tipo_100;
 	
 	@Column(columnDefinition= "BOOLEAN DEFAULT FALSE")
 	private Boolean insalubre;
@@ -67,35 +69,41 @@ public class HoraExtra implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	public String getDiadasemana() {
+		return diadasemana;
+	}
+	public void setDiadasemana(String diadasemana) {
+		this.diadasemana = diadasemana;
+	}
 	public Date getQtdehora() {
 		return qtdehora;
 	}
 	public void setQtdehora(Date qtdehora) {
 		this.qtdehora = qtdehora;
 	}
-	public Boolean getTipo_50() {
+	public Date getTipo_50() {
 		return tipo_50;
 	}
-	public void setTipo_50(Boolean tipo_50) {
+	public void setTipo_50(Date tipo_50) {
 		this.tipo_50 = tipo_50;
 	}
-	public Boolean getTipo_60() {
+	public Date getTipo_60() {
 		return tipo_60;
 	}
-	public void setTipo_60(Boolean tipo_60) {
+	public void setTipo_60(Date tipo_60) {
 		this.tipo_60 = tipo_60;
 	}
-	public Boolean getTipo_100() {
+	public Date getTipo_100() {
 		return tipo_100;
 	}
-	public void setTipo_100(Boolean tipo_100) {
+	public void setTipo_100(Date tipo_100) {
 		this.tipo_100 = tipo_100;
 	}
-	public String getObservacao() {
-		return observacao;
+	public Boolean getInsalubre() {
+		return insalubre;
 	}
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setInsalubre(Boolean insalubre) {
+		this.insalubre = insalubre;
 	}
 	public double getValor_unitario() {
 		return valor_unitario;
@@ -109,11 +117,11 @@ public class HoraExtra implements Serializable {
 	public void setValor_total(double valor_total) {
 		this.valor_total = valor_total;
 	}
-	public Boolean getInsalubre() {
-		return insalubre;
+	public String getObservacao() {
+		return observacao;
 	}
-	public void setInsalubre(Boolean insalubre) {
-		this.insalubre = insalubre;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 	@Override
 	public int hashCode() {
@@ -143,6 +151,6 @@ public class HoraExtra implements Serializable {
 		} else if (!fechamento.equals(other.fechamento))
 			return false;
 		return true;
-	}	
-   
+	}
+	
 }
