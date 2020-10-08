@@ -263,7 +263,6 @@
 					
 					<p:commandButton id="nve" value="Gerar" icon="fa fa-plus"
 						styleClass="btn-primary"
-						style="margin-top: 10px; horizontal-align:left;"
 						action="#{beanFechamento.addNovo}"
 						update=":form:tabview:tabview2:tabela_horaextra">
 						<f:setPropertyActionListener
@@ -271,12 +270,21 @@
 							value="#{beanFechamento.fechamento}" />
 					</p:commandButton>
 					
-					<p:commandButton id="atualizar" value="Atualizar" icon="fa fa-plus"
+					<p:commandButton id="calcular" value="Calcular" icon="fa fa-plus"
 						styleClass="btn-success"
-						style="margin-top: 10px; horizontal-align:left;"
-						action="#{beanFechamento.atualiza()}"
+						action="#{beanFechamento.calcula_totalhoras()}"
 						update=":form:erros :form:tabview:tabview2:painel_horaextra_total :form:tabview:tabview2:tabela_horaextra">
 					</p:commandButton>
+					
+					<p:commandButton onclick="this.form.target='_blank'"
+						actionListener="#{beanFechamento.recibo_horas}" ajax="false"
+						icon="ui-icon-print" value="Recibo Horas" styleClass="btn-primary" >
+					</p:commandButton>
+						
+						
+					<br></br>
+					<br></br>
+					<p:outputLabel value="Feriado: não informar na coluna HORA, lançar direto na coluna de 100% !"></p:outputLabel>
 					
 					<p:dataTable id="tabela_horaextra" value="#{beanFechamento.horasextras}" var="items"
 						editable="true" editMode="cell" style="width:100%" rowStyleClass="#{items.tipo_60 != null ? 'color_60' : null or items.tipo_50 != null ? 'color_50' : null or items.tipo_100 != null  ? 'color_100' : null}">
@@ -306,7 +314,7 @@
                 					<p:calendar locale="pt_BR" 
 										value="#{items.qtdehora}"
 										pattern="HH:mm" mask="true" showOn="">
-										<p:ajax event="change" listener="#{beanFechamento.verifica_total_semana(items.data)}" update=":form:tabview:tabview2:tabela_horaextra"/>
+										<p:ajax event="change" listener="#{beanFechamento.atualiza()}" update=":form:tabview:tabview2:tabela_horaextra"/>
 									</p:calendar>
                 				</f:facet>							
 							</p:cellEditor>

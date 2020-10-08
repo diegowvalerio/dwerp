@@ -27,6 +27,7 @@ import br.com.dwerp.entidade.Fechamento;
 import br.com.dwerp.entidade.HoraExtra;
 import br.com.dwerp.entidade.SubGrupo;
 import br.com.dwerp.msn.FacesMessageUtil;
+import br.com.dwerp.relatorio.Relatorio;
 import br.com.dwerp.servico.ServicoFechamento;
 
 
@@ -93,9 +94,7 @@ public class BeanFechamento implements Serializable{
 	}
 	
 	public void calcula_totalhoras() {
-		
-		
-		/*
+
 		DateFormat simple = new SimpleDateFormat ("HH:mm");
 		//zerar antes de calcular
 		fechamento.setHoraextra_50_valor_total(0.0);
@@ -143,13 +142,13 @@ public class BeanFechamento implements Serializable{
 				verifica_insalubre_marcado += 1 ;
 			}
 			
-			if(h.getTipo_50().equals(true)) {
+			if(h.getTipo_50() != null) {
 				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_50.get(Calendar.DATE),00,00);
 				
-				cal.add(Calendar.HOUR, h.getQtdehora().getHours());
-				cal.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+				cal.add(Calendar.HOUR, h.getTipo_50().getHours());
+				cal.add(Calendar.MINUTE, h.getTipo_50().getMinutes());
 						
 				if(h.getInsalubre().equals(true) && fechamento.getInsalubridade()>0) {
 					
@@ -182,13 +181,13 @@ public class BeanFechamento implements Serializable{
 				
 			}
 			
-			if(h.getTipo_60().equals(true)) {
+			if(h.getTipo_60() != null) {
 				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_60.get(Calendar.DATE),00,00);
 				
-				cal.add(Calendar.HOUR, h.getQtdehora().getHours());
-				cal.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+				cal.add(Calendar.HOUR, h.getTipo_60().getHours());
+				cal.add(Calendar.MINUTE, h.getTipo_60().getMinutes());
 								
 				if(h.getInsalubre().equals(true) && fechamento.getInsalubridade()>0) {
 					
@@ -219,13 +218,13 @@ public class BeanFechamento implements Serializable{
 				}
 			}
 			
-			if(h.getTipo_100().equals(true)) {
+			if(h.getTipo_100() != null) {
 				Duration d = Duration.ZERO;
 				Calendar cal = Calendar.getInstance();
 				cal.set(0000, 0, cal_100.get(Calendar.DATE),00,00);
 				
-				cal.add(Calendar.HOUR, h.getQtdehora().getHours());
-				cal.add(Calendar.MINUTE, h.getQtdehora().getMinutes());
+				cal.add(Calendar.HOUR, h.getTipo_100().getHours());
+				cal.add(Calendar.MINUTE, h.getTipo_100().getMinutes());
 								
 				if(h.getInsalubre().equals(true) && fechamento.getInsalubridade()>0) {
 					
@@ -255,6 +254,41 @@ public class BeanFechamento implements Serializable{
 				
 				}
 			}
+			//caso seja feriado e pague 100% 
+			if (h.getQtdehora() == null && h.getTipo_100() != null) {
+				Duration d = Duration.ZERO;
+				Calendar cal = Calendar.getInstance();
+				cal.set(0000, 0, cal_100.get(Calendar.DATE),00,00);
+				
+				cal.add(Calendar.HOUR, h.getTipo_100().getHours());
+				cal.add(Calendar.MINUTE, h.getTipo_100().getMinutes());
+								
+				if(h.getInsalubre().equals(true) && fechamento.getInsalubridade()>0) {
+					
+					vlunt = (fechamento.getSalario()/fechamento.getFuncionario().getCargahoraria_mensal())+
+							(fechamento.getInsalubridade()/fechamento.getFuncionario().getCargahoraria_mensal())+
+							(((fechamento.getInsalubridade()/fechamento.getFuncionario().getCargahoraria_mensal())+(fechamento.getSalario()/fechamento.getFuncionario().getCargahoraria_mensal()))*1);
+				}else {
+					vlunt = fechamento.getSalario()/fechamento.getFuncionario().getCargahoraria_mensal()+(fechamento.getSalario()/fechamento.getFuncionario().getCargahoraria_mensal())*1;
+				}
+				h.setValor_unitario(vlunt);
+				vlhoras = cal.get(Calendar.HOUR) * vlunt;
+				minutos = cal.get(Calendar.MINUTE);
+				minutos = minutos/60;
+				vlminutos = minutos * vlunt;
+				h.setValor_total(vlhoras+vlminutos);
+				
+				//resumo valor
+				if(h.getInsalubre().equals(true)) {
+					fechamento.setHoraextra_100_valor_total_insalubre(fechamento.getHoraextra_100_valor_total_insalubre()+h.getValor_total());
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d100i = d100i.plus(d);
+				}else {
+					fechamento.setHoraextra_100_valor_total(fechamento.getHoraextra_100_valor_total()+h.getValor_total());					
+					d = Duration.parse("PT"+cal.get(Calendar.HOUR)+"H"+cal.get(Calendar.MINUTE)+"M");
+					d100 = d100.plus(d);
+				}
+			}
 		}
 				
 		fechamento.setHoraextra_50_qtde_hora(calcula_duracao(d50));
@@ -272,7 +306,7 @@ public class BeanFechamento implements Serializable{
 		if(verifica_insalubre_marcado > 0) {
 		 FacesMessageUtil.addMensagemWarn("Existem "+ verifica_insalubre_marcado +" Datas marcadas como Insalubre, Verifique valor da Insalubridade !! ");
 		}
-		*/
+		
 	}
 	
 	public String calcula_duracao(Duration duracao) {
@@ -380,7 +414,7 @@ public class BeanFechamento implements Serializable{
 
 		for (HoraExtra h : horasextras) {
 			if ((h.getDiadasemana().equals("Sáb") || h.getDiadasemana().equals("Dom")) && h.getQtdehora() != null) {
-				
+				h.setTipo_100(h.getQtdehora());
 			} else {
 				Calendar cal = Calendar.getInstance();
 				Calendar cal2 = Calendar.getInstance();
@@ -410,7 +444,7 @@ public class BeanFechamento implements Serializable{
 							if (totalhoras.toMinutes() > 600) {
 								if(totalhoras50.toMinutes() < 600) {
 								Long min = totalhoras.toMinutes() - 600;
-								Long min2 = totalhoras50.toMinutes() - min;
+								Long min2 = 600 - totalhoras50.toMinutes() ;
 								
 										
 								Long sec = min * 60;
@@ -434,6 +468,7 @@ public class BeanFechamento implements Serializable{
 								x2.set(0000, 0, Calendar.DATE,Integer.parseInt(hr2.toString()),Integer.parseInt(min2.toString()));
 								h2.setTipo_50(x2.getTime());
 								
+																								
 								}
 								
 								if(totalhoras50.toMinutes() == 600) {
@@ -452,11 +487,12 @@ public class BeanFechamento implements Serializable{
 									
 									x.set(0000, 0, Calendar.DATE,00,00);
 									h2.setTipo_50(x.getTime());
-
+									
 								}
 								
 							}else {
 								h2.setTipo_50(h2.getQtdehora());
+								
 							}
 							
 							if(h2.getTipo_60() != null) {
@@ -606,6 +642,14 @@ public class BeanFechamento implements Serializable{
 	}
 	//fim hora
 	
+	//gerar recibos
+	
+	public void recibo_horas() {
+		Relatorio report = new Relatorio();
+		report.recibo_horaextra(1);
+	}
+	
+	//fim recibos
 
 	public Fechamento getFechamento() {
 		return fechamento;

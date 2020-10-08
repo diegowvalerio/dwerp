@@ -49,19 +49,17 @@ public class Fechamento implements Serializable {
 	private double insalubridade;
 	
 	//nome funcao do momento de fechamento
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column( columnDefinition = "varchar(250)")
 	private String funcao;
 	
 	//nome setor do momento de fechamento
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column(columnDefinition = "varchar(250)")
 	private String setor;
 
 	// faltas
-	@Column(nullable = false)
 	private float falta_qtde_dia;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date falta_qtde_hora;
 
 	@Column(nullable = false, columnDefinition = "varchar(250)")
@@ -69,16 +67,15 @@ public class Fechamento implements Serializable {
 	//
 
 	// diarias
-	@Column(nullable = false)
 	private float diaria_qtde_dia;
 
-	@Column(nullable = true, columnDefinition = "numeric(6,2)")
+	@Column(columnDefinition = "numeric(6,2)")
 	private double diaria_valor_unitario;
 
-	@Column(nullable = true, columnDefinition = "numeric(6,2)")
+	@Column( columnDefinition = "numeric(6,2)")
 	private double diaria_valor_total;
 
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column( columnDefinition = "varchar(250)")
 	private String diaria_observacao;
 	//
 
@@ -128,40 +125,34 @@ public class Fechamento implements Serializable {
 
 	// horas extras 50% formal
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_50_qtde_hora;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_50_qtde_minuto;
 
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column(columnDefinition = "varchar(250)")
 	private String horaextraformal_50_observacao;
 	//
 
 	// horas extras 60% formal
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_60_qtde_hora;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_60_qtde_minuto;
 
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column( columnDefinition = "varchar(250)")
 	private String horaextraformal_60_observacao;
 	//
 
 	// horas extras 100% formal
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_100_qtde_hora;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	private Date horaextraformal_100_qtde_minuto;
 
-	@Column(nullable = false, columnDefinition = "varchar(250)")
+	@Column(columnDefinition = "varchar(250)")
 	private String horaextraformal_100_observacao;
 	//
 	
