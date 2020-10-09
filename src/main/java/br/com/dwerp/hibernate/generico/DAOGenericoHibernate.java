@@ -112,4 +112,5 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		
 	}
 	
+	
 }

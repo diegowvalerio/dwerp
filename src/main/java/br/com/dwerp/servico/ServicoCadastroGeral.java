@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import br.com.dwerp.dao.DAOCadastroGeral;
 import br.com.dwerp.entidade.CadastroGeral;
+import br.com.dwerp.entidade.Fechamento;
 import br.com.dwerp.hibernate.Transacao;
 
 @Dependent
@@ -42,10 +43,14 @@ public class ServicoCadastroGeral implements Serializable{
 		return dao.consultar();
 	}
 	
+	public CadastroGeral consultar(Integer id) {
+		return dao.consultar(id);
+	}
+	
 	public List<CadastroGeral> consultar_funcionarios(){
 		return dao.consultar_funcionarios();
 	}
-	
+		
 	
 	//painel de resumo
 	

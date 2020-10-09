@@ -3,32 +3,239 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Recibo_HoraExtra" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a440fa82-5c67-451b-a1cf-387ade025665">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dwerp_jasper"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="269"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="720"/>
+	<parameter name="ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[select * from tbcadastrogeral]]>
+		<![CDATA[SELECT f.*,
+	g.nome,
+	g.cpf,
+	g.rg,
+	f.horaextra_100_valor_total +
+	f.horaextra_100_valor_total_insalubre +
+	f.horaextra_50_valor_total+
+	f.horaextra_50_valor_total_insalubre +
+	f.horaextra_60_valor_total +
+	f.horaextra_60_valor_total_insalubre as total
+	FROM tbfechamento f
+	INNER JOIN tbcadastrogeral g ON 
+	 g.idcadastrogeral = f.funcionario_idcadastrogeral 
+WHERE 
+	 f.idfechamento = $P{ID}]]>
 	</queryString>
-	<field name="idcadastrogeral" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idcadastrogeral"/>
-		<property name="com.jaspersoft.studio.field.label" value="idcadastrogeral"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
+	<field name="idfechamento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idfechamento"/>
+		<property name="com.jaspersoft.studio.field.label" value="idfechamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
 	</field>
-	<field name="bairro" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="bairro"/>
-		<property name="com.jaspersoft.studio.field.label" value="bairro"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
+	<field name="adicionalfixo" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="adicionalfixo"/>
+		<property name="com.jaspersoft.studio.field.label" value="adicionalfixo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
 	</field>
-	<field name="cep" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="cep"/>
-		<property name="com.jaspersoft.studio.field.label" value="cep"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
+	<field name="adicionalnoturno" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="adicionalnoturno"/>
+		<property name="com.jaspersoft.studio.field.label" value="adicionalnoturno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
 	</field>
-	<field name="cnpj" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="cnpj"/>
-		<property name="com.jaspersoft.studio.field.label" value="cnpj"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
+	<field name="ano" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ano"/>
+		<property name="com.jaspersoft.studio.field.label" value="ano"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
 	</field>
-	<field name="complemento" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="complemento"/>
-		<property name="com.jaspersoft.studio.field.label" value="complemento"/>
+	<field name="diaria_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="diaria_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="diaria_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="diaria_qtde_dia" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="diaria_qtde_dia"/>
+		<property name="com.jaspersoft.studio.field.label" value="diaria_qtde_dia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="diaria_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="diaria_valor_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="diaria_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="diaria_valor_unitario" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="diaria_valor_unitario"/>
+		<property name="com.jaspersoft.studio.field.label" value="diaria_valor_unitario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="falta_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="falta_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="falta_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="falta_qtde_dia" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="falta_qtde_dia"/>
+		<property name="com.jaspersoft.studio.field.label" value="falta_qtde_dia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="falta_qtde_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="falta_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="falta_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="funcao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="funcao"/>
+		<property name="com.jaspersoft.studio.field.label" value="funcao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_100_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_100_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_100_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_100_qtde_hora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_100_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_100_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_100_qtde_hora_insalubre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_100_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_100_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_100_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_100_valor_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_100_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_100_valor_total_insalubre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_100_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_100_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_50_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_50_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_50_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_50_qtde_hora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_50_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_50_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_50_qtde_hora_insalubre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_50_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_50_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_50_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_50_valor_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_50_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_50_valor_total_insalubre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_50_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_50_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_60_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_60_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_60_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_60_qtde_hora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_60_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_60_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_60_qtde_hora_insalubre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_60_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_60_qtde_hora_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_60_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_60_valor_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_60_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextra_60_valor_total_insalubre" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="horaextra_60_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextra_60_valor_total_insalubre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_100_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_100_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_100_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_100_qtde_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_100_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_100_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_100_qtde_minuto" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_100_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_100_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_50_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_50_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_50_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_50_qtde_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_50_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_50_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_50_qtde_minuto" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_50_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_50_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_60_observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_60_observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_60_observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_60_qtde_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_60_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_60_qtde_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="horaextraformal_60_qtde_minuto" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="horaextraformal_60_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.label" value="horaextraformal_60_qtde_minuto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="insalubridade" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="insalubridade"/>
+		<property name="com.jaspersoft.studio.field.label" value="insalubridade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="mes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mes"/>
+		<property name="com.jaspersoft.studio.field.label" value="mes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="salario" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="salario"/>
+		<property name="com.jaspersoft.studio.field.label" value="salario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="setor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="setor"/>
+		<property name="com.jaspersoft.studio.field.label" value="setor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="funcionario_idcadastrogeral" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="funcionario_idcadastrogeral"/>
+		<property name="com.jaspersoft.studio.field.label" value="funcionario_idcadastrogeral"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbfechamento"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
 	</field>
 	<field name="cpf" class="java.lang.String">
@@ -36,236 +243,18 @@
 		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
 	</field>
-	<field name="desc_cofins_suframa" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="desc_cofins_suframa"/>
-		<property name="com.jaspersoft.studio.field.label" value="desc_cofins_suframa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="desc_icms_suframa" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="desc_icms_suframa"/>
-		<property name="com.jaspersoft.studio.field.label" value="desc_icms_suframa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="desc_ipi_suframa" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="desc_ipi_suframa"/>
-		<property name="com.jaspersoft.studio.field.label" value="desc_ipi_suframa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="desc_pis_suframa" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="desc_pis_suframa"/>
-		<property name="com.jaspersoft.studio.field.label" value="desc_pis_suframa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="dtcadastro" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="dtcadastro"/>
-		<property name="com.jaspersoft.studio.field.label" value="dtcadastro"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="email" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="email"/>
-		<property name="com.jaspersoft.studio.field.label" value="email"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="insc_estadual" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="insc_estadual"/>
-		<property name="com.jaspersoft.studio.field.label" value="insc_estadual"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="insc_suframa" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="insc_suframa"/>
-		<property name="com.jaspersoft.studio.field.label" value="insc_suframa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="logadouro" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="logadouro"/>
-		<property name="com.jaspersoft.studio.field.label" value="logadouro"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="nome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nome"/>
-		<property name="com.jaspersoft.studio.field.label" value="nome"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="nomecontato" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nomecontato"/>
-		<property name="com.jaspersoft.studio.field.label" value="nomecontato"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="numero" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="numero"/>
-		<property name="com.jaspersoft.studio.field.label" value="numero"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="numerocontato" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="numerocontato"/>
-		<property name="com.jaspersoft.studio.field.label" value="numerocontato"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="observacao" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="observacao"/>
-		<property name="com.jaspersoft.studio.field.label" value="observacao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="observacaocontato" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="observacaocontato"/>
-		<property name="com.jaspersoft.studio.field.label" value="observacaocontato"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="op_cliente" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="op_cliente"/>
-		<property name="com.jaspersoft.studio.field.label" value="op_cliente"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="op_fornecedor" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="op_fornecedor"/>
-		<property name="com.jaspersoft.studio.field.label" value="op_fornecedor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="op_transportadora" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="op_transportadora"/>
-		<property name="com.jaspersoft.studio.field.label" value="op_transportadora"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="razao_social" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="razao_social"/>
-		<property name="com.jaspersoft.studio.field.label" value="razao_social"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
 	<field name="rg" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="rg"/>
 		<property name="com.jaspersoft.studio.field.label" value="rg"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
 	</field>
-	<field name="situacao" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="situacao"/>
-		<property name="com.jaspersoft.studio.field.label" value="situacao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
+	<field name="total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
 	</field>
-	<field name="tipo_tributacao" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipo_tributacao"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipo_tributacao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="tipojf" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipojf"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipojf"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="cidade_idcidade" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cidade_idcidade"/>
-		<property name="com.jaspersoft.studio.field.label" value="cidade_idcidade"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="op_funcionario" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="op_funcionario"/>
-		<property name="com.jaspersoft.studio.field.label" value="op_funcionario"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="dtadmissao" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="dtadmissao"/>
-		<property name="com.jaspersoft.studio.field.label" value="dtadmissao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="dtnascimento" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="dtnascimento"/>
-		<property name="com.jaspersoft.studio.field.label" value="dtnascimento"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="rg_dtemissao" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="rg_dtemissao"/>
-		<property name="com.jaspersoft.studio.field.label" value="rg_dtemissao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="salario" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="salario"/>
-		<property name="com.jaspersoft.studio.field.label" value="salario"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="empresa_idempresa" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="empresa_idempresa"/>
-		<property name="com.jaspersoft.studio.field.label" value="empresa_idempresa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="funcao_idfuncao" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="funcao_idfuncao"/>
-		<property name="com.jaspersoft.studio.field.label" value="funcao_idfuncao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="naturalidade_idcidade" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="naturalidade_idcidade"/>
-		<property name="com.jaspersoft.studio.field.label" value="naturalidade_idcidade"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="setor_idsetor" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="setor_idsetor"/>
-		<property name="com.jaspersoft.studio.field.label" value="setor_idsetor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="escolaridade" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="escolaridade"/>
-		<property name="com.jaspersoft.studio.field.label" value="escolaridade"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="pispasep" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="pispasep"/>
-		<property name="com.jaspersoft.studio.field.label" value="pispasep"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="rg_orgaoemissor" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="rg_orgaoemissor"/>
-		<property name="com.jaspersoft.studio.field.label" value="rg_orgaoemissor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="sexo" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="sexo"/>
-		<property name="com.jaspersoft.studio.field.label" value="sexo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="adicionalnoturno" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="adicionalnoturno"/>
-		<property name="com.jaspersoft.studio.field.label" value="adicionalnoturno"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="cargahoraria_mensal" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cargahoraria_mensal"/>
-		<property name="com.jaspersoft.studio.field.label" value="cargahoraria_mensal"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="insalubridade" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="insalubridade"/>
-		<property name="com.jaspersoft.studio.field.label" value="insalubridade"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="carteiratrabalho_dtemissao" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="carteiratrabalho_dtemissao"/>
-		<property name="com.jaspersoft.studio.field.label" value="carteiratrabalho_dtemissao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="carteiratrabalho_numero" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="carteiratrabalho_numero"/>
-		<property name="com.jaspersoft.studio.field.label" value="carteiratrabalho_numero"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="carteiratrabalho_serie" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="carteiratrabalho_serie"/>
-		<property name="com.jaspersoft.studio.field.label" value="carteiratrabalho_serie"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="carteiratrabalho_uf_idestado" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="carteiratrabalho_uf_idestado"/>
-		<property name="com.jaspersoft.studio.field.label" value="carteiratrabalho_uf_idestado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="tiporemige" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tiporemige"/>
-		<property name="com.jaspersoft.studio.field.label" value="tiporemige"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
-	<field name="adicionalfixo" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="adicionalfixo"/>
-		<property name="com.jaspersoft.studio.field.label" value="adicionalfixo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tbcadastrogeral"/>
-	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{idfechamento}]]></groupExpression>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -332,46 +321,136 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="7" splitType="Stretch"/>
+		<band height="7" splitType="Stretch">
+			<staticText>
+				<reportElement x="329" y="0" width="100" height="7" uuid="8059c649-657b-493c-9cfc-44d6899ebfda">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+				</reportElement>
+				<text><![CDATA[funcao]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="169" splitType="Stretch">
+		<band height="237" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="-2" width="553" height="171" uuid="fbf58ef6-55fa-4384-a2f2-aec95e82b2e7"/>
+				<reportElement x="0" y="-2" width="553" height="239" uuid="fbf58ef6-55fa-4384-a2f2-aec95e82b2e7"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="10" width="370" height="15" uuid="fc377a83-052b-4de6-bd08-783ded8bc2c9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<text><![CDATA[VALOR TOTAL A RECEBER]]></text>
+				<text><![CDATA[VALOR TOTAL A RECEBER ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="90" width="60" height="15" uuid="f881d0f8-adf4-4fd1-8bca-f77cbd5d78c9">
+				<reportElement x="10" y="150" width="60" height="15" uuid="f881d0f8-adf4-4fd1-8bca-f77cbd5d78c9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<text><![CDATA[EMITENTE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="105" width="60" height="15" uuid="0d662e24-b630-4320-a4d2-987d9272dd79">
+				<reportElement x="10" y="165" width="60" height="15" uuid="0d662e24-b630-4320-a4d2-987d9272dd79">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<text><![CDATA[CPF/RG:]]></text>
+				<text><![CDATA[CPF:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="120" width="60" height="15" uuid="3455c70c-075a-4484-a323-576d245219f4">
+				<reportElement x="10" y="180" width="60" height="15" uuid="3455c70c-075a-4484-a323-576d245219f4">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<text><![CDATA[SETOR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="140" width="520" height="15" uuid="26769414-5603-4a47-a513-8db645341fc7">
+				<reportElement x="10" y="214" width="520" height="15" uuid="26769414-5603-4a47-a513-8db645341fc7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement rotation="None">
-					<font isUnderline="true"/>
+					<font isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[ASSINATURA:                                                                                                                                                                             ]]></text>
+				<text><![CDATA[ASSINATURA:   _______________________________________________________________________________]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="312" y="180" width="232" height="15" uuid="580ce795-4c08-465a-955e-491c9429135d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="259" y="180" width="50" height="15" uuid="2829d463-712a-46fd-866d-239276cc889b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<text><![CDATA[FUNÇÃO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="180" width="180" height="15" uuid="3830ef56-1ccc-4e75-837c-02c09d80be85">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{setor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="150" width="474" height="15" uuid="01e9f642-5afe-445a-ae30-9a74b235f917">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="46" width="70" height="15" uuid="e8fb8ee9-c235-4e75-adb4-a45e77a54b38">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[REFERENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="46" width="464" height="30" uuid="581db6ac-21b5-4a7c-a57d-34237bc8f7e4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{horaextra_50_observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="76" width="464" height="30" uuid="1c0b60da-3a76-4173-ba64-aff33748f9db">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{horaextra_60_observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="106" width="464" height="30" uuid="38a13d51-e337-4870-9f33-2422cfc0d67b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{horaextra_100_observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="165" width="180" height="15" uuid="d29dcef4-1661-4974-9645-eb7b59a19833">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="259" y="165" width="50" height="15" uuid="5c3dcbc0-138b-405a-82d8-e87eeffd4ae6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[RG:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="309" y="165" width="180" height="15" uuid="7924178d-b04e-483d-8a53-9cd0cd24f8d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="410" y="10" width="130" height="15" uuid="b38c2ee3-2dea-41e4-9d29-67ede60224fd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e90b5eb-c9ad-4905-94b8-d4ef24762136"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

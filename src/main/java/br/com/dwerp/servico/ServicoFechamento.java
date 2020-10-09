@@ -7,6 +7,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import br.com.dwerp.dao.DAOFechamento;
+import br.com.dwerp.entidade.CadastroGeral;
 import br.com.dwerp.entidade.Fechamento;
 import br.com.dwerp.hibernate.Transacao;
 
@@ -42,5 +43,8 @@ public class ServicoFechamento implements Serializable{
 		return dao.consultar();
 	}
 	
+	public Fechamento consultar(Integer id) {
+		return dao.consultar(id);
+	}
 	
 }

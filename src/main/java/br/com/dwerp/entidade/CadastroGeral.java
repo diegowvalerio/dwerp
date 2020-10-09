@@ -1,9 +1,14 @@
 package br.com.dwerp.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -158,11 +163,23 @@ public class CadastroGeral implements Serializable {
 	//gratificações fixas -valor total
 	@Column(nullable=true, columnDefinition="numeric(6,2)")
 	private double adicionalfixo;
+	
+	@OneToMany(mappedBy="funcionario", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+    private List<Fechamento> fechamentos = new ArrayList<>();
 
 	
 	public CadastroGeral() {
 		super();
 	}  
+
+	public List<Fechamento> getFechamentos() {
+		return fechamentos;
+	}
+
+	public void setFechamentos(List<Fechamento> fechamentos) {
+		this.fechamentos = fechamentos;
+	}
 
 	public String getNome() {
 		return nome;

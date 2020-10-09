@@ -141,6 +141,15 @@ public class BeanCadastroGeral implements Serializable{
 		return "cadastro-fechamento";
 	}
 	
+	/* consultar fechamentos RH */
+	public String encaminha3() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("cadastrogeralAux", this.cadastrogeral);
+
+		return "consulta-fechamento";
+	}
+	
 	public void renderizar() {
 		if (this.cadastrogeral.getTipojf().equals("J")) {
 			isRederiza = true;

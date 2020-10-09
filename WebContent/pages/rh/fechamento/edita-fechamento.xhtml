@@ -49,34 +49,34 @@
 				layout="grid" styleClass="ui-fluid card">
 						
 						<p:outputLabel value="Funcionário :" for="funcionario" />
-						<p:inputText id="funcionario"	value="#{beanFechamento.fechamento.funcionario.nome}" disabled="true"/>
+						<p:inputText id="funcionario"	value="#{beanFechamentoEdita.fechamento.funcionario.nome}" disabled="true"/>
 						
 										
 						<p:outputLabel value="Salário :" for="salario" />
 						<p:inputNumber id="salario" disabled="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanFechamento.fechamento.salario}" />
+							value="#{beanFechamentoEdita.fechamento.salario}" />
 							
 						<p:outputLabel value="Insalubridade :" for="insalubridade" />
 						<p:inputNumber id="insalubridade" disabled="false" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanFechamento.fechamento.insalubridade}" />
+							value="#{beanFechamentoEdita.fechamento.insalubridade}" />
 							
 						<p:outputLabel value="Adicional Noturno :" for="adicionalnoturno" />
 						<p:inputNumber id="adicionalnoturno" disabled="true" symbol=" %" symbolPosition="s"  
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanFechamento.fechamento.adicionalnoturno}" />
+							value="#{beanFechamentoEdita.fechamento.adicionalnoturno}" />
 							
 						<p:outputLabel value="Adicional Fixo :" for="adicionalfixo" />
 						<p:inputNumber id="adicionalfixo" disabled="true" symbol="R$ "   
                 			decimalSeparator="," thousandSeparator="." 
-							value="#{beanFechamento.fechamento.adicionalfixo}" />
+							value="#{beanFechamentoEdita.fechamento.adicionalfixo}" />
 							
 						<p:outputLabel value="Função :" for="funcao" />
-						<p:inputText id="funcao"	value="#{beanFechamento.fechamento.funcao}" disabled="true"/>
+						<p:inputText id="funcao"	value="#{beanFechamentoEdita.fechamento.funcao}" disabled="true"/>
                    		
                    		<p:outputLabel value="Setor :" for="setor" />
-						<p:inputText id="setor"	value="#{beanFechamento.fechamento.setor}" disabled="true"/>
+						<p:inputText id="setor"	value="#{beanFechamentoEdita.fechamento.setor}" disabled="true"/>
 																								
 				</p:panelGrid>
 				
@@ -87,7 +87,7 @@
 						
 						<p:outputLabel value="Mês :" for="mes" />
 						<p:selectOneMenu id="mes"
-							value="#{beanFechamento.fechamento.mes}">
+							value="#{beanFechamentoEdita.fechamento.mes}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
@@ -105,7 +105,7 @@
 						
 						<p:outputLabel value="Ano :" for="ano" />
 						<p:selectOneMenu id="ano"
-							value="#{beanFechamento.fechamento.ano}">
+							value="#{beanFechamentoEdita.fechamento.ano}">
 							<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
 							<f:selectItem itemLabel="2020" itemValue="2020" />
 							<f:selectItem itemLabel="2021" itemValue="2021" />
@@ -122,7 +122,7 @@
 						
 						<p:outputLabel for="observacao" value="Observacão"/>
                    		<p:inputText id="observacao" maxlength="250" 
-                   			value="#{beanFechamento.fechamento.observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.observacao}"/>
                    		
 				</p:panelGrid>
 				<p:tabView dynamic="false" cache="false" id="tabview2">
@@ -155,7 +155,7 @@
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_50_qtde_hora"
-							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_50_qtde_hora}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>								
@@ -163,12 +163,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_50_valor_total" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_50_valor_total}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_50_valor_total}" />
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_50_qtde_hora_insalubre"
-							value="#{beanFechamento.fechamento.horaextra_50_qtde_hora_insalubre}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_50_qtde_hora_insalubre}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>								
@@ -176,12 +176,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_50_valor_total_insalubre" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_50_valor_total_insalubre}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_50_valor_total_insalubre}" />
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText id="horaextra_50_observacao" maxlength="250" style="width: 100%"
-                   			value="#{beanFechamento.fechamento.horaextra_50_observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.horaextra_50_observacao}"/>
 					</p:column>	
 					</p:row>
 					<p:row>			
@@ -191,7 +191,7 @@
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_60_qtde_hora"
-							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_60_qtde_hora}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>													
@@ -199,12 +199,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_60_valor_total" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_60_valor_total}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_60_valor_total}" />
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_60_qtde_hora_insalubre"
-							value="#{beanFechamento.fechamento.horaextra_60_qtde_hora_insalubre}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_60_qtde_hora_insalubre}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>													
@@ -212,12 +212,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_60_valor_total_insalubre" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_60_valor_total_insalubre}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_60_valor_total_insalubre}" />
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText id="horaextra_60_observacao" maxlength="250" style="width: 100%"
-                   			value="#{beanFechamento.fechamento.horaextra_60_observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.horaextra_60_observacao}"/>
 					</p:column>	
 					</p:row>
 					
@@ -228,7 +228,7 @@
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_100_qtde_hora"
-							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_100_qtde_hora}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>
@@ -236,12 +236,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_100_valor_total" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_100_valor_total}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_100_valor_total}" />
 					</p:column>
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText  id="horaextra_100_qtde_hora_insalubre"
-							value="#{beanFechamento.fechamento.horaextra_100_qtde_hora_insalubre}"
+							value="#{beanFechamentoEdita.fechamento.horaextra_100_qtde_hora_insalubre}"
 						 disabled="true">
 						</p:inputText>
 					</p:column>
@@ -249,12 +249,12 @@
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputNumber id="horaextra_100_valor_total_insalubre" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.horaextra_100_valor_total_insalubre}" />
+							value="#{beanFechamentoEdita.fechamento.horaextra_100_valor_total_insalubre}" />
 					</p:column>	
 					
 					<p:column style="border: 1px solid; text-align: Left">
 						<p:inputText id="horaextra_100_observacao" maxlength="250" style="width: 100%"
-                   			value="#{beanFechamento.fechamento.horaextra_100_observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.horaextra_100_observacao}"/>
 					</p:column>	
 					</p:row>
 					</p:panelGrid>
@@ -263,17 +263,22 @@
 					
 					<p:commandButton id="nve" value="Gerar" icon="fa fa-plus"
 						styleClass="btn-primary"
-						action="#{beanFechamento.addNovo}"
+						action="#{beanFechamentoEdita.addNovo}"
 						update=":form:tabview:tabview2:tabela_horaextra">
 						<f:setPropertyActionListener
-							target="#{beanFechamento.horaExtra.fechamento}"
-							value="#{beanFechamento.fechamento}" />
+							target="#{beanFechamentoEdita.horaExtra.fechamento}"
+							value="#{beanFechamentoEdita.fechamento}" />
 					</p:commandButton>
 					
 					<p:commandButton id="calcular" value="Calcular" icon="fa fa-plus"
 						styleClass="btn-success"
-						action="#{beanFechamento.calcula_totalhoras()}"
+						action="#{beanFechamentoEdita.calcula_totalhoras()}"
 						update=":form:erros :form:tabview:tabview2:painel_horaextra_total :form:tabview:tabview2:tabela_horaextra">
+					</p:commandButton>
+					
+					<p:commandButton onclick="this.form.target='_blank'"
+						actionListener="#{beanFechamentoEdita.recibo_horas}" ajax="false"
+						icon="ui-icon-print" value="Recibo Horas" styleClass="btn-primary" >
 					</p:commandButton>
 						
 						
@@ -281,7 +286,7 @@
 					<br></br>
 					<p:outputLabel value="Feriado: não informar na coluna HORA, lançar direto na coluna de 100% !"></p:outputLabel>
 					
-					<p:dataTable id="tabela_horaextra" value="#{beanFechamento.horasextras}" var="items"
+					<p:dataTable id="tabela_horaextra" value="#{beanFechamentoEdita.horasextras}" var="items"
 						editable="true" editMode="cell" style="width:100%" rowStyleClass="#{items.tipo_60 != null ? 'color_60' : null or items.tipo_50 != null ? 'color_50' : null or items.tipo_100 != null  ? 'color_100' : null}">
 						
 						<f:facet name="header">Lista Horas Extras</f:facet>
@@ -309,7 +314,7 @@
                 					<p:calendar locale="pt_BR" 
 										value="#{items.qtdehora}"
 										pattern="HH:mm" mask="true" showOn="">
-										<p:ajax event="change" listener="#{beanFechamento.atualiza()}" update=":form:tabview:tabview2:tabela_horaextra"/>
+										<p:ajax event="change" listener="#{beanFechamentoEdita.atualiza()}" update=":form:tabview:tabview2:tabela_horaextra"/>
 									</p:calendar>
                 				</f:facet>							
 							</p:cellEditor>
@@ -402,17 +407,17 @@
 						
 							<p:outputLabel value="Qtde Dia Falta :" for="falta_qtde_dia" />
 							<p:inputNumber id="falta_qtde_dia" 
-							value="#{beanFechamento.fechamento.falta_qtde_dia}" />
+							value="#{beanFechamentoEdita.fechamento.falta_qtde_dia}" />
 							
 							<p:outputLabel value="Qtde Hora Falta :" for="falta_qtde_hora" />
 							<p:calendar locale="pt_BR" id="falta_qtde_hora"
-							value="#{beanFechamento.fechamento.falta_qtde_hora}"
+							value="#{beanFechamentoEdita.fechamento.falta_qtde_hora}"
 							pattern="HH:mm" mask="true" showOn="">
 							</p:calendar>
 							
 							<p:outputLabel for="falta_observacao" value="Observacão"/>
                    			<p:inputText id="falta_observacao" maxlength="250" 
-                   			value="#{beanFechamento.fechamento.falta_observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.falta_observacao}"/>
 				
 						</p:panelGrid>
 					</p:tab>
@@ -423,23 +428,23 @@
 						layout="grid" styleClass="ui-fluid card">
 						
 							<p:outputLabel value="Qtde Diária :" for="diaria_qtde_dia" />
-							<p:inputNumber id="diaria_qtde_dia" value="#{beanFechamento.fechamento.diaria_qtde_dia}" >
-								<p:ajax event="blur" listener="#{beanFechamento.calcula_diaria()}" update=":form:tabview:tabview2:painel_diaria"/>
+							<p:inputNumber id="diaria_qtde_dia" value="#{beanFechamentoEdita.fechamento.diaria_qtde_dia}" >
+								<p:ajax event="blur" listener="#{beanFechamentoEdita.calcula_diaria()}" update=":form:tabview:tabview2:painel_diaria"/>
 							</p:inputNumber>
 							
 							<p:outputLabel value="Valor Unitário :" for="diaria_valor_unitario" />
 							<p:inputNumber id="diaria_valor_unitario" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.diaria_valor_unitario}" />
+							value="#{beanFechamentoEdita.fechamento.diaria_valor_unitario}" />
 							
 							<p:outputLabel value="Total :" for="diaria_valor_total" />
 							<p:inputNumber id="diaria_valor_total" emptyValue="true" symbol="R$ "  
                 			decimalSeparator="," thousandSeparator="." disabled="true"
-							value="#{beanFechamento.fechamento.diaria_valor_total}" />
+							value="#{beanFechamentoEdita.fechamento.diaria_valor_total}" />
 							
 							<p:outputLabel for="diaria_observacao" value="Observacão"/>
                    			<p:inputText id="diaria_observacao" maxlength="250" 
-                   			value="#{beanFechamento.fechamento.diaria_observacao}"/>
+                   			value="#{beanFechamentoEdita.fechamento.diaria_observacao}"/>
 				
 						</p:panelGrid>
 					</p:tab>
@@ -449,7 +454,7 @@
 				
 			</p:tabView>				
 			<p:separator></p:separator>
-			<p:commandButton action="#{beanFechamento.salvar()}" value="Salvar"
+			<p:commandButton action="#{beanFechamentoEdita.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
 

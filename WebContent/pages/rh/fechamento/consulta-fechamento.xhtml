@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        Consulta Fechamento
+    </ui:define>
+
+	<ui:define name="description">
+       ... 
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Pesquisa Fechamento" />
+
+		<h:form id="form"
+			rendered="#{beanControleAcesso.acesso('rh_fechamento')}">
+			
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+				
+				<p:panelGrid id="painelf" columns="06"	 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+				layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Funcionário :" for="funcionario" />
+						<p:inputText id="funcionario"	value="#{beanFechamentoConsulta.funcionario.nome}" disabled="true"/>
+						
+						<p:outputLabel value="Função :" for="funcao" />
+						<p:inputText id="funcao"	value="#{beanFechamentoConsulta.funcionario.funcao.descricao}" disabled="true"/>
+                   		
+                   		<p:outputLabel value="Setor :" for="setor" />
+						<p:inputText id="setor"	value="#{beanFechamentoConsulta.funcionario.setor.nome}" disabled="true"/>
+						
+				</p:panelGrid>
+				
+				<p:separator></p:separator>
+				
+				<p:dataTable id="fechamentos" value="#{beanFechamentoConsulta.lista}" var="items" style="width:100%"
+						rows="10" rowKey="#{items.idfechamento}" paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+						
+						
+						<f:facet name="header">Fechamentos</f:facet>
+						
+						<p:column headerText="#" width="8%" filterBy="#{items.idfechamento}" filterMatchMode="contains">
+								#{items.idfechamento}
+						</p:column>
+						
+						<p:column headerText="Mês" width="8%" sortBy="#{items.mes}"  filterBy="#{items.mes}" filterMatchMode="contains">
+								#{items.mes}
+						</p:column>
+						
+						<p:column headerText="Ano" width="8%" sortBy="#{items.ano}"  filterBy="#{items.ano}" filterMatchMode="contains">
+								#{items.ano}
+						</p:column>
+						
+						<p:column headerText="Observação" filterBy="#{items.observacao}" filterMatchMode="contains">
+								#{items.observacao}
+						</p:column>
+						
+						<p:column width="15%" headerText="Operações"
+							style="text-align:center">
+							
+							<p:commandButton action="#{beanFechamentoConsulta.excluir()}"
+								ajax="false" immediate="true" partialSubmit="true"  process="@this"
+								oncomplete="#{beanFechamentoConsulta.lista}" icon="fa fa-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanFechamentoConsulta.fechamento}" />
+							</p:commandButton>
+							
+							<p:commandButton icon="fa fa-eye"
+								action="#{beanFechamentoConsulta.encaminha()}">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanFechamentoConsulta.fechamento}" />
+							</p:commandButton>
+
+						</p:column>
+						
+				</p:dataTable>
+				
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

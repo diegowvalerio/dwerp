@@ -45,7 +45,7 @@ public class Relatorio{
 			JasperReport rp = (JasperReport) JRLoader.loadObjectFromFile(caminho+".jasper");
 			
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("FECHAMENTO", idfechamento);
+			params.put("ID", idfechamento);
 						
 			
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -65,6 +65,7 @@ public class Relatorio{
 			closeConnection();
 			
 		}catch(Exception e){
+			//e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erro ao gerar o relatorio!"));
 		}
 		
