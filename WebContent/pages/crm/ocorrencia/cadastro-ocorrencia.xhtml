@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Ocorrência
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Ocorrência"
+			link="cadastro-ocorrencia.xhtml" />
+		<p:panel>
+			<h:form id="form"
+				rendered="#{beanControleAcesso.acesso('crm_ocorrencia')}">
+				<p:growl id="erros" showDetail="true" sticky="false" />
+				<p:panelGrid columns="10" styleClass="ui-fluid card">
+
+					<p:outputLabel value="Cliente" for="cliente" />
+					<p:selectOneMenu id="cliente"
+						value="#{beanOcorrencia.ocorrencia.cliente}" filter="true"
+						filterMatchMode="contains" converter="conversorCadastroGeral">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanOcorrencia.listacliente}" var="subs"
+							itemLabel="#{subs.nome}" itemValue="#{subs}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data" for="data" />
+					<p:calendar locale="pt_BR"
+						id="data" disabled="true"
+						value="#{beanOcorrencia.ocorrencia.data}"
+						pattern="dd/MM/yyyy" mask="true" required="true"
+						effect="fold" />
+
+					<p:outputLabel value="Status" for="status" />
+					<p:inputText id="status"
+						value="#{beanOcorrencia.ocorrencia.status}" disabled="true" />
+
+					<p:outputLabel value="Data Conclusão" for="dataconclusao" />
+					<p:calendar locale="pt_BR" id="dataconclusao" disabled="true"
+						value="#{beanOcorrencia.ocorrencia.dataconclusao}"
+						pattern="dd/MM/yyyy HH:mm:ss" mask="true" required="true"
+						effect="fold" />
+
+					<p:outputLabel value="Usuário:" for="usuario" />
+					<p:inputText id="usuario"
+						value="#{beanOcorrencia.ocorrencia.usuario.login}" disabled="true" />
+
+					<p:outputLabel value="Contato" for="contato" />
+					<p:inputText size="100" id="contato"
+						value="#{beanOcorrencia.ocorrencia.contato}"
+						onkeyup="this.value=this.value.toUpperCase()" />
+
+					<p:outputLabel value="Canal" for="canal" />
+					<p:selectOneMenu id="canal"
+						value="#{beanOcorrencia.ocorrencia.canal}"
+						converter="conversorCanal">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanOcorrencia.listacanal}" var="subs"
+							itemLabel="#{subs.descricao}" itemValue="#{subs}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Resumo" for="resumo" />
+					<p:inputText size="100" id="resumo"
+						value="#{beanOcorrencia.ocorrencia.resumo}" required="true"
+						onkeyup="this.value=this.value.toUpperCase()" />
+
+					<p:outputLabel value="Tipo" for="tipocrm" />
+					<p:selectOneMenu id="tipocrm"
+						value="#{beanOcorrencia.ocorrencia.tipocrm}"
+						converter="conversorTipoCrm">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanOcorrencia.listatipo}" var="subs"
+							itemLabel="#{subs.descricao}" itemValue="#{subs}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Modulo" for="modulocrm" />
+					<p:selectOneMenu id="modulocrm"
+						value="#{beanOcorrencia.ocorrencia.modulocrm}"
+						converter="conversorModuloCrm">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanOcorrencia.listamodulo}" var="subs"
+							itemLabel="#{subs.descricao}" itemValue="#{subs}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<p:panelGrid columns="2" styleClass="ui-fluid card">
+
+					<p:outputLabel value="Usuário Destino:" for="usuariodestino"
+						style="background-color: #DCDCDC;" />
+					<p:selectOneMenu id="usuariodestino"
+						value="#{beanOcorrencia.ocorrencia.usuariodestino}"
+						converter="conversorUsuario">
+						<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+						<f:selectItems value="#{beanOcorrencia.listausuario}" var="subs"
+							itemLabel="#{subs.login}" itemValue="#{subs}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<p:commandButton action="#{beanOcorrencia.novo()}" value="Novo"
+					icon="fa fa-plus" styleClass="btn-success"
+					style="margin-top: 10px; horizontal-align:left;"
+					oncomplete="PF('dialogp').show()">
+					<f:setPropertyActionListener
+						target="#{beanOcorrencia.item.ocorrencia}"
+						value="#{beanOcorrencia.ocorrencia}" />
+				</p:commandButton>
+
+				<p:dataTable id="tabela" value="#{beanOcorrencia.listaitem}"
+					var="items">
+					<f:facet name="header">Detalhes</f:facet>
+					<p:column headerText="Data" width="10%">
+						<h:outputText value="#{items.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Usuário" width="10%">
+								#{items.login}
+								</p:column>
+
+					<p:column headerText="Contato" width="20%">
+								#{items.contato}
+								</p:column>
+
+					<p:column headerText="Descrição">
+						<p:inputTextarea id="descricaoitem" autoResize="false"
+							style="width: 100%" value="#{items.descricao}" readonly="true" />
+					</p:column>
+				</p:dataTable>
+
+
+				<p:dialog id="dlg" header="Ocorrência" widgetVar="dialogp"
+					responsive="true" resizable="true" modal="true" position="center">
+					<p:panelGrid id="painelDados" columns="2">
+
+						<p:outputLabel value="Contato" for="contatoitem" />
+						<p:inputText size="100" id="contatoitem"
+							value="#{beanOcorrencia.item.contato}"
+							onkeyup="this.value=this.value.toUpperCase()" />
+
+					</p:panelGrid>
+					<p:panelGrid id="painelDados2" columns="1"
+						styleClass="ui-fluid card" layout="grid">
+
+						<p:outputLabel for="descricaoitem" value="Descrição:" />
+						<p:inputTextarea id="descricaoitem" maxlength="500"
+							autoResize="false" counter="display"
+							value="#{beanOcorrencia.item.descricao}"
+							counterTemplate="{0} caracteres sobrando." />
+						<h:outputText id="display" class="p-d-block" />
+
+					</p:panelGrid>
+					<p:commandButton id="sle" icon="fa fa-check"
+						styleClass="btn-primary" action="#{beanOcorrencia.editarsalvar()}"
+						value="Salvar" ajax="false">
+					</p:commandButton>
+				</p:dialog>
+
+				<p:separator />
+
+				<p:commandButton action="#{beanOcorrencia.salvar()}" value="Salvar"
+					icon="fa fa-check" styleClass="btn-primary" update="erros" />
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>

@@ -25,7 +25,7 @@
 	</ui:define>
 
 	<ui:define name="title">
-        Pesquisa Cnae
+        Pesquisa Módulo
     </ui:define>
 
 	<ui:define name="description">
@@ -33,12 +33,12 @@
     </ui:define>
 
 	<ui:define name="body">
-		<adm:breadcrumb title="Pesquisa Cnae" />
+		<adm:breadcrumb title="Pesquisa Módulo Crm" />
 
-		<h:form id="form" rendered="#{beanControleAcesso.acesso('fiscal_cnae')}">
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('crm_modulo')}">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<p:commandButton action="cadastro-cnae?faces-redirect=true"
+					<p:commandButton action="cadastro-modulocrm?faces-redirect=true"
 						ajax="false" icon="fa fa-plus" value="Novo"
 						styleClass="btn-primary" />
 
@@ -47,35 +47,35 @@
 					<p:separator />
 
 
-					<p:dataTable id="cnaeTable" widgetVar="cnaeTable" rows="10"
-						value="#{beanCnaeEdita.lista}" var="cnae"
-						rowKey="#{cnae.idcnae}" paginator="true"
+					<p:dataTable id="modulocrmTable" widgetVar="modulocrmTable" rows="10"
+						value="#{beanModuloCrm.lista}" var="modulocrm"
+						rowKey="#{modulocrm.idmodulocrm}" paginator="true"
 						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 						
-						<p:column width="10%" headerText="Cnae" filterBy="#{cnae.cnae}"
-							sortBy="#{cnae.cnae}" filterMatchMode="contains">
-							<h:outputLabel value="#{cnae.cnae}" />
+						<p:column width="10%" headerText="ModuloCrm" filterBy="#{modulocrm.idmodulocrm}"
+							sortBy="#{modulocrm.idmodulocrm}" filterMatchMode="contains">
+							<h:outputLabel value="#{modulocrm.idmodulocrm}" />
 						</p:column>
 
-						<p:column headerText="Nome" filterBy="#{cnae.descricao}"
-							sortBy="#{cnae.descricao}" filterMatchMode="contains">
-							<h:outputLabel value="#{cnae.descricao}" />
+						<p:column headerText="Nome" filterBy="#{modulocrm.descricao}"
+							sortBy="#{modulocrm.descricao}" filterMatchMode="contains">
+							<h:outputLabel value="#{modulocrm.descricao}" />
 						</p:column>
 						<p:column width="15%" headerText="Operações"
 							style="text-align:center">
-							<p:commandButton action="#{beanCnaeEdita.excluir()}"
+							<p:commandButton action="#{beanModuloCrm.excluir()}"
 								ajax="false" immediate="true" partialSubmit="true"  process="@this"
-								oncomplete="#{beanCnaeEdita.lista}" icon="fa fa-trash"
+								oncomplete="#{beanModuloCrm.lista}" icon="fa fa-trash"
 								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
-								<f:setPropertyActionListener value="#{cnae}"
-									target="#{beanCnaeEdita.cnae}" />
+								<f:setPropertyActionListener value="#{modulocrm}"
+									target="#{beanModuloCrm.moduloCrm}" />
 							</p:commandButton>
 							<p:commandButton oncomplete="PF('dialog').show();"
 								update=":fdlg:painelDados" icon="fa fa-edit">
-								<f:setPropertyActionListener value="#{cnae}"
-									target="#{beanCnaeEdita.cnae}" />
+								<f:setPropertyActionListener value="#{modulocrm}"
+									target="#{beanModuloCrm.moduloCrm}" />
 							</p:commandButton>
 							
 						</p:column>
@@ -86,25 +86,21 @@
 			</div>
 
 		</h:form>
-			<p:dialog id="dlg" header="Editar Cnae" widgetVar="dialog"
+			<p:dialog id="dlg" header="Editar Modulo Crm" widgetVar="dialog"
 				responsive="true" modal="false" appendTo="@(body)">
 				<h:form id="fdlg">
 					<p:panelGrid id="painelDados" columns="2">
-					
-						<p:outputLabel value="Cnae:" for="cnae" />
-						<p:inputText id="cnae" value="#{beanCnaeEdita.cnae.cnae}" />
-						
+											
 						<p:outputLabel value="Descrição:" for="descricao" />
-						<p:inputText size="100" id="descricao" value="#{beanCnaeEdita.cnae.descricao}" onkeyup="this.value=this.value.toUpperCase()"/>
+						<p:inputText size="100" id="descricao" value="#{beanModuloCrm.moduloCrm.descricao}" onkeyup="this.value=this.value.toUpperCase()"/>
 						
-						<p:outputLabel value="% Cnae" for="perc_cnae" />
-						<p:inputNumber id="perc_cnae" emptyValue="true"
-						value="#{beanCnaeEdita.cnae.perc_cnae}"  />
-						
+						<p:outputLabel value="Ativo: " for="situacao" />
+						<p:selectBooleanCheckbox id="situacao"
+						value="#{beanModuloCrm.moduloCrm.situacao}" />
 						
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
-						action="#{beanCnaeEdita.salvar()}" ajax="false" />
+						action="#{beanModuloCrm.salvar()}" ajax="false" />
 				</h:form>
 			</p:dialog>
 	</ui:define>

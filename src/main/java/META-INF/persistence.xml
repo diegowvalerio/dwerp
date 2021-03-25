@@ -31,6 +31,11 @@
 		<class>br.com.dwerp.entidade.Funcao</class>
 		<class>br.com.dwerp.entidade.Fechamento</class>
 		<class>br.com.dwerp.entidade.HoraExtra</class>
+		<class>br.com.dwerp.entidade.Canal</class>
+		<class>br.com.dwerp.entidade.TipoCrm</class>
+		<class>br.com.dwerp.entidade.ModuloCrm</class>
+		<class>br.com.dwerp.entidade.Ocorrencia</class>
+		<class>br.com.dwerp.entidade.OcorrenciaItem</class>
 	
 		<properties>
 			
