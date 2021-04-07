@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.dwerp.entidade.Usuario;
 import br.com.dwerp.entidade.UsuarioModulo;
+
 import br.com.dwerp.servico.ServicoUsuario;
 
 
@@ -27,6 +28,8 @@ public class BeanControleAcesso implements Serializable {
 	@Inject
 	private ServicoUsuario servico;
 	private List<Usuario> lista = new ArrayList<>();
+	
+
 	
 	@PostConstruct
 	public void init() { 
@@ -49,6 +52,7 @@ public class BeanControleAcesso implements Serializable {
 		}
 		return t;
 	}
+
 	
 	/* pegar usuario conectado */
 	public String usuarioconectado() {

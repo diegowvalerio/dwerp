@@ -71,6 +71,12 @@ public class DAOGenericoHibernate<E> implements DAOGenerico<E>, Serializable{
 		return manager.createQuery("from "+classeEntidade.getSimpleName()+" where op_funcionario = true").getResultList();
 	}
 	
+	//consulta ocorrencias do usuario conectado
+	@Override
+	public List<E> consultar_ocorrencia_usuario(String usuarioid) {		
+		return manager.createQuery("from "+classeEntidade.getSimpleName()+" where usuariodestino_idusuario ="+usuarioid).getResultList();
+	}
+	
 	
 	@SuppressWarnings({ "unchecked" })
 	@Override

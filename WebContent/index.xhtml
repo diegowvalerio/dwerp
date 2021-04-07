@@ -36,63 +36,90 @@
 		<adm:breadcrumb title="Resumo" />
 
 		<h:form id="form">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-				
-				<p:panelGrid columns="5" id="filtros" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
-					layout="grid" styleClass="ui-fluid card">
-					
-					<p:outputLabel value=" Data:  " for="data_grafico" />
-					<p:calendar locale="pt_BR" id="data_grafico"
-						value="#{beanIndex.data_grafico}" pattern="dd/MM/yyyy"
-						mask="true" required="true" >
-					</p:calendar>
+			<section class="content">
 
-					<p:outputLabel value=" Até:  " for="data_grafico2" />
-					<p:calendar locale="pt_BR" id="data_grafico2"
-						value="#{beanIndex.data_grafico2}" pattern="dd/MM/yyyy"
-						mask="true" required="true" >
-					</p:calendar>
-					
-					<p:commandButton action="#{beanIndex.filtrar()}" value="Filtrar"
-						icon="fa fa-check" update=":form" styleClass="btn-primary" />
-				</p:panelGrid>
-				
-				<p:separator />
-				
-				<p:panelGrid id="resumo" >
-				
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="info-box ">
-							<span class="info-box-icon bg-yellow"><i
-								class="ion ion-person-add"></i></span>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<h3 class="box-title">Ocorrências</h3>
+								<div class="box-body">
 
-							<div class="info-box-content">
-								<span class="info-box-text">Clientes Novos</span> <span
-									class="info-box-number"><h:outputText
-										value="#{beanIndex.totalClientes}" />
-								</span>
-								
-								<div class="progress">
-									<div class="progress-bar" style="width: 100%"></div>
+									<p:dataTable id="painelocorrencias_usuario"
+										widgetVar="ocorrenciaTable" rows="10"
+										value="#{beanIndex.lista_ocorrencias_usuario}"
+										var="ocorrencia" rowKey="#{ocorrencia.idocorrencia}"
+										paginator="true" paginatorPosition="bottom"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+										currentPageReportTemplate=""
+										rowsPerPageTemplate="5,10,15,20,30">
+
+										<p:column width="10%" headerText="Ocorrência"
+											filterBy="#{ocorrencia.idocorrencia}"
+											sortBy="#{ocorrencia.idocorrencia}"
+											filterMatchMode="contains">
+											<h:outputLabel value="#{ocorrencia.idocorrencia}" />
+										</p:column>
+
+										<p:column headerText="Cliente"
+											filterBy="#{ocorrencia.cliente.nome}"
+											sortBy="#{ocorrencia.cliente.nome}"
+											filterMatchMode="contains">
+											<h:outputLabel value="#{ocorrencia.cliente.nome}" />
+										</p:column>
+
+										<p:column headerText="Resumo" filterBy="#{ocorrencia.resumo}"
+											sortBy="#{ocorrencia.resumo}" filterMatchMode="contains">
+											<h:outputLabel value="#{ocorrencia.resumo}" />
+										</p:column>
+
+										<p:column headerText="Data" width="10%">
+											<h:outputText value="#{ocorrencia.data}">
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+											</h:outputText>
+										</p:column>
+
+										<p:column headerText="Data Conclusão" width="10%">
+											<h:outputText value="#{ocorrencia.dataconclusao}">
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+											</h:outputText>
+										</p:column>
+
+										<p:column headerText="Status" filterBy="#{ocorrencia.status}"
+											style="text-align:center" sortBy="#{ocorrencia.status}"
+											filterMatchMode="contains">
+											<span
+												class="#{beanIndex.verifica_status_ocorrencia(ocorrencia.status)}">
+												<h:outputLabel value="#{ocorrencia.status}" />
+											</span>
+										</p:column>
+
+										<p:column headerText="Responsável"
+											filterBy="#{ocorrencia.usuariodestino.login}"
+											sortBy="#{ocorrencia.usuariodestino.login}"
+											filterMatchMode="contains">
+											<h:outputLabel value="#{ocorrencia.usuariodestino.login}" />
+										</p:column>
+
+										<p:column width="15%" headerText="Operações"
+											style="text-align:center">
+
+											<p:commandButton icon="fa fa-eye"
+												action="#{beanIndex.encaminha()}">
+												<f:setPropertyActionListener value="#{ocorrencia}"
+													target="#{beanIndex.ocorrencia}" />
+											</p:commandButton>
+
+										</p:column>
+									</p:dataTable>
 								</div>
-								
-								<span class="progress-description"> <h:commandLink
-										action="#"
-										styleClass="fa fa-arrow-circle-right small-box-footer"
-										value=" Detalhes" />
-								</span>
 							</div>
-							<!-- /.info-box-content -->
 						</div>
-						<!-- /.info-box -->
 					</div>
 					
-				</p:panelGrid>
-
+				
 				</div>
-			</div>
-
+			</section>
 		</h:form>
 	</ui:define>
 

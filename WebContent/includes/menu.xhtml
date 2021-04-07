@@ -116,6 +116,10 @@
 						rendered="#{beanControleAcesso.acesso('crm_ocorrencia')}">
 						<i class="fa fa-users"></i>
 						<span>Ocorrência</span>
+						<span class="oull-right-container">
+							<small class="label pull-right bg-red">#{beanIndex.ocorrencias_usuario_qtdeaberto()}</small>
+							<small class="label pull-right bg-yellow">#{beanIndex.ocorrencias_usuario_qtdeandamento()}</small>
+						</span>
 					</p:link></li>
 					
 					<li><p:link href="/pages/crm/tipo/lista-tipocrm.xhtml"

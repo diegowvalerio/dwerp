@@ -2,6 +2,8 @@ package br.com.dwerp.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -75,7 +77,9 @@ public class BeanOcorrencia implements Serializable {
 		data.setHours(data.getHours()-3);
 		cal.setTime(data);
 		
-		lista = servico.consultar();
+		lista = servico.consultar();		
+		Collections.sort(lista,Collections.reverseOrder(Comparator.comparing(Ocorrencia::getIdocorrencia)));
+		
 		listacanal = servicocanal.consultarativos();
 		listamodulo = servicomodulocrm.consultarativos();
 		listatipo = servicotipocrm.consultarativos();
@@ -175,7 +179,20 @@ public class BeanOcorrencia implements Serializable {
 
 		return "cadastro-ocorrencia";
 	}
-
+	
+	public String verificalogin(String login) {
+		if(usuarioconectado().equals(login)) {
+			return "true";
+			
+		}else {
+			return "false";
+		}
+	}
+	
+	public int sortByModel(Object car1, Object car2) {
+	     return car2.toString().compareTo(car1.toString());
+	}
+	
 	/* pegar usuario conectado */
 	public String usuarioconectado() {
 		String nome;

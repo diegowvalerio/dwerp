@@ -133,13 +133,32 @@
 								</p:column>
 
 					<p:column headerText="Descrição">
-						<p:inputTextarea id="descricaoitem" autoResize="false"
+						<p:inputTextarea id="descricao" autoResize="false"
 							style="width: 100%" value="#{items.descricao}" readonly="true" />
 					</p:column>
+					
+					<p:column width="10%" headerText="Operações" 
+							style="text-align:center">
+							<p:commandButton action="#{beanOcorrencia.remove()}" rendered="#{beanOcorrencia.verificalogin(items.login)}"
+								ajax="false" immediate="true" partialSubmit="true"
+								process="@this" oncomplete="#{beanOcorrencia.listaitem}"
+								icon="fa fa-trash"
+								onclick="if(!confirm('Confirma a exclusão ?')) return false;">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanOcorrencia.item}" />
+							</p:commandButton>
+
+							<p:commandButton oncomplete="PF('dialogp').show();" rendered="#{beanOcorrencia.verificalogin(items.login)}"
+								update=":form:dlg" icon="fa fa-edit">
+								<f:setPropertyActionListener value="#{items}"
+									target="#{beanOcorrencia.item}" />
+							</p:commandButton>
+
+						</p:column>
 				</p:dataTable>
 
 
-				<p:dialog id="dlg" header="Ocorrência" widgetVar="dialogp"
+				<p:dialog id="dlg" header="Ocorrência" widgetVar="dialogp" 
 					responsive="true" resizable="true" modal="true" position="center">
 					<p:panelGrid id="painelDados" columns="2">
 
@@ -152,8 +171,8 @@
 					<p:panelGrid id="painelDados2" columns="1"
 						styleClass="ui-fluid card" layout="grid">
 
-						<p:outputLabel for="descricaoitem" value="Descrição:" />
-						<p:inputTextarea id="descricaoitem" maxlength="500"
+						<p:outputLabel for="descricao" value="Descrição:" />
+						<p:inputTextarea id="descricao" maxlength="500"
 							autoResize="false" counter="display"
 							value="#{beanOcorrencia.item.descricao}"
 							counterTemplate="{0} caracteres sobrando." />

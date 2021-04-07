@@ -13,6 +13,7 @@ public interface DAOGenerico<E> {
 	public List<E> consultar_ativos();	
 	public List<E> consultar_funcionarios();	
 	
+	public List<E> consultar_ocorrencia_usuario(String e);
 	
 	public List<E> buscacidadenome(String e);
 	public List<E> buscaproduto(String e);
