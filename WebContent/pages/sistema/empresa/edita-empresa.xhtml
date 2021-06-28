@@ -122,7 +122,42 @@
 							<f:selectItem itemLabel="Regime Normal" itemValue="3" />
 						</p:selectOneMenu>
 							
-					</p:panelGrid>	
+					</p:panelGrid>
+					<p:separator></p:separator>
+					<p:panelGrid id="painelDados5" columns="02">
+
+						<p:outputLabel value="Certificado Digital" />
+						<p:fileUpload cancelLabel="Cancelar" mode="advanced" accept=".pfx" id="certificadobyte"
+							label="Buscar"	fileUploadListener="#{beanEmpresaEdita.upload_certificado}"
+							update="form:erros" />
+							
+						<p:outputLabel value="Senha:" for="senhacertificado"/>
+						<p:inputText id="senhacertificado" value="#{beanEmpresaEdita.empresa.senhacertificado}" />
+						
+						<p:outputLabel value="Vencimento" for="dtvencimentocertificado" />
+						<p:calendar locale="pt_BR"	id="dtvencimentocertificado" disabled="true"
+							value="#{beanEmpresaEdita.empresa.dtvencimentocertificado}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+							
+						<p:outputLabel value="Ambiente" for="ambiente" />
+						<p:selectOneMenu id="ambiente" value="#{beanEmpresaEdita.empresa.ambiente}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Homologação" itemValue="2" />
+							<f:selectItem itemLabel="Produção" itemValue="1" />
+						</p:selectOneMenu>
+
+					</p:panelGrid>
+					<p:separator></p:separator>
+					<p:panelGrid id="painelteste" columns="02" >
+						<p:commandButton value="Status Serviço" action="#{beanEmpresaEdita.statusservicosefaz()}" update="retorno"></p:commandButton>
+						
+						<p:inputTextarea id="retorno" autoResize="true" 
+							value="#{beanEmpresaEdita.retorno}"
+						 />
+						
+					</p:panelGrid>
+
 					<!-- dados de fiscal -->
 				</p:tab> 
 			</p:tabView>  
@@ -130,7 +165,7 @@
 			<p:commandButton action="#{beanEmpresaEdita.salvar()}" value="Salvar"
 				icon="fa fa-check" styleClass="btn-primary" update="erros" />
 		</h:form>
-
+				
 	</ui:define>
 
 </ui:composition>

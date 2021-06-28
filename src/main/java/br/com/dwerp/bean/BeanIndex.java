@@ -68,7 +68,8 @@ public class BeanIndex implements Serializable {
 	public void filtrar() {
 		lista_clientenovos = servicoCadastroGeral.clientesnovos(data_grafico, data_grafico2);
 	}
-
+	
+	
 	public int getTotalClientes() {
 		int total = 0;
 

@@ -14,6 +14,14 @@
   </properties>
 
   <dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+<dependency>
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna</artifactId>
+    <version>5.8.0</version>
+</dependency>
+  
   		
 	<!-- servlet -->
 		<dependency>
@@ -120,8 +128,33 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.5.1</version>
+			<exclusions>
+                <exclusion>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		
+		<!-- INICIO https://github.com/Samuel-Oliveira/Java_NFe -->
+		<dependency>
+			<groupId>br.com.swconsultoria</groupId>
+			<artifactId>java-nfe</artifactId>
+			<version>4.00.14</version>
+			<exclusions>
+        		<exclusion>
+            		<artifactId>org.bouncycastle</artifactId>
+            		<groupId>bcprov-jdk16</groupId>
+        		</exclusion>
+   			 </exclusions>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.bouncycastle</groupId>
+    		<artifactId>bcprov-jdk16</artifactId>
+    		<version>1.46</version>
+		</dependency>
+		<!-- FIM https://github.com/Samuel-Oliveira/Java_NFe -->
 
   </dependencies>
 

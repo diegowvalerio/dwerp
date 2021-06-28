@@ -125,6 +125,31 @@
 						</p:selectOneMenu>	
 						
 					</p:panelGrid>	
+					<p:separator></p:separator>
+					<p:panelGrid id="painelDados5" columns="02">
+
+						<p:outputLabel value="Certificado Digital" />
+						<p:fileUpload cancelLabel="Cancelar" mode="advanced" accept=".pfx" id="certificadobyte"
+							label="Buscar"	fileUploadListener="#{beanEmpresa.upload_certificado}"
+							update="form:erros" />
+							
+						<p:outputLabel value="Senha:" for="senhacertificado"/>
+						<p:inputText id="senhacertificado" value="#{beanEmpresa.empresa.senhacertificado}" />
+						
+						<p:outputLabel value="Vencimento" for="dtvencimentocertificado" />
+						<p:calendar locale="pt_BR"	id="dtvencimentocertificado" disabled="true"
+							value="#{beanEmpresa.empresa.dtvencimentocertificado}" pattern="dd/MM/yyyy"
+							mask="true" required="true" effect="fold" />
+						
+						<p:outputLabel value="Ambiente" for="ambiente" />
+						<p:selectOneMenu id="ambiente" value="#{beanEmpresa.empresa.ambiente}"
+							lazy="true" style="width:125px" required="true">
+							<f:selectItem itemLabel="" itemValue=" " />
+							<f:selectItem itemLabel="Homologação" itemValue="2" />
+							<f:selectItem itemLabel="Produção" itemValue="1" />
+						</p:selectOneMenu>
+
+					</p:panelGrid>	
 					<!-- dados de fiscal -->
 				</p:tab>
 			</p:tabView>

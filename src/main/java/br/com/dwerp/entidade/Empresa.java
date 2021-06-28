@@ -57,6 +57,10 @@ public class Empresa implements Serializable {
 	@Column(nullable=true) 
 	@Temporal(TemporalType.DATE)
 	private Date dtvencimentocertificado;
+	
+	//configurações de nota fiscal
+	@Column(nullable=false,columnDefinition="varchar(1)")
+	private String ambiente; // homologação : 2 / produção : 1
 		
 	public Empresa() {
 		super();
@@ -238,5 +242,15 @@ public class Empresa implements Serializable {
 			return false;
 		return true;
 	}
+
+	public String getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(String ambiente) {
+		this.ambiente = ambiente;
+	}
+
+	
    
 }

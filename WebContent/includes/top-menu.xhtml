@@ -6,7 +6,10 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ul class="nav navbar-nav">
-
+		<li class="hidden-xs hidden-sm">
+			<span><p:outputLabel value="#{beanSesion.empresa.nome}"></p:outputLabel></span>
+		</li>
+		
        <li class="dropdown user user-menu">
             <p:link href="/j_spring_security_logout">
                 <i class="fa fa-user-circle"></i>
@@ -14,6 +17,7 @@
             </p:link>            
             
         </li>
+        
     </ul>
 
 
