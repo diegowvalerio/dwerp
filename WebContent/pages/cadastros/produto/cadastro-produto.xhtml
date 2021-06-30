@@ -18,7 +18,7 @@
 				<p:growl id="erros" showDetail="true" sticky="false" />
 				<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
-				
+					
 					<p:panelGrid columns="4" id="paineld" 
 						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 						layout="grid" styleClass="ui-fluid card">
@@ -91,6 +91,19 @@
 						<f:selectItems value="#{beanProduto.listaunidade}" var="unidades"
 								itemLabel="#{unidades.unidade} - #{unidades.descricao}" itemValue="#{unidades}" />
                    		</p:selectOneMenu>
+                   		
+                   		<p:outputLabel value="Origem:" for="origem_produto" />
+						<p:selectOneMenu id="origem_produto" value="#{beanProduto.produto.origem_produto}" >
+							<f:selectItem itemLabel="0-Nacional" itemValue="0" />
+							<f:selectItem itemLabel="1-Estrangeira - Importação direta" itemValue="1" />
+							<f:selectItem itemLabel="2-Estrangeira - Adquirida no mercado interno" itemValue="2" />
+							<f:selectItem itemLabel="3-Nacional - Conteúdo de Importação superior a 40% e inferior ou igual a 70% " itemValue="3" />
+							<f:selectItem itemLabel="4-Nacional - Decreto 288/67, Leis 8.248/91, 8.387/91, 10.176/01 e 11.484/07" itemValue="4" />
+							<f:selectItem itemLabel="5-Nacional - Conteúdo de Importação inferior ou igual a 40%" itemValue="5" />
+							<f:selectItem itemLabel="6-Estrangeira - Importação direta, Resolução CAMEX e gás natural" itemValue="6" />
+							<f:selectItem itemLabel="7-Estrangeira - Adquirida no mercado interno, Resolução CAMEX e gás natural" itemValue="7" />
+							<f:selectItem itemLabel="8-Nacional - Conteúdo de Importação superior a 70%" itemValue="8" />
+						</p:selectOneMenu>
 									
 					</p:panelGrid>
 				</p:tab>

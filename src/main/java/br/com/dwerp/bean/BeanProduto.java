@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -96,6 +98,16 @@ public class BeanProduto implements Serializable{
 		this.estoques = this.produto.getEstoques();
 		this.produto.setDtcadastro(data);
 		
+		/*Collections.sort(lista, new Comparator<Produto>() {
+	        @Override
+	        public int compare(Produto  p1, Produto  p2)
+	        {
+
+	            return  p1.getIdproduto().compareTo(p2.getIdproduto());
+	        }
+	    });*/
+		
+		Collections.sort(lista, Comparator.comparing(Produto::getIdproduto)); 
 	}
 	
 	public String salvar(){

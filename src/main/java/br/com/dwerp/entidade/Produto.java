@@ -63,9 +63,8 @@ public class Produto implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
     private List<Estoque> estoques = new ArrayList<>();
 	
-	
-	
-	
+	@Column(nullable=false,columnDefinition="varchar(1)")
+	private String origem_produto;	
 	
 	private static final long serialVersionUID = 1L;
 
@@ -187,6 +186,12 @@ public class Produto implements Serializable {
 		this.estoques = estoques;
 	}
 	
+	public String getOrigem_produto() {
+		return origem_produto;
+	}
+	public void setOrigem_produto(String origem_produto) {
+		this.origem_produto = origem_produto;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

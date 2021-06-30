@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Regra Imposto
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Regra Imposto" link="cadastro-regraimposto.xhtml" />
+		<h:form id="form" rendered="#{beanControleAcesso.acesso('fiscal_regraimposto')}">
+			<p:growl id="erros" showDetail="true" sticky="false" />
+			<p:tabView dynamic="false" cache="false" id="tabview">
+				<p:tab title="Dados" id="dados">
+
+					<p:panelGrid columns="2" id="paineld"
+						columnClasses="ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid card">
+						
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{beanRegraImposto.regraimposto.nome}"
+							required="true" onkeyup="this.value=this.value.toUpperCase()">
+						</p:inputText>
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:tabView>
+			
+			<p:tabView dynamic="false" cache="false" id="tabregraimpostoitem">
+				<!-- dados de regraimpostoitem  -->
+				<p:tab title="Regras" id="regraimpostoitem">
+				
+				<p:commandButton id="nve" icon="fa fa-refresh"
+						styleClass="btn-primary"
+						style="margin-top: 10px; horizontal-align:left;"
+						action="#{beanRegraImposto.preencher}" update=":form:tabregraimpostoitem:tabela">
+						<f:setPropertyActionListener
+							target="#{beanRegraImposto.regraimpostoitem.regraimposto}"
+							value="#{beanRegraImposto.regraimposto}" />
+				</p:commandButton>
+					
+					<p:dataTable id="tabela" value="#{beanRegraImposto.regraimpostoitems}" var="items" editable="true" editMode="cell">
+						<f:facet name="header">Lista</f:facet>
+						
+						<p:column headerText="UF"  style="border: 1px solid; text-align: Left">
+								#{items.estado.sigla}
+						</p:column>
+						
+						<p:column headerText="% MVA Normal"  style="border: 1px solid; text-align: Left" >
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.mvanormal}">
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:inputNumber 	value="#{items.mvanormal}">
+									</p:inputNumber>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="% MVA Simples" style="border: 1px solid; text-align: Left" >
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.mvasimples}">
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:inputNumber 	value="#{items.mvasimples}">
+									</p:inputNumber>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="% ICMS" style="border: 1px solid; text-align: Left" >
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.icms}">
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:inputNumber 	value="#{items.icms}">
+									</p:inputNumber>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="% ICMS ST" style="border: 1px solid; text-align: Left" >
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.icmsst}">
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:inputNumber 	value="#{items.icmsst}">
+									</p:inputNumber>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="Situação Tributária" style="border: 1px solid; text-align: Left" >
+							<p:cellEditor>
+								<f:facet name="output"> 
+									<p:outputLabel value="#{items.situacaotributaria.situacaotributaria} - #{items.situacaotributaria.nomesituacaotributaria}">
+									</p:outputLabel>
+								</f:facet>
+                				<f:facet name="input">
+                					<p:selectOneMenu id="ncm"	value="#{items.situacaotributaria}" 
+										filter="true" filterMatchMode="contains" converter="conversorSituacaoTributaria">
+										<f:selectItem itemLabel="Selecionar" noSelectionOption="true" />
+										<f:selectItems value="#{beanRegraImposto.listasts}" var="sts"
+										itemLabel="#{sts.situacaotributaria} / #{sts.nomesituacaotributaria}" itemValue="#{sts}" />
+                   					</p:selectOneMenu>
+                				</f:facet>							
+							</p:cellEditor>
+						</p:column>
+						
+					</p:dataTable>
+					<!-- dados de regraimpostoitem -->
+				</p:tab>
+			</p:tabView>
+
+			<p:commandButton action="#{beanRegraImposto.salvar()}" value="Salvar"
+				icon="fa fa-check" styleClass="btn-primary" update="erros" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

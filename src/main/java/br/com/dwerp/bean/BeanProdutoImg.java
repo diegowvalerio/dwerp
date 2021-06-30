@@ -35,7 +35,8 @@ public class BeanProdutoImg implements Serializable{
 	@Inject
 	private ServicoProduto servico;
 	
-	public StreamedContent getImage() throws IOException {
+	public StreamedContent getImage() {
+		
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -47,11 +48,12 @@ public class BeanProdutoImg implements Serializable{
             String id = context.getExternalContext().getRequestParameterMap().get("id");
             
             produto = servico.consultar(Integer.parseInt(id));
-            return new DefaultStreamedContent(new ByteArrayInputStream(produto.getImagem()));
+            return new DefaultStreamedContent(new ByteArrayInputStream(produto.getImagem()));  
         }
+		
     }
 	
-	public StreamedContent getImagebyte() throws IOException {
+	public StreamedContent getImagebyte()  {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.

@@ -20,7 +20,12 @@
 			<p:growl id="erros" showDetail="true" sticky="false" />
 			<p:tabView dynamic="false" cache="false" id="tabview">
 				<p:tab title="Dados" id="dados">
-				
+					
+					<p:panelGrid columns="2" id="paineldg" >
+						<p:outputLabel value="Código:" />
+						<p:inputText id="idproduto" value="#{beanCadastroGeralEdita.cadastroGeral.idcadastrogeral}" disabled="true"/>
+					</p:panelGrid>
+					
 					<p:panelGrid columns="8" id="painelA"
 						columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
 						layout="grid" styleClass="ui-fluid card">

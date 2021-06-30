@@ -62,10 +62,10 @@
 							style="text-align:center">
 
 							<p:commandButton  oncomplete="PF('dialog').show();"  
-								update=":form:painelDados" icon="fa fa-edit">
+								update=":fdlg:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{modulo}"
 									target="#{beanModulo.modulo}" />
-									<p:ajax update=":form:painelDados"/>
+									<p:ajax update=":fdlg:painelDados"/>
 							</p:commandButton>
 
 						</p:column>
@@ -74,8 +74,10 @@
 					</p:dataTable>
 				</div>
 			</div>
+			</h:form>
 			<p:dialog id="dlg" header="Editar Módulo" widgetVar="dialog"
-					 responsive="true" modal="true" resizable="true" position="center" onShow="position='center'">
+					 responsive="true" modal="false" appendTo="@(body)">
+					<h:form id="fdlg">
 					<p:panelGrid id="painelDados" columns="2">
 						
         				
@@ -88,9 +90,9 @@
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
 						action="#{beanModulo.salvar()}" ajax="false" />
-				</p:dialog>
-				
-		</h:form>
+					</h:form>
+			</p:dialog>	
+		
 	</ui:define>
 
 </ui:composition>

@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>br.com.swconsultoria</groupId>
 			<artifactId>java-nfe</artifactId>
-			<version>4.00.14</version>
+			<version>4.00.15</version>
 			<exclusions>
         		<exclusion>
             		<artifactId>org.bouncycastle</artifactId>

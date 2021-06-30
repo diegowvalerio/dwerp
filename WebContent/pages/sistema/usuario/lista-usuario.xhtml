@@ -80,7 +80,7 @@
 							</p:commandButton>
 
 							<p:commandButton  oncomplete="PF('dialog').show();"  
-								update=":form:painelDados" icon="fa fa-edit">
+								update=":fdlg:painelDados" icon="fa fa-edit">
 								<f:setPropertyActionListener value="#{usuario}"
 									target="#{beanListaUsuario.usuario}" />
 							</p:commandButton>
@@ -98,8 +98,10 @@
 					</p:dataTable>
 				</div>
 			</div>
+			</h:form>
 			<p:dialog id="dlg" header="Editar Usuário" widgetVar="dialog"
-					 responsive="true" modal="true" resizable="true" position="center" onShow="position='center'">
+					 responsive="true" modal="true" appendTo="@(body)">
+					<h:form id="fdlg">
 					<p:panelGrid id="painelDados" columns="2">
         				
         				<p:outputLabel value="Nome:" for="nome" />
@@ -120,8 +122,9 @@
 					</p:panelGrid>
 					<p:commandButton icon="fa fa-check" styleClass="btn-primary"
 						action="#{beanListaUsuario.salvar()}" ajax="false" />
+					</h:form>
 				</p:dialog>
-		</h:form>
+		
 	</ui:define>
 
 </ui:composition>
