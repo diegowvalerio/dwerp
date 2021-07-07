@@ -44,11 +44,15 @@ public class BeanControleAcesso implements Serializable {
 	}
 	
 	public boolean acesso(String tipo){
-	boolean t = false;
-		for (UsuarioModulo modulo : usuario.getUsuariomodulos()) {
-			if (modulo.getModulo().getIdentificacao().equals(tipo)){
-				t = true;
-			}	
+		boolean t = false;
+		if (!usuario.getLogin().equals("ADMIN")) {
+			for (UsuarioModulo modulo : usuario.getUsuariomodulos()) {
+				if (modulo.getModulo().getIdentificacao().equals(tipo)) {
+					t = true;
+				}
+			}
+		} else {
+			t = true;
 		}
 		return t;
 	}
