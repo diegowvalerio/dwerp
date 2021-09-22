@@ -55,6 +55,9 @@ public class Produto implements Serializable {
 	@Column(nullable=true, columnDefinition="bytea")
 	private byte[] imagem;
 	
+	@Column(nullable=false,columnDefinition="varchar(1)")
+	private String origem_produto;	
+	
 	@OneToMany(mappedBy="produto", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE },orphanRemoval = true,fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
     private List<Estrutura> estruturas = new ArrayList<>();
@@ -63,8 +66,7 @@ public class Produto implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
     private List<Estoque> estoques = new ArrayList<>();
 	
-	@Column(nullable=false,columnDefinition="varchar(1)")
-	private String origem_produto;	
+	
 	
 	private static final long serialVersionUID = 1L;
 
