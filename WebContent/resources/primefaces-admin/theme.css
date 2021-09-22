@@ -17858,8 +17858,7 @@ body .ui-datatable .ui-datatable-header, body .ui-treetable .ui-datatable-header
 	body .ui-datatable .ui-datatable-footer, body .ui-treetable .ui-datatable-footer,
 	body .ui-datatable .ui-treetable-footer, body .ui-treetable .ui-treetable-footer
 	{
-	background: #fff;
-	border: none
+	background: #f9f9f9;
 }
 
 body .ui-datatable th[role="columnheader"].ui-state-default, body .ui-treetable th[role="columnheader"].ui-state-default

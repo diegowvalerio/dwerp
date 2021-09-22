@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 12.14.0
+
+after_success: 
+  - test $TRAVIS_BRANCH = "master" && npm run coverage
+
+deploy:
+  provider: npm
+  email: joao.menighin@gmail.com
+  api_key: "$NPM_TOKEN"
+  edge: true
+  on:
+    branch: master
+    tags: true

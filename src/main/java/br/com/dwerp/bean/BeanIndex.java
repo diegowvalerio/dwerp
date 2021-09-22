@@ -58,7 +58,7 @@ public class BeanIndex implements Serializable {
 		lista = servicousuario.consultar();
 		for (Usuario acesso : lista) {
 			if (acesso.getLogin().equals(usuarioconectado())) {
-				lista_ocorrencias_usuario = servicoOcorrencia.consultar_ocorrencia_usuario(acesso.getIdusuario().toString());
+				lista_ocorrencias_usuario = servicoOcorrencia.consultar_ocorrencia_usuario_status(acesso.getIdusuario().toString());
 				Collections.sort(lista_ocorrencias_usuario,Collections.reverseOrder(Comparator.comparing(Ocorrencia::getIdocorrencia)));
 			}
 		}
@@ -67,6 +67,14 @@ public class BeanIndex implements Serializable {
 
 	public void filtrar() {
 		lista_clientenovos = servicoCadastroGeral.clientesnovos(data_grafico, data_grafico2);
+	}
+	
+	public boolean renderiza_ocorrencias() {
+		if(lista_ocorrencias_usuario.size()>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	

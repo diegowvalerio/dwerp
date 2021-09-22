@@ -42,6 +42,10 @@
 					<p:commandButton action="cadastro-ocorrencia?faces-redirect=true"
 						ajax="false" icon="fa fa-plus" value="Novo"
 						styleClass="btn-primary" />
+						
+					<p:commandButton action="#{beanOcorrencia.filtrar_minhas_ocorrencias()}"
+						ajax="false" icon="fa fa-refresh" value="Minhas Ocorrências"
+						styleClass="btn-info" style="float:right;"/>
 
 					<p:separator />
 
@@ -81,9 +85,12 @@
 							</h:outputText>
 						</p:column>
 						
-						<p:column headerText="Status" filterBy="#{ocorrencia.status}"
+						<p:column headerText="Status" filterBy="#{ocorrencia.status}" style="text-align:center"
 							sortBy="#{ocorrencia.status}" filterMatchMode="contains">
-							<h:outputLabel value="#{ocorrencia.status}" />
+							<span
+								class="#{beanOcorrencia.verifica_status_ocorrencia(ocorrencia.status)}">
+								<h:outputLabel value="#{ocorrencia.status}" />
+							</span>
 						</p:column>
 						
 						<p:column headerText="Responsável"

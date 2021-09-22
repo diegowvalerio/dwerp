@@ -120,7 +120,7 @@
 						styleClass="btn-primary"
 						style="margin-top: 10px; horizontal-align:left;"
 						action="#{beanProdutoEdita.addNovoEstrutura}"
-						oncomplete="PF('dialogp').show()">
+						oncomplete="PF('dialogp').show()" update=":form:dlg">
 						<f:setPropertyActionListener
 							target="#{beanProdutoEdita.estrutura.produto}"
 							value="#{beanProdutoEdita.produto}" />
@@ -189,7 +189,7 @@
 						styleClass="btn-primary"
 						style="margin-top: 10px; horizontal-align:left;"
 						action="#{beanProdutoEdita.addNovoAlmoxarifado}"
-						oncomplete="PF('dialogp2').show()">
+						oncomplete="PF('dialogp2').show()" update=":form:dlg2">
 						<f:setPropertyActionListener
 							target="#{beanProdutoEdita.estoque.produto}"
 							value="#{beanProdutoEdita.produto}" />
@@ -261,8 +261,7 @@
 			
 			<p:separator></p:separator>
 			
-			<p:dialog id="dlg" header="Estrutura" widgetVar="dialogp"
-				responsive="true" resizable="true" modal="false" position="center">
+			<p:dialog id="dlg" header="Estrutura" widgetVar="dialogp" appendToBody="true" draggable="false" modal="true">
 				<p:panelGrid id="painelDados" columns="2">	
 				
 					<p:outputLabel value="Produto" for="produto_estrutura" />
@@ -290,8 +289,7 @@
 				</p:commandButton>
 			</p:dialog>
 			
-			<p:dialog id="dlg2" header="Almoxarifado" widgetVar="dialogp2"
-				responsive="true" resizable="true" modal="false" position="center">
+			<p:dialog id="dlg2" header="Almoxarifado" widgetVar="dialogp2" appendToBody="true" draggable="false" modal="true">
 				<p:panelGrid id="painelDados2" columns="2">	
 				
 					<p:outputLabel value="Almoxarifado" for="almoxarifado" />

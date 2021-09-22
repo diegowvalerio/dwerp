@@ -108,6 +108,16 @@ public class BeanOcorrencia implements Serializable {
 			}
 		}
 	}
+	
+	public void filtrar_minhas_ocorrencias() {
+		for (Usuario acesso : listausuario) {
+			if (acesso.getLogin().equals(usuarioconectado())) {
+				lista.clear();
+				lista = servico.consultar_ocorrencia_usuario(acesso.getIdusuario().toString());
+				Collections.sort(lista,Collections.reverseOrder(Comparator.comparing(Ocorrencia::getIdocorrencia)));
+			}
+		}
+	}
 
 	public void excluir() {
 		try {
@@ -123,9 +133,30 @@ public class BeanOcorrencia implements Serializable {
 		lista = servico.consultar();
 	}
 
+	public boolean verifica_status(){
+		//botão concluir
+		if(ocorrencia.getStatus().equals("ABERTO") || ocorrencia.getStatus().equals("ANDAMENTO")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean verifica_status_2(){
+		//botão reabrir
+		if(ocorrencia.getStatus().equals("CONCLUIDO")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public String salvar() {
 		try {
 			ocorrencia.setOcorrenciaItems(listaitem);
+			if(ocorrencia.getStatus().equals("ABERTO") && listaitem.size()>1) {
+				ocorrencia.setStatus("ANDAMENTO");
+			}
 			servico.salvar(ocorrencia);
 			lista = servico.consultar();
 		} catch (Exception e) {
@@ -134,6 +165,51 @@ public class BeanOcorrencia implements Serializable {
 		return "lista-ocorrencia";
 	}
 
+	public String concluir() {
+		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-3") , new Locale("pt_BR"));
+		Date data = cal.getTime();
+		data.setHours(data.getHours()-3);
+		cal.setTime(data);
+		try {
+			ocorrencia.setOcorrenciaItems(listaitem);
+			ocorrencia.setStatus("CONCLUIDO");
+			ocorrencia.setDataconclusao(new Timestamp(cal.getTimeInMillis()));
+			servico.salvar(ocorrencia);
+			lista = servico.consultar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "lista-ocorrencia";
+	}
+	
+	public String reabrir() {
+		try {
+			ocorrencia.setOcorrenciaItems(listaitem);
+			if(listaitem.size()>1) {
+				ocorrencia.setStatus("ANDAMENTO");
+			}else {
+				ocorrencia.setStatus("ABERTO");
+			}
+			ocorrencia.setDataconclusao(null);
+			servico.salvar(ocorrencia);
+			lista = servico.consultar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "lista-ocorrencia";
+	}
+	
+	public String verifica_status_ocorrencia(String status) {
+		if(status.equals("ABERTO")) {
+			return "label label-danger";
+			
+		}else if(status.equals("ANDAMENTO")){
+			return "label label-warning";
+		}else {
+			return "label label-success";
+		}
+	}
+	
 	public void novo() {
 		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-3") , new Locale("pt_BR"));
 		Date data = cal.getTime();

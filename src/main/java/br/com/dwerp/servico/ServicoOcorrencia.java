@@ -45,4 +45,8 @@ public class ServicoOcorrencia implements Serializable{
 		return dao.consultar_ocorrencia_usuario(usuarioid);
 	}
 	
+	public List<Ocorrencia> consultar_ocorrencia_usuario_status(String usuarioid){
+		return dao.consultar_ocorrencia_usuario_status(usuarioid);
+	}
+	
 }

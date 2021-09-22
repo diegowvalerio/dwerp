@@ -51,11 +51,11 @@
 					<p:dataTable id="tabela" value="#{beanRegraImposto.regraimpostoitems}" var="items" editable="true" editMode="cell">
 						<f:facet name="header">Lista</f:facet>
 						
-						<p:column headerText="UF"  style="border: 1px solid; text-align: Left">
+						<p:column headerText="UF"  width="3%" style="border: 1px solid; text-align: Left">
 								#{items.estado.sigla}
 						</p:column>
 						
-						<p:column headerText="% MVA Normal"  style="border: 1px solid; text-align: Left" >
+						<p:column headerText="% MVA Normal"  width="7%" style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.mvanormal}">
@@ -68,7 +68,7 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="% MVA Simples" style="border: 1px solid; text-align: Left" >
+						<p:column headerText="% MVA Simples" width="8%" style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.mvasimples}">
@@ -81,7 +81,7 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="% ICMS" style="border: 1px solid; text-align: Left" >
+						<p:column headerText="% ICMS" width="5%" style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.icms}">
@@ -94,7 +94,7 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="% ICMS ST" style="border: 1px solid; text-align: Left" >
+						<p:column headerText="% ICMS ST" width="6%" style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.icmsst}">
@@ -107,7 +107,7 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="Situação Tributária" style="border: 1px solid; text-align: Left" >
+						<p:column headerText="Situação Tributária"  style="border: 1px solid; text-align: Left" >
 							<p:cellEditor>
 								<f:facet name="output"> 
 									<p:outputLabel value="#{items.situacaotributaria.situacaotributaria} - #{items.situacaotributaria.nomesituacaotributaria}">
