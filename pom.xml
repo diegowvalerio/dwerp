@@ -8,7 +8,7 @@
   <packaging>war</packaging>
   
   <properties>
-		<versao.spring>3.2.6.RELEASE</versao.spring>
+		<versao.spring>5.5.7</versao.spring>
 		<!-- 5.0.0.RELEASE 4.1.4.RELEASE 3.2.6.RELEASE -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
