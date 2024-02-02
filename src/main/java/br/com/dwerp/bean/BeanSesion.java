@@ -42,7 +42,12 @@ public class BeanSesion implements Serializable{
 		List<Empresa> lista= servicoempresa.consultar();
 		if(lista.size()>0){
 			empresa = lista.get(0);
-			ConfiguracoesNfe config = iniciaConfigurações();
+			ConfiguracoesNfe config = null;
+			try {
+				config = iniciaConfigurações();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			
 			FacesContext fc = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
